@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './login/page.jsx';
+import Home from './page.jsx';
 
 
 const Template = ({children}) => {
@@ -14,8 +15,8 @@ const Template = ({children}) => {
         
   return (
     <>
-        <Navbar/>
-        {children}
+        
+        <Home/>
       
     </>
   );
