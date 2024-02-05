@@ -1,4 +1,5 @@
-.mytitle{
+/* General styles */
+.mytitle {
   color: red;
 }
 
@@ -6,18 +7,22 @@
 .navbar {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .navbar-brand {
   font-size: 24px;
   color: #333;
+  letter-spacing: 10px;
+  margin-left: 50px;
+ 
 }
 
 /* Swiper container */
 .swiper-container {
   width: 100%;
   height: 400px;
-  margin-top: 20px; /* Adjust as needed */
+  margin-top: 10px; /* Adjust as needed */
 }
 
 /* Swiper slide image */
@@ -49,8 +54,11 @@
   opacity: 1;
 }
 
+/* Small header */
 .small-header {
-  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease; 
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
+  letter-spacing: 1px;
+  margin-left: 60px;
 }
 
 .small-header.hidden {
@@ -58,27 +66,12 @@
   opacity: 0;
 }
 
-.navbar {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.navbar.scrolled {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
 .small-header.dark-mode {
   background-color: #333; /* Dark background color */
+  color: #fff; /* Light text color */
 }
 
 .small-header.light-mode {
   background-color: #fff; /* Light background color */
-}
-
-.small-header.text-light {
-  transition: color 0.3s ease;
-}
-
-.small-header.text-dark {
-  transition: color 0.3s ease;
+  color: #333; /* Dark text color */
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import SwiperComponent from './Components/SwiperComponents';
 import './globals.css';
+import { FaRegMessage } from "react-icons/fa6";
+
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [hideSmallHeader, setHideSmallHeader] = useState(false);
 
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
+    setDarkMode(prevMode => !prevMode);
   };
 
   useEffect(() => {
@@ -25,8 +27,8 @@ const Navbar = () => {
   return (
     <>
       <div className={`small-header ${hideSmallHeader ? 'hidden' : ''} ${darkMode ? 'dark-mode' : ''}`}>
-        <p className={darkMode ? 'text-light' : 'text-dark'}>This is a small header</p>
-      </div>
+        <p className={darkMode ? 'text-light' : 'text-dark'}><FaRegMessage /> MedAssureConnect@gmail.com</p>
+      
 
       <nav className={`sticky-top navbar navbar-expand-lg ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}`}>
         <div className="container-fluid">
@@ -43,13 +45,13 @@ const Navbar = () => {
           </button>
 
           <a className="navbar-brand" href="#">
-            Navbar
+          MedAssure
           </a>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="home">
                   Home
                 </a>
               </li>
@@ -83,6 +85,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      </div>
+      
 
       <SwiperComponent darkMode={darkMode} />
     </>
