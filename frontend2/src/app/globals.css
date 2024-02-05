@@ -48,3 +48,37 @@
 .swiper-pagination-bullet-active {
   opacity: 1;
 }
+
+.small-header {
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease; 
+}
+
+.small-header.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.navbar {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar.scrolled {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.small-header.dark-mode {
+  background-color: #333; /* Dark background color */
+}
+
+.small-header.light-mode {
+  background-color: #fff; /* Light background color */
+}
+
+.small-header.text-light {
+  transition: color 0.3s ease;
+}
+
+.small-header.text-dark {
+  transition: color 0.3s ease;
+}
