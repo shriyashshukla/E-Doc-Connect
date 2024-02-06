@@ -58,7 +58,7 @@
 .small-header {
   transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
   letter-spacing: 1px;
-  margin-left: 60px;
+ 
 }
 
 .small-header.hidden {
@@ -74,4 +74,17 @@
 .small-header.light-mode {
   background-color: #fff; /* Light background color */
   color: #333; /* Dark text color */
+}
+
+
+
+.page-background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 5px; /* Note: CSS properties with hyphens should be written in camelCase in JavaScript */
 }

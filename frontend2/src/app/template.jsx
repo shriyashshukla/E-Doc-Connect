@@ -19,6 +19,8 @@ const Template = ({children}) => {
                
       <Navbar/>
         {children}
+
+        
       
     </>
   );
