@@ -62,10 +62,36 @@ export default function Home() {
             </div>
           </a>
         </div>
+
       </div>
-   
+      <h1>Our Doctors</h1>
+      <div class="dcard-container">
+        <div class="dcard">
+          <div class="card-border-top"></div>
+          <div class="img"></div>
+          <span>Person</span>
+          <p class="job">Job Title</p>
+          <button>Click</button>
+        </div>
+        <div className='dcard-container'>
+        <div class="dcard">
+          <div class="card-border-top"></div>
+          <div class="img"></div>
+          <span>Person</span>
+          <p class="job">Job Title</p>
+          <button>Click</button>
+        </div>
+        </div>
+      </div>
+      
+      
+
+      
+
+
+
     </>
-    
+
   );
 }
 
