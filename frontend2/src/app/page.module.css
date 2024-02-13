@@ -1,0 +1,30 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+.page-background {
+    background-image: url('../../public/hero-bg.jpg');
+    background-size: cover; /* Ensure the background covers the entire element */
+    background-position: center;
+    height: 50vh;
+    width: 20vw; /* Set the width to 100% of viewport width */
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.text-overlay {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Adjust the color as needed */
+}
+
+
+
+
+

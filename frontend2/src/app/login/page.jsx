@@ -1,9 +1,9 @@
 import React from 'react';
 import './login.css';
 
-const Login = () => {
+const login = () => {
   return (
-    <div>
+    <div className="container">
       <form className="form">
         <div className="flex-column">
           <label>Email </label>
@@ -129,4 +129,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default login;
