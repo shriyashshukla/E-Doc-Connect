@@ -51,9 +51,11 @@ const login = () => {
           <span className="span">Forgot password?</span>
         </div>
         <button className="button-submit">Sign In</button>
+        <a href="signup">
         <p className="p">
           Don't have an account? <span className="span">Sign Up</span>
         </p>
+        </a>
         <p className="p line">Or With</p>
         <div className="flex-row">
           <button className="btn google">

@@ -1,0 +1,62 @@
+/* TestimonialsPage.css */
+
+.testimonials {
+    text-align: center; /* Aligns the content to the center */
+}
+
+.testimonials .container {
+    width: 75%; /* Adjusted width for responsiveness */
+    max-width: 1240px; /* Added max-width for larger screens */
+    margin: 4rem auto;
+    padding: 4rem 0rem;
+}
+
+.testimonials h2 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.testimonials .container .content {
+    display: flex;
+    flex-wrap: wrap; /* Wrap cards to next line if necessary */
+    justify-content: center;
+    gap: 20px; /* Adds gap between cards */
+    overflow-x: auto; /* Allow horizontal scrolling for smaller screens */
+    padding-bottom: 20px; /* Add some bottom padding to account for horizontal scrollbar */
+}
+
+.testimonials .card {
+    width: 45%; /* Sets the width of each card */
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.testimonials .card:hover {
+    transform: translateY(-5px); /* Move card up slightly on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Enhance box-shadow on hover */
+}
+
+.testimonials img {
+    display: block; /* Ensure images are block-level elements */
+    margin: 0 auto; /* Center the images horizontally */
+    border-radius: 50%;
+    max-width: 20%; /* Ensuring image stays within its container */
+    height: auto; /* Allowing the image to maintain its aspect ratio */
+    transition: transform 0.3s ease-in-out;
+}
+
+.testimonials img:hover {
+    transform: scale(1.2); /* Scale up image on hover */
+}
+
+.testimonials .card p {
+    color: #787878;
+    font-size: 1rem; /* Adjusted font size */
+    margin: 8px 0; /* Reduced margin */
+}
+
+.testimonials .card span {
+    color: var(--primary-color);
+    font-size: 0.9rem; /* Adjusted font size */
+    font-weight: 700;
+}
