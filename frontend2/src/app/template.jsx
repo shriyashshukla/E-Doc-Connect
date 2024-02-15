@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './login/page.jsx';
 import Home from './page.jsx';
 import Navbar from './nav.jsx';
-import doc from './Components/Doctor/doc.jsx';
+
 
 
 const Template = ({children}) => {

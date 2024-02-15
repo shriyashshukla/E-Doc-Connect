@@ -2,6 +2,9 @@ import React from 'react';
 import './page.module.css'; // Import the CSS file
 import Image from '../../public/hero-bg.jpg';
 import Card from './Card/page';
+import Gallery from './Gallery/page';
+import About from './About/page';
+import Doctros from './Doctors/page';
 
 const Page = () => {
   return (
@@ -20,8 +23,11 @@ const Page = () => {
       </div>
       
     </div>
+    
+    <About/>
     <Card/>
-    <comments/>
+    <Doctros/>
+    <Gallery/>
     
     </>
   );
