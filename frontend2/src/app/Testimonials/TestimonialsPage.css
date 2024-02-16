@@ -25,13 +25,13 @@
     padding-bottom: 20px; /* Add some bottom padding to account for horizontal scrollbar */
 }
 
-.testimonials .card {
+.testimonials .card1 {
     width: 45%; /* Sets the width of each card */
     flex-shrink: 0; /* Prevent cards from shrinking */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.testimonials .card:hover {
+.testimonials .card1:hover {
     transform: translateY(-5px); /* Move card up slightly on hover */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Enhance box-shadow on hover */
 }
@@ -49,13 +49,13 @@
     transform: scale(1.2); /* Scale up image on hover */
 }
 
-.testimonials .card p {
+.testimonials .card1 p {
     color: #787878;
     font-size: 1rem; /* Adjusted font size */
     margin: 8px 0; /* Reduced margin */
 }
 
-.testimonials .card span {
+.testimonials .card1 span {
     color: var(--primary-color);
     font-size: 0.9rem; /* Adjusted font size */
     font-weight: 700;

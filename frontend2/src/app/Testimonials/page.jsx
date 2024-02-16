@@ -9,7 +9,7 @@ const TestimonialsPage = () => {
             <div className='container'>
                 <span className='line'></span>
                 <div className='content'>
-                    <div className="card">
+                    <div className="card1">
                         <img src="testimonials-1.jpg" className="card-img-top" alt="Testimonial 1"/>
                         <div className="card-body">
                             <h5 className="card-title">Special title treatment</h5>
@@ -17,7 +17,7 @@ const TestimonialsPage = () => {
                             <a href="#" className="btn ">Go somewhere</a>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card1">
                         <img src="testimonials-2.jpg" className="card-img-top" alt="Testimonial 2"/>
                         <div className="card-body">
                             <h5 className="card-title">Special title treatment</h5>
@@ -25,7 +25,7 @@ const TestimonialsPage = () => {
                             <a href="#" className="btn ">Go somewhere</a>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card1">
                         <img src="testimonials-3.jpg" className="card-img-top" alt="Testimonial 3"/>
                         <div className="card-body">
                             <h5 className="card-title">Special title treatment</h5>
@@ -33,7 +33,7 @@ const TestimonialsPage = () => {
                             <a href="#" className="btn ">Go somewhere</a>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card1">
                         <img src="testimonials-4.jpg" className="card-img-top" alt="Testimonial 4"/>
                         <div className="card-body">
                             <h5 className="card-title">Special title treatment</h5>

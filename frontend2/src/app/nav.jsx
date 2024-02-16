@@ -27,17 +27,23 @@ const Nav = () => {
           <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#Card">Home</a>
+                <a className="nav-link active" aria-current="page" href="#about">About us</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Features</a>
+                <a className="nav-link" href="#Card">Features</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Pricing</a>
+                <a className="nav-link" href="#Services">Services</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#Doctors">Doctors</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#Contact">Contact</a>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown link
+                  Departments
                 </a>
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" href="#">Action</a></li>

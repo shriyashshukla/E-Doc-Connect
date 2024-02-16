@@ -11,14 +11,12 @@ const Gallery = () => {
     'gallery-6.jpg',
     'gallery-7.jpg',
     'gallery-8.jpg',
-    
-    
     // Add more image URLs as needed
   ];
 
   return (
-    <div>
-      <h2>Gallery</h2>
+    <div style={{ margin: '20px' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Gallery</h2>
       <div style={galleryStyle}>
         {imageUrls.map((imageUrl, index) => (
           <div key={index} style={gridItemStyle}>
@@ -33,8 +31,8 @@ const Gallery = () => {
 // Styles
 const galleryStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)', // Adjust the number of columns as needed
-  gap: '16px', // Adjust the gap between grid items
+  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust the minimum and maximum width of grid items
+  gap: '20px', // Adjust the gap between grid items
 };
 
 const gridItemStyle = {
@@ -47,6 +45,7 @@ const imageStyle = {
   width: '100%',
   height: '100%',
   objectFit: 'cover',
+  borderRadius: '8px', // Add border radius to images to match grid item
 };
 
 export default Gallery;
