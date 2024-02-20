@@ -1,3 +1,6 @@
+
+'useState'
+
 import React from 'react';
 import './page.module.css'; // Import the CSS file
 import Image from '../../public/hero-bg.jpg';
