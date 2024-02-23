@@ -1,4 +1,4 @@
-.card-title {
+.card5-title {
     color: #262626;
     font-size: 1.5em;
     line-height: normal;
@@ -38,7 +38,7 @@
     font-family: courier, sans;
   }
   
-  .card {
+  .card5 {
     width: calc(33.33% - 20px); /* Adjust as needed */
     margin-bottom: 20px;
     display: block;
@@ -56,7 +56,7 @@
     font-family: Arial, Helvetica, sans-serif;
   }
   
-  .card:before {
+  .card5:before {
     content: '';
     position: absolute;
     z-index: -1;
@@ -71,22 +71,45 @@
     transition: transform 0.35s ease-out;
   }
   
-  .card:hover:before {
+  .card5:hover:before {
     transform: scale(28);
   }
   
-  .card:hover .small-desc {
+  .card5:hover .small-desc {
     transition: all 0.5s ease-out;
     color: rgba(255, 255, 255, 0.8);
   }
   
-  .card:hover .card-title {
+  .card5:hover .card5-title {
     transition: all 0.5s ease-out;
     color: #ffffff;
   }
 
-  .container {
+  .featureContainer {
     display: flex;
-    justify-content: space-between; /* Adjust as needed */
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    height: 50vh; /* Take up the full height of the viewport */
+    padding: 0 20px; /* Optional: Add padding to the sides */
+    margin-top: 10%;
+    margin-bottom: 10%;
   }
+  
+  
+  h1 {
+    position: relative;
+    display: inline-block;
+  }
+  
+
+
+  .my-container {
+    display: flex;
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
+    height: 100%; /* adjust as needed */
+   margin-bottom: 10%;
+  }
+  
+
   

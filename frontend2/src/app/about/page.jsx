@@ -1,40 +1,55 @@
 'use client'
-import React, { useEffect, useState } from 'react';
-import './styles.css';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useAnimation  } from 'framer-motion'; // Import motion from Framer Motion
+import './about.css';
 
 const About = () => {
-  const [showImage, setShowImage] = useState(false);
+  
+  const controls = useAnimation();
+  const imageContainerRef = useRef(null);
+
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const points = document.querySelectorAll('.point');
-
-    function checkPosition() {
-      for (let i = 0; i < points.length; i++) {
-        const point = points[i];
-        const positionFromTop = point.getBoundingClientRect().top;
-        if (positionFromTop - window.innerHeight < 0) {
-          point.classList.add('animated');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          controls.start('visible');
         }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5,
       }
+    );
 
-      const image = document.querySelector('.page-image');
-      const positionFromTop = image.getBoundingClientRect().top;
-      if (positionFromTop - window.innerHeight < 0) {
-        setShowImage(true);
-      }
+    if (imageContainerRef.current) {
+      observer.observe(imageContainerRef.current);
     }
 
-    checkPosition();
-
-    window.addEventListener('scroll', checkPosition);
-
     return () => {
-      window.removeEventListener('scroll', checkPosition);
+      if (imageContainerRef.current) {
+        observer.unobserve(imageContainerRef.current);
+      }
     };
-  }, []);
+  }, [controls]);
+
+ 
+
   return (
     <>
-      <div className='container'>
+      <motion.div
+        className='container'
+        initial={{ scale: 0 }}
+        animate={{ rotate: 0, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20
+        }}
+      >
         <div className="card3 container" id='about'>
           <div className="e-card3 playing">
             <div className="image" />
@@ -90,22 +105,31 @@ const About = () => {
             <br />
           </div>
         </div>
+      </motion.div>
+
+      <div className="image-container" ref={imageContainerRef}>
+        <motion.img
+          src="maindoc.png"
+          alt=""
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 0.5 }} // Delay the image animation
+        />
+        <motion.div
+          className="content"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 1 }} // Delay the text animation
+        >
+          <h1>helooo</h1>
+          <ul>
+            <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis sit, excepturi totam necessitatibus possimus alias natus fugit est et dolorum aperiam delectus. Rem repellendus reiciendis, quae architecto quo illo quisquam.</li>
+            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis ut, ullam ea, quos ex optio non voluptate quis fugit dicta, autem pariatur saepe consequuntur quaerat nostrum deleniti minus totam vitae.</li>
+            <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente, asperiores. Aliquid et, reiciendis consequuntur iste facere, quibusdam cumque itaque ea impedit distinctio id modi praesentium unde laborum, eos consectetur quis.</li>
+          </ul>
+        </motion.div>
       </div>
-
-      <div class="image-container">
-  <img src="maindoc.png" alt="" />
-  <div class="content">
-    <h1>helooo</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis sit, excepturi totam necessitatibus possimus alias natus fugit est et dolorum aperiam delectus. Rem repellendus reiciendis, quae architecto quo illo quisquam.</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis ut, ullam ea, quos ex optio non voluptate quis fugit dicta, autem pariatur saepe consequuntur quaerat nostrum deleniti minus totam vitae.</p>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente, asperiores. Aliquid et, reiciendis consequuntur iste facere, quibusdam cumque itaque ea impedit distinctio id modi praesentium unde laborum, eos consectetur quis.</p>
-  </div>
-</div>
-
-
     </>
-
   );
 }
-
 export default About;

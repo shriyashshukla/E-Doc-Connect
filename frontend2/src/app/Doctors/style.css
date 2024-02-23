@@ -1,13 +1,14 @@
 /* Modified with unique names */
-.my-card {
-    width: 45%;
-    height: 254px;
+.my-cards {
+    width: 150px;
+    height: 300px;
     background: #f5f5f5;
     padding: 2rem 1.5rem;
     transition: box-shadow .3s ease, transform .2s ease;
+    
 }
 
-.my-card-info {
+.my-cards-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,7 +16,7 @@
     transition: transform .2s ease, opacity .2s ease;
 }
 
-.my-card-avatar {
+.my-cards-avatar {
     --size: 60px;
     background: linear-gradient(to top, #f1e1c1 0%, #fcbc97 100%);
     width: var(--size);
@@ -25,7 +26,7 @@
     margin-bottom: 1rem;
 }
 
-.my-card-social {
+.my-cards-social {
     transform: translateY(200%);
     display: flex;
     justify-content: space-around;
@@ -34,11 +35,11 @@
     transition: transform .2s ease, opacity .2s ease;
 }
 
-.my-card-social__item {
+.my-cards-social__item {
     list-style: none;
 }
 
-.my-card-social__item svg {
+.my-cards-social__item svg {
     display: block;
     height: 18px;
     width: 18px;
@@ -47,45 +48,63 @@
     transition: fill 0.2s ease ,transform 0.2s ease;
 }
 
-.my-card-title {
+.my-cards-title {
     color: #333;
     font-size: 1.5em;
     font-weight: 600;
     line-height: 2rem;
 }
 
-.my-card-subtitle {
+.my-cards-subtitle {
     color: #859ba8;
     font-size: 0.8em;
 }
 
-.my-card:hover {
+.my-cards:hover {
     box-shadow: 0 8px 50px #23232333;
 }
 
-.my-card:hover .my-card-info {
+.my-cards:hover .my-cards-info {
     transform: translateY(-5%);
 }
 
-.my-card:hover .my-card-social {
+.my-cards:hover .my-cards-social {
     transform: translateY(100%);
     opacity: 1;
 }
 
-.my-card-social__item svg:hover {
+.my-cards-social__item svg:hover {
     fill: #232323;
     transform: scale(1.1);
 }
 
-.my-card-avatar:hover {
+.my-cards-avatar:hover {
     transform: scale(1.1);
 }
 
-.container {
+.doc-container {
     display: flex;
     justify-content: center;
     align-items: center;
     justify-content: space-between;
-    gap: 20px; /* Adjust the gap between cards */
+    gap: 70px; /* Adjust the gap between cards */
+    position: absolute;
+  top: 53%;
+  left: 55%; /* Adjust this value to position the cards horizontally */
+  transform: translate(-55%, -50%);
+  z-index: 1;
+  
   }
   
+
+  h1{
+    font-size: 3rem;
+    text-align: center;
+    position: relative;
+  display: inline-block;
+ 
+  }
+  .heading{
+    text-align: center;
+    margin-top: 10%;
+  }

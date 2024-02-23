@@ -1,25 +1,21 @@
+/* Styles for card 3 */
 .card3 {
   position: relative;
   top: -270px;
   left: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 .container {
   display: flex;
-  justify-content: flex-start;
   align-items: flex-start;
-}
-
-.card-container {
-  display: flex;
-  justify-content: space-around;
 }
 
 .image-container {
   display: flex;
   justify-content: space-around;
   margin-top: -20%;
-  
 }
 
 .e-card3 {
@@ -112,20 +108,20 @@
   }
 }
 
-/* Card 4 */
-
+/* Styles for card 4 */
 .card4 {
-  width: 220px;
-  height: 300px;
-  border-radius: 50px;
-  background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  text-align: center;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
+  width: 220px; /* Set width */
+  height: 300px; /* Set height */
+  border-radius: 50px; /* Set border radius */
+  background: #e0e0e0; /* Set background color */
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; /* Set box shadow */
+  text-align: center; /* Center align text */
+  background-color: #f5f5f5; /* Background color */
+ 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+  padding: 25px; /* Padding */
+  margin: 10px; /* Bottom margin to add space between cards */
+  margin-top: 125px;
 }
 
 .card4 h5 {
@@ -145,43 +141,70 @@
   display: block;
 }
 
-
-
-.container {
-  display: flex;
+.content1 {
+  margin-left: 20px;
 }
 
-.content {
-  margin-left: 20px; /* Adjust as needed */
-}
-
-
-/* styles.css */
-
-
-
+/* Common styles */
 .image-container img {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
 }
 
-.content {
+.content1 {
   font-family: Arial, sans-serif;
   color: #333;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.content h1 {
+.content1 h1 {
   font-size: 40px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   text-align: center;
-  
+  font-size: 2rem;
 }
 
-.content p {
+.content1 ul {
+  list-style: none;
+  padding: 0;
+}
+
+.content1 li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.content1 p {
+  font-family: Arial, sans-serif;
+  color: #666;
   font-size: 16px;
   line-height: 1.6;
-  margin-bottom: 15px;
+}
+
+.content1 {
+  position: relative;
+}
+
+.h1 {
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; /* Adjust this value to control the distance of the underline from the text */
+  left: 30%;
+  width: 40%;
+  height: 2px; /* Adjust this value to control the thickness of the underline */
+  background-color: transparent; /* Initially transparent */
+  transition: background-color 0.3s ease; /* Smooth transition for the glow effect */
+}
+
+h1:hover::after {
+  background-color: #65a8a3; /* Change this color to adjust the glowing effect */
 }
