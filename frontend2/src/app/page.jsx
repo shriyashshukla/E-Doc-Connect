@@ -1,6 +1,5 @@
 
 'useState'
-
 import React from 'react';
 import './page.module.css'; // Import the CSS file
 import Image from '../../public/hero-bg.jpg';
@@ -21,30 +20,19 @@ const Page = () => {
       <div className="text-overlay" style={{ position: 'absolute', top: '40%', left: '55%', transform: 'translate(-120%, -50%)', textAlign: 'center', color: 'rgb(54, 196, 236)' }}>
         <h1>Welcome to our MedAssure</h1>
         <div className="text-overlay" style={{color: 'black' }}><p>Care for U!</p></div>
-        
-       
         <div>
           <button className='butt hover-button'>GET STARTED</button>
-          </div>
-        
+          </div> 
       </div>
-      
-      
     </div>
     <About/>
     </div>
-    
-    
-   
     <Card/>
     <Counter/>
-
     <Doctors/>
     <TestimonialsPage/>
-    
     <Gallery/>
     <Contact/>
-    
     </>
   );
 }
