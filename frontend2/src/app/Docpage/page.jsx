@@ -1,12 +1,31 @@
+
 import React from 'react';
+import './style.css';
+import SocialCard from './SocialCard';
+import userDatas from './userDatas';
 
-const page = () => {
+const App = () => {
   return (
-    <div>
-      <h1>this is not working 
-      </h1>
-    </div>
-  );
-}
+    <>
+        <div class="search">
+    <input placeholder="Search..." type="text"/>
+    <button type="submit" name="go">Go</button>
+</div>
 
-export default page;
+
+    <div>
+      <SocialCard userData={userDatas.userData1} />
+      <SocialCard userData={userDatas.userData2} />
+      <SocialCard userData={userDatas.userData3} />
+      <SocialCard userData={userDatas.userData4} />
+      <SocialCard userData={userDatas.userData5} />
+      <SocialCard userData={userDatas.userData6} />
+      <SocialCard userData={userDatas.userData7} />
+     
+      
+    </div>
+ 
+ </> );
+};
+
+export default App;
