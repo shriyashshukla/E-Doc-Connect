@@ -1,9 +1,9 @@
-import mongoose, { connect } from 'mongoose';
+const mongoose = require('mongoose');
 
-const url = 'mongodb+srv://shriyash:harishukla20@doctor.vmi57la.mongodb.net/';
+const url = 'mongodb+srv://shriyash:harishukla20@doctor.vmi57la.mongodb.net/E-Doc?retryWrites=true&w=majority';
 
 // asynchronous - return Promise
-connect(url)
+mongoose.connect(url)
 .then((result) => {
     console.log('database connected successfully');
 })
@@ -11,4 +11,4 @@ connect(url)
     console.log(err);
 });
 
-export default mongoose;
+module.exports = mongoose;

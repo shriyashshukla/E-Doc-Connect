@@ -50,7 +50,7 @@ const Signup = () => {
         }
       });
 
-      console.log(res.status);
+      console.log(res.status);                                    
 
       if (res.status === 200) {
         Swal.fire({
@@ -110,6 +110,7 @@ const Signup = () => {
               type="text"
               className="form-control mb-4"
               name="name"
+              id="name"
               onChange={signupForm.handleChange}
               value={signupForm.values.name}
             />
@@ -120,6 +121,7 @@ const Signup = () => {
             <input
               className="form-control mb-4"
               name="email"
+              id="email"
               onChange={signupForm.handleChange}
               value={signupForm.values.email}
             />
@@ -131,6 +133,7 @@ const Signup = () => {
               type="password"
               className="form-control mb-4"
               name="password"
+              id="password"
               onChange={signupForm.handleChange}
               value={signupForm.values.password}
             />

@@ -5,7 +5,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 
 
-const userRouter = require("../backend/Router/userRouter");
+const UserRouter = require("../backend/Router/userRouter");
 const utilRouter = require("../backend/Router/utils");
 const cors = require("cors");
 
@@ -23,7 +23,7 @@ app.use(
   })
 );
 
-app.use("/user", userRouter);
+app.use("/user", UserRouter);
 app.use("/util", utilRouter);
 
 app.use(express.static("./uploads"));

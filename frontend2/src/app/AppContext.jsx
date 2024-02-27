@@ -1,31 +1,32 @@
 
-import { useRouter } from "next/navigation";
-import { createContext, useContext, useState } from "react";
+"use client"
+import { useRouter } from 'next/router';
+import React, { createContext, useContext } from 'react';
+import { useState } from 'react';
 
-const AppContext = createContext();
 
-export const AppProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("user"))
-  );
+const AuthContext = createContext();
 
+export const AuthProvider = ({ children }) => {
   const router = useRouter();
+  const [user, setUser] = useState(null);
 
-  const logout = () => {
-    sessionStorage.removeItem("user");
-    setLoggedin(false);
-    router.push("/login");
+  const login = (userData) => {
+    setUser(userData);
+    router.push('/');
   };
 
-  const [loggedin, setLoggedin] = useState(currentUser !== null);
+  const logout = () => {
+    setUser(null);
+    router.push('/login');
+  useState()
+  };
 
   return (
-    <AppContext.Provider value={{ loggedin, setLoggedin, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
-    </AppContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-const UseAppContext = () => useContext(AppContext);
-
-export default UseAppContext;
+export const useAuth = () => useContext(AuthContext);

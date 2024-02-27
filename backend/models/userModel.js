@@ -1,10 +1,10 @@
 
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('../connection');
 
 
 
 const userSchema = new Schema({
-    username: {
+    name: {
         type: String,
         required: true,
         unique: true
@@ -30,7 +30,7 @@ const userSchema = new Schema({
 });
 
 
-const User = model('User', userSchema);
+const User = model('user', userSchema);
 
 module.exports = User;
 

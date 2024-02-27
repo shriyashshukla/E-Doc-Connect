@@ -4,14 +4,14 @@ import "./login.css";
 import Link from "next/link";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import UseAppContext from "../../../src/app/AppContext";
+// import UseAppContext  from "../../app/AppContext";
 import { useRouter } from "next/navigation";
 
 
 
 const Login = () => {
   const router = useRouter();
-  const { setLoggedin } = UseAppContext();
+  // const { setLoggedin } = UseAppContext();
 
   const loginForm = useFormik({
     initialValues: {
@@ -37,7 +37,7 @@ const Login = () => {
           icon: "success",
           title: "Login Successful",
         });
-
+        router.push('/');
         const data = await res.json();
 
         console.log(data);
