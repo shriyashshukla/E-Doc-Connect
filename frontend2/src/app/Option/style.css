@@ -1,0 +1,116 @@
+.card {
+    box-sizing: border-box;
+    width: 390px;
+    height: 454px;
+    background: rgba(217, 217, 217, 0.58);
+    border: 1px solid white;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+    float: left;
+    margin-left: 90px;
+    margin-top: 90px;
+    overflow: hidden; /* Ensure the image doesn't overflow the card */
+}
+
+.card img {
+    max-width: 210%;
+    max-height: 100%;
+    border-radius: 17px;
+    object-fit: cover; /* Zoom and crop the image to fill the container */
+    transition: filter 0.5s ease; /* Transition for the filter property */
+}
+
+.card:hover {
+    border: 1px solid black;
+    transform: scale(1.05); /* Scale up the card on hover */
+}
+
+.card:hover img {
+    filter: blur(4px); /* Apply blur to the image on hover */
+}
+
+.card:hover .card-content {
+    opacity: 1; /* Make the text content visible on hover */
+}
+
+.card .card-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    opacity: 0; /* Initially hide the text content */
+}
+
+.card h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+
+/* other card premium */
+
+  
+  .card span {
+    position: absolute;
+   overflow: hidden;
+    width: 150px;
+    height: 150px;
+    top: -10px;
+    left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card span::before {
+    content: 'Premium';
+    position: absolute;
+    width: 150%;
+    height: 40px;
+    background-image: linear-gradient(45deg, #ff6547 0%, #ffb144  51%, #ff7053  100%);
+    transform: rotate(-45deg) translateY(-20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.23);
+  }
+  
+  .card span::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    z-index: -1;
+    box-shadow: 140px -140px #cc3f47;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  }
+
+
+  .card {
+    position: relative;
+}
+
+
+

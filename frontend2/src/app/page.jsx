@@ -10,6 +10,7 @@ import Doctors from './Doctors/page';
 import TestimonialsPage from './Testimonials/page';
 import Contact from './Contact/page';
 import Counter from './Components/counter/Counter';
+import Date from './Components/Date/Date';
 
 const Page = () => {
   return (
@@ -32,6 +33,7 @@ const Page = () => {
     <Doctors/>
     <TestimonialsPage/>
     <Gallery/>
+    <Date/>
     <Contact/>
     </>
   );

@@ -1,58 +1,63 @@
 'use client';
-import React from "react";
-import "./login.css";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-// import UseAppContext  from "../../app/AppContext";
-import { useRouter } from "next/navigation";
-
-
+import  {useRouter}  from "next/navigation";
 
 const Login = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  // const { setLoggedin } = UseAppContext();
 
   const loginForm = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-
     onSubmit: async (values) => {
-      console.log(values);
-
-      const res = await fetch("http://localhost:5000/user/authenticate", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log(res.status);
-
-      if (res.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successful",
+      try {
+        const res = await fetch("http://localhost:5000/user/authenticate", {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-        router.push('/');
-        const data = await res.json();
 
-        console.log(data);
+        if (res.status === 200) {
+          const data = await res.json();
+          sessionStorage.setItem("user", JSON.stringify(data));
 
-        sessionStorage.setItem("user", JSON.stringify(data));
+          if (data.email === "shriyash@gmail.com") {
+            setIsAdmin(true);
+            Swal.fire({
+              icon: "success",
+              title: "Admin Login Successful",
 
-        setLoggedin(true);
-        router.push("/");
-      } else if (res.status === 401) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Email or password is incorrect",
-        });
-      } else {
+            });
+            router.push("/adddoctor");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You are not authorized to access the admin panel",
+            });
+          }
+        } else if (res.status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Email or password is incorrect",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Something went wrong",
+          });
+        }
+      } catch (error) {
+        console.error(error);
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -61,6 +66,8 @@ const Login = () => {
       }
     },
   });
+
+ 
 
   return (
     <div className="col-md-3 mx-auto mt-5 pt-5">
@@ -86,22 +93,27 @@ const Login = () => {
             />
             <p className="text-center">
               Don't have an account?
-              <Link
-                href="/signup"
-                className="text-primary text-decoration-none"
-              >
+              <Link href="/signup" className="text-primary text-decoration-none">
                 Signup Here
               </Link>
             </p>
-            <button
-              type="sumbit"
-              className="btn btn-primary mx-auto w-100 mt-2"
-            >
-              Sumbit
+            <button type="submit" className="btn btn-primary mx-auto w-100 mt-2">
+              Submit
             </button>
           </form>
         </div>
       </div>
+      {/* Render the form for adding doctor details if the user is an admin */}
+      {isAdmin && (
+        <div className="card shadow mt-5">
+          <div className="card-body">
+            <h2 className="text-center">Add Doctor Details</h2>
+            <Link href="/adddoctor"className="btn btn-primary mx-auto w-100 mt-2" passHref>
+              Go to Doctor Form
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
