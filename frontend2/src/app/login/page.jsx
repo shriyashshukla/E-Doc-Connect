@@ -27,21 +27,23 @@ const Login = () => {
         if (res.status === 200) {
           const data = await res.json();
           sessionStorage.setItem("user", JSON.stringify(data));
-
+        
           if (data.email === "shriyash@gmail.com") {
             setIsAdmin(true);
+            console.log("Admin login successful.");
             Swal.fire({
               icon: "success",
               title: "Admin Login Successful",
-
+            }).then(() => {
+              router.push("/adddoctor");
             });
-            router.push("/adddoctor");
           } else {
+            console.log("Normal user login successful.");
             Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "You are not authorized to access the admin panel",
+              icon: "success",
+              title: "Login Successful",
             });
+            redirectToAppropriatePage(data.email); // Make sure this line is correct
           }
         } else if (res.status === 401) {
           Swal.fire({
@@ -57,17 +59,20 @@ const Login = () => {
           });
         }
       } catch (error) {
-        console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Something went wrong",
-        });
+        console.log(error);
       }
-    },
+    }
   });
 
- 
+  const redirectToAppropriatePage = () => {
+    if (isAdmin) {
+      console.log("Redirecting to add doctor page as admin."); // Log for debugging
+      router.push("/adddoctor");
+    } else {
+      console.log("Redirecting to option page as normal user."); // Log for debugging
+      router.push("/Option");
+    }
+  };
 
   return (
     <div className="col-md-3 mx-auto mt-5 pt-5">
@@ -108,7 +113,7 @@ const Login = () => {
         <div className="card shadow mt-5">
           <div className="card-body">
             <h2 className="text-center">Add Doctor Details</h2>
-            <Link href="/adddoctor"className="btn btn-primary mx-auto w-100 mt-2" passHref>
+            <Link href="/adddoctor" className="btn btn-primary mx-auto w-100 mt-2" passHref>
               Go to Doctor Form
             </Link>
           </div>

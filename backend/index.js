@@ -6,6 +6,7 @@ const { Server } = require("socket.io");
 
 
 const UserRouter = require("../backend/Router/userRouter");
+const DoctorRouter = require("../backend/Router/doctorRouter");
 const utilRouter = require("../backend/Router/utils");
 const cors = require("cors");
 
@@ -25,6 +26,7 @@ app.use(
 
 app.use("/user", UserRouter);
 app.use("/util", utilRouter);
+app.use("/doctor", DoctorRouter);
 
 app.use(express.static("./uploads"));
 

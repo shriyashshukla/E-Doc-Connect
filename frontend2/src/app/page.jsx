@@ -22,7 +22,8 @@ const Page = () => {
         <h1>Welcome to our MedAssure</h1>
         <div className="text-overlay" style={{color: 'black' }}><p>Care for U!</p></div>
         <div>
-          <button className='butt hover-button'>GET STARTED</button>
+          <a href="Option">
+          <button className='butt hover-button'>GET STARTED</button></a>
           </div> 
       </div>
     </div>

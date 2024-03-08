@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('../connection');
 
 
 const doctorSchema = new Schema({
@@ -40,4 +40,4 @@ const doctorSchema = new Schema({
 
 const Doctor = model('Doctor', doctorSchema);
 
-export default Doctor;
+module.exports = Doctor;
