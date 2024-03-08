@@ -59,8 +59,9 @@ const About = () => {
             <div className="infotop">
               <h3>Why Choose MedAssure?</h3>
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum repellat odit necessitatibus aliquam? </p>
-              <br />
-              <button>know more</button>
+              <br /><a href="/Knowmore">
+              <button className='nav-button '>know more</button>
+              </a>
             </div>
           </div>
           <div class="card4">

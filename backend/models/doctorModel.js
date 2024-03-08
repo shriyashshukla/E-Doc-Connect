@@ -6,7 +6,7 @@ const doctorSchema = new Schema({
         type: String,
         required: true
     },
-    specialization: {
+    specialty: {
         type: String,
         required: true
     },

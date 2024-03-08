@@ -29,60 +29,53 @@ const DoctorForm = () => {
   };
 
   const router = useRouter();
+  
   const docForm = useFormik({
     initialValues: {
       name: "",
       specialty: "",
       address: "",
-      phone: "",
-      
-      
+      phone: ""
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
-      
+  
+      try {
+        console.log('Sending request to server...');
 
-      setTimeout(() => {
-        console.log(values);
-        setSubmitting(false);
-      }, 3000);
-
-      // send the data to the server
-
-      const res = await fetch('http://localhost:5000/doctor/add', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      console.log(res.status);                                    
-
-      if (res.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Nice',
-          text: 'Doctor added  sucessfully'
-        })
-          .then((result) => {
+        const res = await fetch('http://localhost:5000/doctor/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(values)
+        });
+        console.log('Response:', res);
+        if (res.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Nice',
+            text: 'Doctor added successfully'
+          }).then(() => {
             router.push('/Docpage');
-
-          }).catch((err) => {
-            console.log(err);
           });
-
-      } else {
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
         Swal.fire({
           icon: 'error',
           title: 'Oops!!',
           text: 'Something went wrong'
-        })
+        });
+      } finally {
+        setSubmitting(false);
       }
-
     },
     validationSchema: DoctorSchema,
   });
+  
   
 
   return (
@@ -137,6 +130,7 @@ const DoctorForm = () => {
           />
           {docForm.errors.phone ? <div className="text-danger">{docForm.errors.phone}</div> : null}
         </div>
+        
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
       

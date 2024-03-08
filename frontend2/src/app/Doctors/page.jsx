@@ -193,7 +193,7 @@ const Page = () => {
         </div>
         <div class="my-container">
         <a href="Docpage">
-          <button className='but hover-button'>Our Doctors</button>
+          <button className='nav-button hover-button'>Our Doctors</button>
           </a>
         </div>
 

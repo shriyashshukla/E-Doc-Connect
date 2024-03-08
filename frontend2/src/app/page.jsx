@@ -10,7 +10,7 @@ import Doctors from './Doctors/page';
 import TestimonialsPage from './Testimonials/page';
 import Contact from './Contact/page';
 import Counter from './Components/counter/Counter';
-import Date from './Components/Date/Date';
+
 
 const Page = () => {
   return (
@@ -23,7 +23,7 @@ const Page = () => {
         <div className="text-overlay" style={{color: 'black' }}><p>Care for U!</p></div>
         <div>
           <a href="Option">
-          <button className='butt hover-button'>GET STARTED</button></a>
+          <button className='nav-button  hover-button'>GET STARTED</button></a>
           </div> 
       </div>
     </div>
@@ -34,7 +34,7 @@ const Page = () => {
     <Doctors/>
     <TestimonialsPage/>
     <Gallery/>
-    <Date/>
+   
     <Contact/>
     </>
   );
