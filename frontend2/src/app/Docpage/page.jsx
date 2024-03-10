@@ -1,10 +1,40 @@
-
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import SocialCard from './SocialCard';
 import userDatas from './userDatas';
 
-const App = () => {
+const Docpage = () => {
+
+  const [doctorList, setDoctorList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchDoctorData = () => {
+    fetch('http://localhost:5000/doctor/getall')
+      .then((result) => {
+        return result.json();
+      })
+      .then(data => {
+        console.log(data);
+        setDoctorList(data)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  useEffect(() => {
+    fetchDoctorData();
+  }, []);
+
+  const displayDoctorData = () => {
+    if(!loading){
+      return doctorList.map(doc => (
+        <SocialCard userData={doc} />
+      ))
+    }
+  }
+
   return (
     <>
       <div class="search">
@@ -14,18 +44,11 @@ const App = () => {
 
 
       <div>
-        <SocialCard userData={userDatas.userData1} />
-        <SocialCard userData={userDatas.userData2} />
-        <SocialCard userData={userDatas.userData3} />
-        <SocialCard userData={userDatas.userData4} />
-        <SocialCard userData={userDatas.userData5} />
-        <SocialCard userData={userDatas.userData6} />
-        <SocialCard userData={userDatas.userData7} />
 
-
+        {displayDoctorData()}
       </div>
 
     </>);
 };
 
-export default App;
+export default Docpage;

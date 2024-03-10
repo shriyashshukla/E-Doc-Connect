@@ -1,13 +1,26 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import  {useRouter}  from "next/navigation";
 
+
+
 const Login = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is logged in from sessionStorage
+    const user = sessionStorage.getItem("user");
+    if (user) {
+      const userData = JSON.parse(user);
+      if (userData.email === "shriyash@gmail.com") {
+        setIsAdmin(true);
+      }
+    }
+  }, []);
 
   const loginForm = useFormik({
     initialValues: {
@@ -64,8 +77,8 @@ const Login = () => {
     }
   });
 
-  const redirectToAppropriatePage = () => {
-    if (isAdmin) {
+  const redirectToAppropriatePage = (email) => {
+    if (email === "shriyash@gmail.com") {
       console.log("Redirecting to add doctor page as admin."); // Log for debugging
       router.push("/adddoctor");
     } else {

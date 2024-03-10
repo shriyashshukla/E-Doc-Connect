@@ -17,16 +17,11 @@ const DoctorForm = () => {
     name: '',
     specialty: '',
     address: '',
-    phone: ''
+    phone: '',
+    
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDoctor(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+  
 
   const router = useRouter();
   
@@ -35,7 +30,10 @@ const DoctorForm = () => {
       name: "",
       specialty: "",
       address: "",
-      phone: ""
+      phone: "",
+      hospital : '',
+      email: '',
+      password : ""
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
@@ -129,6 +127,42 @@ const DoctorForm = () => {
             value={docForm.values.phone}
           />
           {docForm.errors.phone ? <div className="text-danger">{docForm.errors.phone}</div> : null}
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">hospital</label>
+          <input
+            type="text"
+            className="form-control"
+            id="hospital"
+            name="hospital"
+            onChange={docForm.handleChange}
+            value={docForm.values.hospital}
+          />
+          {docForm.errors.hospital ? <div className="text-danger">{docForm.errors.hospital}</div> : null}
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">email</label>
+          <input
+            type="text"
+            className="form-control"
+            id="email"
+            name="email"
+            onChange={docForm.handleChange}
+            value={docForm.values.email}
+          />
+          {docForm.errors.email ? <div className="text-danger">{docForm.errors.email}</div> : null}
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Passwaord</label>
+          <input
+            type="text"
+            className="form-control"
+            id="password"
+            name="password"
+            onChange={docForm.handleChange}
+            value={docForm.values.password}
+          />
+          {docForm.errors.password ? <div className="text-danger">{docForm.errors.password}</div> : null}
         </div>
         
         <button type="submit" className="btn btn-primary">Submit</button>

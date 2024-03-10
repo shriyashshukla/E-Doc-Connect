@@ -7,7 +7,7 @@ const SocialCard = ({ userData }) => {
   return (
     <>
        
-       <Link href="/"> 
+       <Link href="Docprofile"> 
     <div className="card-client">
      
       
@@ -17,6 +17,7 @@ const SocialCard = ({ userData }) => {
       
       <p className="name-client">
         {userData.name}
+        
         <span>{userData.role}</span>
         <span>{userData.socialMedia}</span>
       </p>
