@@ -16,7 +16,7 @@ const Page = () => {
   return (
     <>
     <div>
-    <div className="page-background" style={{ position: 'relative' }}>
+    <div className="page-background" style={{ position: '' }}>
       <img src="hero-bg.jpg" alt="" className="page-image" style={{ width: '100%', height: 'auto' }} />
       <div className="text-overlay" style={{ position: 'absolute', top: '40%', left: '55%', transform: 'translate(-120%, -50%)', textAlign: 'center', color: 'rgb(54, 196, 236)' }}>
         <h1>Welcome to our MedAssure</h1>

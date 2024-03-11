@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './globals.css'; 
+import './globals.css';
 
 const Nav = () => {
   return (
@@ -8,19 +8,19 @@ const Nav = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a href="/">
-        <div className="button">
-          
-  <div className="box">M</div>
-  <div className="box">E</div>
-  <div className="box">D</div>
-  <div className="box">A</div>
-  <div className="box">S</div>
-  <div className="box">S</div>
-  <div className="box">U</div>
-  <div className="box">R</div>
-  <div className="box">E</div>
-</div>
-</a>
+            <div className="button">
+
+              <div className="box">M</div>
+              <div className="box">E</div>
+              <div className="box">D</div>
+              <div className="box">A</div>
+              <div className="box">S</div>
+              <div className="box">S</div>
+              <div className="box">U</div>
+              <div className="box">R</div>
+              <div className="box">E</div>
+            </div>
+          </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -53,110 +53,134 @@ const Nav = () => {
               </li>
             </ul>
           </div>
-         <div>
-          <a href="login">
-          <button>
-            <div className="profileImage">
-          <svg viewBox="0 0 128 128">
-            <circle r={60} fill="transparent" cy={64} cx={64} />
-            <circle r={48} fill="transparent" cy={64} cx={64} />
-            <path
-              fill="#191919"
-              d="m64 14a32 32 0 0 1 32 32v41a6 6 0 0 1 -6 6h-52a6 6 0 0 1 -6-6v-41a32 32 0 0 1 32-32z"
-            />
-            <path
-              opacity={1}
-              fill="#191919"
-              d="m62.73 22h2.54a23.73 23.73 0 0 1 23.73 23.73v42.82a4.45 4.45 0 0 1 -4.45 4.45h-41.1a4.45 4.45 0 0 1 -4.45-4.45v-42.82a23.73 23.73 0 0 1 23.73-23.73z"
-            />
-            <circle r={7} fill="#fbc0aa" cy={65} cx={89} />
-            <path
-              fill="#4bc190"
-              d="m64 124a59.67 59.67 0 0 0 34.69-11.06l-3.32-9.3a10 10 0 0 0 -9.37-6.64h-43.95a10 10 0 0 0 -9.42 6.64l-3.32 9.3a59.67 59.67 0 0 0 34.69 11.06z"
-            />
-            <path
-              opacity=".3"
-              fill="#356cb6"
-              d="m45 110 5.55 2.92-2.55 8.92a60.14 60.14 0 0 0 9 1.74v-27.08l-12.38 10.25a2 2 0 0 0 .38 3.25z"
-            />
-            <path
-              opacity=".3"
-              fill="#356cb6"
-              d="m71 96.5v27.09a60.14 60.14 0 0 0 9-1.74l-2.54-8.93 5.54-2.92a2 2 0 0 0 .41-3.25z"
-            />
-            <path fill="#fff" d="m57 123.68a58.54 58.54 0 0 0 14 0v-25.68h-14z" />
-            <path
-              strokeWidth={14}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              stroke="#fbc0aa"
-              fill="none"
-              d="m64 88.75v9.75"
-            />
-            <circle r={7} fill="#fbc0aa" cy={65} cx={39} />
-            <path
-              fill="#ffd8ca"
-              d="m64 91a25 25 0 0 1 -25-25v-16.48a25 25 0 1 1 50 0v16.48a25 25 0 0 1 -25 25z"
-            />
-            <path
-              fill="#191919"
-              d="m91.49 51.12v-4.72c0-14.95-11.71-27.61-26.66-28a27.51 27.51 0 0 0 -28.32 27.42v5.33a2 2 0 0 0 2 2h6.81a8 8 0 0 0 6.5-3.33l4.94-6.88a18.45 18.45 0 0 1 1.37 1.63 22.84 22.84 0 0 0 17.87 8.58h13.45a2 2 0 0 0 2.04-2.03z"
-            />
-            <path
-              style={{
-                fill: "none",
-                strokeLinecap: "round",
-                stroke: "#fff",
-                strokeMiterlimit: 10,
-                strokeWidth: 2,
-                opacity: ".1"
-              }}
-              d="m62.76 36.94c4.24 8.74 10.71 10.21 16.09 10.21h5"
-            />
-            <path
-              style={{
-                fill: "none",
-                strokeLinecap: "round",
-                stroke: "#fff",
-                strokeMiterlimit: 10,
-                strokeWidth: 2,
-                opacity: ".1"
-              }}
-              d="m71 35c2.52 5.22 6.39 6.09 9.6 6.09h3"
-            />
-            <circle r={3} fill="#515570" cy="62.28" cx={76} />
-            <circle r={3} fill="#515570" cy="62.28" cx={52} />
-            <ellipse
-              ry="2.98"
-              rx="4.58"
-              opacity=".1"
-              fill="#f85565"
-              cy="69.67"
-              cx="50.42"
-            />
-            <ellipse
-              ry="2.98"
-              rx="4.58"
-              opacity=".1"
-              fill="#f85565"
-              cy="69.67"
-              cx="77.58"
-            />
-            <g strokeLinejoin="round" strokeLinecap="round" fill="none">
-              <path strokeWidth={4} stroke="#fbc0aa" d="m64 67v4" />
-              <path strokeWidth={2} stroke="#515570" opacity=".2" d="m55 56h-9.25" />
-              <path strokeWidth={2} stroke="#515570" opacity=".2" d="m82 56h-9.25" />
-            </g>
-            <path opacity=".4" fill="#f85565" d="m64 84c5 0 7-3 7-3h-14s2 3 7 3z" />
-            <path
-              fill="#f85565"
-              d="m65.07 78.93-.55.55a.73.73 0 0 1 -1 0l-.55-.55c-1.14-1.14-2.93-.93-4.27.47l-1.7 1.6h14l-1.66-1.6c-1.34-1.4-3.13-1.61-4.27-.47z"
-            />
-          </svg>
-        </div></button>
-          </a>
-          </div>
           
+    <div>
+      <label className="popup">
+ 
+      <input type="checkbox" />
+  <div className="user-picture" tabIndex={0}>
+  <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+            <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
+        </svg>
+    <span />
+    <span />
+    <span />
+    
+  </div>
+  
+  <nav className="popup-window">
+    
+    <ul>
+      <li>
+        <a href="login" className='nounderline'>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle r={4} cy={7} cx={9} />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <span>Login</span>
+        </button>
+        </a>
+      </li>
+      <li>
+        <a href="signup" className='nounderline'>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          <span>Sign up</span>
+        </button>
+        </a>
+      </li>
+      <hr />
+      {/* <li>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect ry={2} rx={2} height={13} width={13} y={9} x={9} />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <span>Check </span>
+        </button>
+      </li> */}
+      <li>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3" />
+          </svg>
+          <span>Edit Profile</span>
+        </button>
+      </li>
+      <hr />
+      <li>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line y2={18} x2={6} y1={6} x1={18} />
+            <line y2={18} x2={18} y1={6} x1={6} />
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</label>
+
+        
+        
+      </div>
+
         </div>
       </nav>
     </div>
