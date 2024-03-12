@@ -1,8 +1,29 @@
-import React from 'react';
-
+import React,{ useContext, useState} from 'react';
 import './globals.css';
+import { useRouter } from 'next/navigation';
+
+
+
 
 const Nav = () => {
+  const backend = 'http://localhost:5000'
+ const router = useRouter();
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
+
+  const logout = () => {
+    sessionStorage.removeItem("user");
+    setLoggedin(false);
+    router.push('/')
+  };
+
+  const [loggedin, setLoggedin] = useState(currentUser ? true : false);
+
+
+
+
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -59,9 +80,7 @@ const Nav = () => {
  
       <input type="checkbox" />
   <div className="user-picture" tabIndex={0}>
-  <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-            <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
-        </svg>
+  
     <span />
     <span />
     <span />
@@ -71,7 +90,48 @@ const Nav = () => {
   <nav className="popup-window">
     
     <ul>
+      {loggedin ? (<><li>
+        <a href="Userprofile" className='nounderline'>
+        <button>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3" />
+          </svg>
+          <span>Profile</span>
+        </button>
+        </a>
+      </li>
+      <hr />
       <li>
+        <button  onClick={logout}>
+          <svg
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth={2}
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            height={14}
+            width={14}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line y2={18} x2={6} y1={6} x1={18} />
+            <line y2={18} x2={18} y1={6} x1={6} />
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </li>
+      </>) :  (
+        <><li>
         <a href="login" className='nounderline'>
         <button>
           <svg
@@ -115,6 +175,8 @@ const Nav = () => {
         </button>
         </a>
       </li>
+        </>
+      )}
       <hr />
       {/* <li>
         <button>
@@ -135,46 +197,7 @@ const Nav = () => {
           <span>Check </span>
         </button>
       </li> */}
-      <li>
-        <a href="Userprofile" className='nounderline'>
-        <button>
-          <svg
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            strokeWidth={2}
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 24 24"
-            height={14}
-            width={14}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3" />
-          </svg>
-          <span>Profile</span>
-        </button>
-        </a>
-      </li>
-      <hr />
-      <li>
-        <button>
-          <svg
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            strokeWidth={2}
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 24 24"
-            height={14}
-            width={14}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line y2={18} x2={6} y1={6} x1={18} />
-            <line y2={18} x2={18} y1={6} x1={6} />
-          </svg>
-          <span>Log Out</span>
-        </button>
-      </li>
+      
     </ul>
   </nav>
 </label>

@@ -37,6 +37,10 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
+     avatar:{
+        type: String,
+        default: 'default.jpg'
+     },
 
     forgotPasswordtoken: String,
     forgotPasswordtokenExpiry: Date,

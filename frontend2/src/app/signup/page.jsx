@@ -212,7 +212,7 @@ const Signup = () => {
                 placeholder="********"
               />
 
-              {/* <input type="file" onChange={uploadFile} /> */}
+               <input type="file" onChange={uploadFile} /> 
 
 
               <button
