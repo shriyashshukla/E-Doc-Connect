@@ -82,7 +82,7 @@ const Login = () => {
       router.push("/adddoctor");
     } else {
       console.log("Redirecting to option page as normal user."); // Log for debugging
-      router.push("/Option");
+      router.push("/Userprofile");
     }
   };
 

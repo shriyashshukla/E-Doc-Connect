@@ -8,7 +8,7 @@ const Nav = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a href="/">
-            <div className="button">
+            <div className="homebutton">
 
               <div className="box">M</div>
               <div className="box">E</div>
@@ -136,6 +136,7 @@ const Nav = () => {
         </button>
       </li> */}
       <li>
+        <a href="Userprofile" className='nounderline'>
         <button>
           <svg
             strokeLinejoin="round"
@@ -150,8 +151,9 @@ const Nav = () => {
           >
             <polygon points="16 3 21 8 8 21 3 21 3 16 16 3" />
           </svg>
-          <span>Edit Profile</span>
+          <span>Profile</span>
         </button>
+        </a>
       </li>
       <hr />
       <li>

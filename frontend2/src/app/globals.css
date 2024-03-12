@@ -36,7 +36,7 @@
 
 
 /* brand */
-.button {
+.homebutton {
   display: flex;
   
 }
@@ -101,7 +101,7 @@
   content: 'U';
 }
 
-.button:hover .box:before {
+.homebutton:hover .box:before {
   transform: translateY(0);
 }
 
