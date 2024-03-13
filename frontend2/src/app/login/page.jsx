@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import "./login.css";
+import admin from "../admin/page";
 
 const Login = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -47,7 +48,7 @@ const Login = () => {
               icon: "success",
               title: "Admin Login Successful",
             }).then(() => {
-              router.push("/adddoctor");
+              router.push("/admin");
             });
           } else {
             console.log("Normal user login successful.");
@@ -79,7 +80,7 @@ const Login = () => {
   const redirectToAppropriatePage = (email) => {
     if (email === "shriyash@gmail.com") {
       console.log("Redirecting to add doctor page as admin."); // Log for debugging
-      router.push("/adddoctor");
+      router.push("/admin");
     } else {
       console.log("Redirecting to option page as normal user."); // Log for debugging
       router.push("/Userprofile");
@@ -89,6 +90,7 @@ const Login = () => {
   return (
     <>
       <form className="form" onSubmit={loginForm.handleSubmit}>
+      
         <div className="flex-column">
           <label>Email </label>
           <input
