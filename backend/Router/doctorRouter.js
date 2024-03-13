@@ -3,6 +3,41 @@ const Model = require("../models/doctorModel");
 
 const router = express.Router();
 
+
+const multer = require('multer');
+
+
+// Multer configuration for file storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/avatars'); // Directory where files will be stored
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // Use original file name for storing
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
+router.post('/upload', upload.single('avatar'), (req, res) => {
+  
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+
+  
+  
+  user.avatar = req.file.filename;
+
+  
+  user.save((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error saving user avatar' });
+    }
+    res.status(200).json({ message: 'Avatar uploaded successfully' });
+  });
+});
 router.post("/add", (req, res) => {
   console.log(req.body);
 

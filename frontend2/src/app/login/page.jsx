@@ -80,7 +80,7 @@ const Login = () => {
   const redirectToAppropriatePage = (email) => {
     if (email === "shriyash@gmail.com") {
       console.log("Redirecting to add doctor page as admin."); // Log for debugging
-      router.push("/admin");
+      router.push("/Userprofile");
     } else {
       console.log("Redirecting to option page as normal user."); // Log for debugging
       router.push("/Userprofile");

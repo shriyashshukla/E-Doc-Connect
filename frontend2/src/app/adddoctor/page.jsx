@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
+import './style.css';
 
 const DoctorSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -34,6 +35,7 @@ const DoctorForm = () => {
       hospital : '',
       email: '',
       password : ""
+      
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
@@ -77,8 +79,9 @@ const DoctorForm = () => {
   
 
   return (
-    <div className="container">
-      <h2>Doctor Details</h2>
+    <div className="formcontainer">
+      <h1 className='heading'>Doctor Details</h1>
+      <div className='form'>
       <form onSubmit={docForm.handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
@@ -167,7 +170,7 @@ const DoctorForm = () => {
         
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-      
+      </div>
     </div>
   );
 

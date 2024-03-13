@@ -1,11 +1,14 @@
 'use client'
 import React from 'react'
-import { useState, useEffect , useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import "./style.css"
 
 
 const page = () => {
   const [userData, setUserData] = useState(null);
+
+
+
 
   const avatarUrl = useRef(
     "https:localhost5000/uploads/"
@@ -153,37 +156,42 @@ const page = () => {
             <rect height="100%" width="100%" fill="url(#b)" y={0} x={0} />
           </svg>
         </div>
-          
-          <div className="flex">
-            <div className="profile">
-              <img
-                src={"http://localhost:5000/" + user.avatar}
-                alt="Avatar"
-                className="w-[150px] h-[150px] rounded-full border-2 border-gray-400"
-              />
-            </div>
+
+        <div className="flex">
+          <div className="profile">
+            <img
+              src={"http://localhost:5000/" + user.avatar}
+              alt="Avatar"
+              className="w-[150px] h-[150px] rounded-full border-2 border-gray-400"
+            />
           </div>
-          
-
-          <div className="card__title">{user.name}</div>
-          <div className="card__subtitle">{user.email}</div>
-
         </div>
-        <div className="card__wrapper">
-          <a href="/Editprofile" className='nounderline'>
+
+
+        <div className="card__title">{user.name}</div>
+        <div className="card__subtitle">{user.email}</div>
+
+
+
+
+
+
+      </div>
+      <div>
+
+        <a href="/Editprofile" className='nounderline'>
           <button className='btn'>
             Edit profile
           </button>
-          </a>
-          <a href="/appiontment" className='nounderline'>
+        </a>
+        <a href="/appiontment" className='nounderline'>
           <button className='btn'>
             View appiontment
           </button>
-          </a>
-        </div>
-
+        </a>
       </div>
-      )
+    </div>
+  )
 }
 
-      export default page
+export default page

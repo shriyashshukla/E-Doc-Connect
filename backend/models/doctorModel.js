@@ -34,7 +34,12 @@ const doctorSchema = new Schema({
     created_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    avatar:{
+        type: String,
+        default: 'default.jpg'
+     },
+
 });
 
 
