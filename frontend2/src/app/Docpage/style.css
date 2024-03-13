@@ -18,7 +18,7 @@
   transform: translateY(-10px);
 }
 
-.user-picture {
+.docuser-picture {
   overflow: hidden;
   object-fit: cover;
   width: 5rem;

@@ -1,4 +1,4 @@
-import React,{ useContext, useState} from 'react';
+import React,{ useContext, useState, useRef} from 'react';
 import './globals.css';
 import { useRouter } from 'next/navigation';
 
@@ -20,7 +20,19 @@ const Nav = () => {
 
   const [loggedin, setLoggedin] = useState(currentUser ? true : false);
 
+  const avatarUrl = useRef(
+    "https:localhost5000/uploads/"
+  );
+  
 
+  const updateAvatar = (imgSrc) => {
+    avatarUrl.current = imgSrc;
+  };
+
+  const userJSON = sessionStorage.user ? JSON.parse(sessionStorage.user) : null;
+  const user = userJSON !== null ? userJSON : null;
+  
+  
 
 
 
@@ -79,12 +91,18 @@ const Nav = () => {
       <label className="popup">
  
       <input type="checkbox" />
+      <div className="avatar_background">
   <div className="user-picture" tabIndex={0}>
+    {loggedin ? (<img
+                src={"http://localhost:5000/" + user.avatar}
+                alt="Avatar"
+                className="w-[150px] h-[150px] rounded-full border-2 border-gray-400"
+              />) : (<><img src="https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg" alt="" /></>) }
   
     <span />
     <span />
     <span />
-    
+    </div>
   </div>
   
   <nav className="popup-window">

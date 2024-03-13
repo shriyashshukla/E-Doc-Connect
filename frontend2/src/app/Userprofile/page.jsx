@@ -16,8 +16,8 @@ const page = () => {
     avatarUrl.current = imgSrc;
   };
 
-  const userJSON= JSON.parse(sessionStorage.user);
-  const user= userJSON ? userJSON : null;
+  const userJSON = sessionStorage.user ? JSON.parse(sessionStorage.user) : null;
+  const user = userJSON !== null ? userJSON : null;
 
 
 
@@ -154,8 +154,8 @@ const page = () => {
           </svg>
         </div>
           
-          <div className="flex flex-col items-center pt-12">
-            <div className="relative">
+          <div className="flex">
+            <div className="profile">
               <img
                 src={"http://localhost:5000/" + user.avatar}
                 alt="Avatar"
@@ -170,12 +170,16 @@ const page = () => {
 
         </div>
         <div className="card__wrapper">
+          <a href="/Editprofile" className='nounderline'>
           <button className='btn'>
             Edit profile
           </button>
+          </a>
+          <a href="/appiontment" className='nounderline'>
           <button className='btn'>
             View appiontment
           </button>
+          </a>
         </div>
 
       </div>

@@ -116,7 +116,7 @@
 .user-picture {
   overflow: hidden;
   object-fit: cover;
-  width: 3rem;
+  width:3rem;
   height: 3rem;
   border: 4px solid #7cdacc;
   border-radius: 99px;
@@ -125,10 +125,12 @@
   align-items: center;
   margin: auto;
 }
-.user-picture svg {
-  width: 1.5rem;
-  fill: currentColor;
+
+.user-picture img {
+  width: 45px;
+
 }
+
 
 
 
@@ -383,3 +385,9 @@
     visibility: visible;
     opacity: 1;
   }
+
+
+
+  /* profile */
+
+  

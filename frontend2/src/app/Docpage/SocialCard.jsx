@@ -11,7 +11,7 @@ const SocialCard = ({ userData }) => {
     <div className="card-client">
      
       
-      <div className="user-picture">
+      <div className="docuser-picture">
         <img src={userData.picture} alt="User" height={110} />
       </div>
       
