@@ -8,7 +8,7 @@ import "./login.css";
 import admin from "../admin/page";
 
 const Login = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userType, setUserType] = useState("user"); // Default user type is "user"
   const router = useRouter();
 
   useEffect(() => {
@@ -16,8 +16,10 @@ const Login = () => {
     const user = sessionStorage.getItem("user");
     if (user) {
       const userData = JSON.parse(user);
-      if (userData.email === "shriyash@gmail.com") {
-        setIsAdmin(true);
+      if (userData.email === "admin@gmail.com") {
+        setUserType("admin");
+      } else if (userData.email === "doctor@gmail.com") {
+        setUserType("doctor");
       }
     }
   }, []);
@@ -41,14 +43,23 @@ const Login = () => {
           const data = await res.json();
           sessionStorage.setItem("user", JSON.stringify(data));
 
-          if (data.email === "shriyash@gmail.com") {
-            setIsAdmin(true);
+          if (data.email === "admin@gmail.com") {
+            setUserType("admin");
             console.log("Admin login successful.");
             Swal.fire({
               icon: "success",
               title: "Admin Login Successful",
             }).then(() => {
               router.push("/admin");
+            });
+          } else if (data.email === "doctor@gmail.com") {
+            setUserType("doctor");
+            console.log("Doctor login successful.");
+            Swal.fire({
+              icon: "success",
+              title: "Doctor Login Successful",
+            }).then(() => {
+              router.push("/doctor");
             });
           } else {
             console.log("Normal user login successful.");
@@ -78,12 +89,15 @@ const Login = () => {
   });
 
   const redirectToAppropriatePage = (email) => {
-    if (email === "shriyash@gmail.com") {
-      console.log("Redirecting to add doctor page as admin."); // Log for debugging
-      router.push("/Userprofile");
+    if (userType === "admin") {
+      console.log("Redirecting to admin page."); // Log for debugging
+      router.push("/admin");
+    } else if (userType === "doctor") {
+      console.log("Redirecting to doctor page."); // Log for debugging
+      router.push("/doctor");
     } else {
-      console.log("Redirecting to option page as normal user."); // Log for debugging
-      router.push("/Userprofile");
+      console.log("Redirecting to user profile page."); // Log for debugging
+      router.push("/userprofile");
     }
   };
 

@@ -12,6 +12,8 @@ import Contact from './Contact/page';
 import Counter from './Components/counter/Counter';
 
 
+
+
 const Page = () => {
   return (
     <>

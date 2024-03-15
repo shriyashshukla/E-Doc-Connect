@@ -1,0 +1,28 @@
+/* components/Calendar.module.css */
+.calendar {
+    margin: 20px auto;
+    width: 300px;
+  }
+  
+  .calendar h2 {
+    text-align: center;
+  }
+  
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .calendarHeader {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+  }
+  
+  .calendarDay {
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  
