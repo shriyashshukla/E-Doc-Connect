@@ -150,7 +150,7 @@ const Nav = () => {
       </li>
       </>) :  (
         <><li>
-        <a href="login" className='nounderline'>
+        <a href="Userlogin" className='nounderline'>
         <button>
           <svg
             strokeLinejoin="round"
@@ -168,7 +168,7 @@ const Nav = () => {
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span>Login</span>
+          <span>User Login</span>
         </button>
         </a>
       </li>
@@ -196,7 +196,9 @@ const Nav = () => {
         </>
       )}
       <hr />
-      {/* <li>
+     
+      <li>
+        <a href="doctorlogin" className='nounderline'>
         <button>
           <svg
             strokeLinejoin="round"
@@ -209,12 +211,15 @@ const Nav = () => {
             width={14}
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect ry={2} rx={2} height={13} width={13} y={9} x={9} />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle r={4} cy={7} cx={9} />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span>Check </span>
+          <span>Doctor Login</span>
         </button>
-      </li> */}
+        </a>
+      </li>
       
     </ul>
   </nav>

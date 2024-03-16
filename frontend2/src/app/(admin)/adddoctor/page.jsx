@@ -19,7 +19,7 @@ const DoctorForm = () => {
     specialty: '',
     address: '',
     phone: '',
-    
+    avatar:"",
   });
 
   
@@ -76,6 +76,23 @@ const DoctorForm = () => {
     validationSchema: DoctorSchema,
   });
   
+  const uploadFile = async (e) => {
+    if (!e.target.files) return;
+
+    const file = e.target.files[0];
+    console.log(file.name);
+    setSelFile(file.name);
+
+    const fd = new FormData();
+    fd.append('myfile', file);
+
+    const res = await fetch('http://localhost:5000/util/uploadfile', {
+      method: 'POST',
+      body: fd
+    });
+
+    console.log(res.status);
+  }
   
 
   return (
@@ -167,6 +184,7 @@ const DoctorForm = () => {
           />
           {docForm.errors.password ? <div className="text-danger">{docForm.errors.password}</div> : null}
         </div>
+        <input type="file" onChange={uploadFile} /> 
         
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>

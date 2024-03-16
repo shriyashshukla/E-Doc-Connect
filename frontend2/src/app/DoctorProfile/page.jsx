@@ -5,38 +5,34 @@ import "./style.css"
 
 
 const page = () => {
-  const [userData, setUserData] = useState(null);
+  const [doctorData, setdoctorData] = useState(null);
 
 
 
 
-  const avatarUrl = useRef(
-    "https:localhost5000/uploads/"
-  );
+  const avatarUrl = useRef("https:localhost5000/uploads/" );
   const [modalOpen, setModalOpen] = useState(false);
 
   const updateAvatar = (imgSrc) => {
     avatarUrl.current = imgSrc;
   };
 
-  const userJSON = sessionStorage.user ? JSON.parse(sessionStorage.user) : null;
-  const user = userJSON !== null ? userJSON : null;
+  const doctorJSON = sessionStorage.doctor ? JSON.parse(sessionStorage.doctor) : null;
+  const doctor = doctorJSON !== null ? doctorJSON : null;
 
 
 
-
-
-  const id = JSON.parse(sessionStorage.user)._id;
-  const fetchUserData = async () => {
-    const response = await fetch(`http://localhost:5000/user/getbyid/${user._id}`);
+  const id = JSON.parse(sessionStorage.doctor)._id;
+  const fetchdoctorData = async () => {
+    const response = await fetch(`http://localhost:5000/doctor/getbyid/${doctor._id}`);
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);
-      return setUserData(data);
+      return setdoctorData(data);
     };
   }
   useEffect(() => {
-    fetchUserData();
+    fetchdoctorData();
   }, []);
 
   return (
@@ -147,17 +143,17 @@ const page = () => {
 
         <div className="flex">
           <div className="profile">
-            <img
-              src={"http://localhost:5000/" + user.avatar}
+             <img
+              src={"http://localhost:5000/" + doctor.avatar}
               alt="Avatar"
               className="w-[150px] h-[150px] rounded-full border-2 border-gray-400"
-            />
+            /> 
           </div>
         </div>
 
 
-        <div className="card__title">{user.name}</div>
-        <div className="card__subtitle">{user.email}</div>
+        <div className="card__title">{doctor.name}</div>
+        <div className="card__subtitle">{doctor.email}</div>
 
 
 

@@ -12,11 +12,12 @@ const SocialCard = ({ userData }) => {
      
       
       <div className="docuser-picture">
-        <img src={userData.picture} alt="User" height={110} />
+        <img src={userData.avatar} alt="User" height={110} />
       </div>
       
       <p className="name-client">
         {userData.name}
+        <span>{userData.phone}</span>
         
         <span>{userData.role}</span>
         <span>{userData.socialMedia}</span>
