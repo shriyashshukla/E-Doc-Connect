@@ -10,7 +10,7 @@ const page = () => {
 
 
 
-  const avatarUrl = useRef("https:localhost5000/uploads/" );
+  const avatarUrl = useRef("https:localhost5000/uploads" );
   const [modalOpen, setModalOpen] = useState(false);
 
   const updateAvatar = (imgSrc) => {

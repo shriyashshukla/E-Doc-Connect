@@ -65,7 +65,7 @@ const Signup = () => {
           text: 'You have signed up sucessfully'
         })
           .then((result) => {
-            router.push('/login');
+            router.push('/Userlogin');
 
           }).catch((err) => {
             console.log(err);

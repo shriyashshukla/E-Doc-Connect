@@ -19,7 +19,7 @@ const SocialCard = ({ userData }) => {
         {userData.name}
         <span>{userData.phone}</span>
         
-        <span>{userData.role}</span>
+        <span>{userData.Spe}</span>
         <span>{userData.socialMedia}</span>
       </p>
       
