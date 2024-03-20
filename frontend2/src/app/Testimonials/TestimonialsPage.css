@@ -1,12 +1,12 @@
-/* TestimonialsPage.css */
+/* TestimonialsPage.css 
 
 .testimonials {
-    text-align: center; /* Aligns the content to the center */
+    text-align: center; 
 }
 
 .testimonials .container {
-    width: 75%; /* Adjusted width for responsiveness */
-    max-width: 1240px; /* Added max-width for larger screens */
+    width: 75%;
+    max-width: 1240px; 
     margin: 4rem auto;
     padding: 4rem 0rem;
 }
@@ -18,45 +18,133 @@
 
 .testimonials .container .content {
     display: flex;
-    flex-wrap: wrap; /* Wrap cards to next line if necessary */
+    flex-wrap: wrap; 
     justify-content: center;
-    gap: 20px; /* Adds gap between cards */
-    overflow-x: auto; /* Allow horizontal scrolling for smaller screens */
-    padding-bottom: 20px; /* Add some bottom padding to account for horizontal scrollbar */
+    gap: 20px; /* Adds gap between cards 
+    overflow-x: auto; /* Allow horizontal scrolling for smaller screens 
+    padding-bottom: 20px; /
 }
 
 .testimonials .card1 {
-    width: 45%; /* Sets the width of each card */
-    flex-shrink: 0; /* Prevent cards from shrinking */
+    width: 45%; /* Sets the width of each card 
+    flex-shrink: 0; /* Prevent cards from shrinking 
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .testimonials .card1:hover {
-    transform: translateY(-5px); /* Move card up slightly on hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Enhance box-shadow on hover */
+    transform: translateY(-5px); /* Move card up slightly on hover 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Enhance box-shadow on hover 
 }
 
 .testimonials img {
-    display: block; /* Ensure images are block-level elements */
-    margin: 0 auto; /* Center the images horizontally */
+    display: block; /* Ensure images are block-level elements 
+    margin: 0 auto; /* Center the images horizontally 
     border-radius: 50%;
-    max-width: 20%; /* Ensuring image stays within its container */
-    height: auto; /* Allowing the image to maintain its aspect ratio */
+    max-width: 20%; /* Ensuring image stays within its container 
+    height: auto; /* Allowing the image to maintain its aspect ratio 
     transition: transform 0.3s ease-in-out;
 }
 
 .testimonials img:hover {
-    transform: scale(1.2); /* Scale up image on hover */
+    transform: scale(1.2); /* Scale up image on hover 
 }
 
 .testimonials .card1 p {
     color: #787878;
-    font-size: 1rem; /* Adjusted font size */
-    margin: 8px 0; /* Reduced margin */
+    font-size: 1rem; /* Adjusted font size 
+    margin: 8px 0; /* Reduced margin 
 }
 
 .testimonials .card1 span {
     color: var(--primary-color);
-    font-size: 0.9rem; /* Adjusted font size */
+    font-size: 0.9rem; /* Adjusted font size 
     font-weight: 700;
 }
+*/
+
+.card {
+    max-width: 320px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(243, 244, 246, );
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #fff;
+    float: left;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    grid-gap: 1rem;
+    gap: 1rem;
+  }
+  
+  .title {
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    color: rgba(17, 24, 39, 1);
+    text-decoration: none;
+  }
+  
+  .title:hover {
+    text-decoration: underline royalblue;
+  }
+  
+  .name {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: rgba(75, 85, 99, 1);
+  }
+  
+  .image {
+    display: block;
+    flex-shrink: 0;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    background-color: royalblue;
+  }
+  
+  .description {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgba(107, 114, 128, 1);
+  }
+  
+  .post-info {
+    margin-top: 1.5rem;
+    display: flex;
+    grid-gap: 1rem;
+    gap: 1rem;
+  }
+  
+  .cr {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .dt {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: rgba(75, 85, 99, 1);
+  }
+  
+  .dd {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgba(107, 114, 128,1);
+  }
+
+  .nounderline{
+    text-decoration: none;
+  }
+
+

@@ -12,6 +12,7 @@
     "@auth0/auth0-react": "^2.2.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/react": "^6.1.11",
@@ -22,9 +23,10 @@
     "@mantine/hooks": "^7.5.2",
     "@mui/material": "^5.15.10",
     "@mui/styled-engine-sc": "^6.0.0-alpha.16",
-    "autoprefixer": "^10.4.18",
     "bootstrap": "^5.3.2",
+    "flowbite": "^2.3.0",
     "formik": "^2.4.5",
+    "google-map-react": "^2.2.1",
     "mdb-react-ui-kit": "^7.2.0",
     "multer": "^1.4.5-lts.1",
     "next": "14.1.0",
@@ -47,8 +49,10 @@
   },
   "devDependencies": {
     "@types/node": "20.11.27",
+    "autoprefixer": "^10.4.18",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "postcss": "^8.4.36",
     "tailwindcss": "^3.4.1"
   }
 }

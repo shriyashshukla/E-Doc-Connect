@@ -7,6 +7,40 @@
   justify-content: space-around;
 }
 
+@media (max-width: 768px) {
+  .about-container {
+    padding: 20px; /* Add some padding to the container */
+  }
+  .container {
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center; /* Center align items */
+  }
+
+  .card3 {
+    margin-top: 300px;
+    /* margin: 20px 0; Add margin between cards */
+  }
+
+  .image-container {
+    flex-direction: column; /* Stack image and content vertically */
+    align-items: center; /* Center align items */
+    margin-top: 0; /* Remove negative margin top */
+  }
+
+  .card4 {
+   
+    display: none; /* Hide card 4 */
+  }
+}
+
+@media (max-width: 480px) {
+  
+  .card4 {
+   
+    display: none; /* Hide card 4 */
+  }
+}
+
 .container {
   display: flex;
   align-items: flex-start;
@@ -263,4 +297,34 @@ h1:hover::after {
 
 .button:active {
   background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+}
+
+
+.card6 {
+  box-sizing: border-box;
+  width: 690px;
+  height: 454px;
+  background: rgba(217, 217, 217, 0.58);
+  border: 1px solid white;
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  font-weight: bolder;
+  color: black;
+}
+
+.card6:hover {
+  border: 1px solid black;
+  transform: scale(1.05);
+}
+
+.card6:active {
+  transform: scale(0.95) rotateZ(1.7deg);
 }

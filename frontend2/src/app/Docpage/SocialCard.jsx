@@ -7,7 +7,7 @@ const SocialCard = ({ userData }) => {
   return (
     <>
        
-       <Link href="Docprofile"> 
+       <Link href="DoctorProfile"> 
     <div className="card-client">
      
       

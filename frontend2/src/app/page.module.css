@@ -1,82 +1,94 @@
-
+/* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Global styles */
+body {
+  margin: 0;
+  font-family: 'Raleway', sans-serif; /* Use Raleway font for the entire page */
+}
+
+/* Page background */
 .page-background {
-    background-image: url('../../public/hero-bg.jpg');
-    background-size: cover; /* Ensure the background covers the entire element */
-    background-position: center;
-    height: 50vh;
-    width: 20vw; /* Set the width to 100% of viewport width */
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
-    position: relative;
+  background-image: url('../../public/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Adjust the height as needed */
+  width: 100%; /* Set the width to 100% */
+  position: relative;
+}
+
+/* Navigation button */
+.nav-button {
+  text-decoration: none;
+  position: relative;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  width: 9em;
+  height: 3em;
+  line-height: 2em;
+  text-align: center;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 300%;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+/* Hover effect */
+.nav-button:hover {
+  background-color: #555;
+}
+
+/* Animation */
+.nav-button:hover::before {
+  filter: blur(20px);
+}
+
+/* Animation keyframes */
+@keyframes ani {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
+}
+
+/* Additional styles for button before pseudo-element */
+.nav-button:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 35px;
+  transition: 1s;
 }
 
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  
+  .page-background {
+    height: 40%; /* Adjust the height of background on smaller screens */
+    margin-top: 100px;
+    
+  }
 
-.butt.hover-button:hover {
-    background-color: #555; /* Change to your desired hover color */
-    color: #fff; /* Change to your desired text color */
+  .img-container img {
+    width: 100%; /* Reset width to auto to fill the viewport width */
+    height: 80vh; /* Set height to fill the viewport height */
   }
-  
-  .nav-button  {
-    text-decoration: none;
-    position: relative;
-    border: none;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    color: #fff;
-    width: 9em;
-    height: 3em;
-    line-height: 2em;
-    text-align: center;
-    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-    background-size: 300%;
-    border-radius: 30px;
-    z-index: 1;
-  }
-  
-  .button:hover {
-    animation: ani 8s linear infinite;
-    border: none;
-  }
-  
-  @keyframes ani {
-    0% {
-      background-position: 0%;
-    }
-  
-    100% {
-      background-position: 400%;
-    }
-  }
-  
-  .button:before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-    background-size: 400%;
-    border-radius: 35px;
-    transition: 1s;
-  }
-  
-  .button:hover::before {
-    filter: blur(20px);
-  }
-  
-  .button:active {
-    background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-  }
-  
+}
 
-
-
-
-
+@media (max-width: 480px) {
+  .page-background {
+    height: 30vh; /* Decrease the height of background on smaller screens */
+  }
+}

@@ -37,7 +37,7 @@ const doctorSchema = new Schema({
     },
     avatar:{
         type: String,
-        default: 'default.jpg'
+        // default: 'default.jpg'
      },
 
 });

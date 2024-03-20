@@ -11,24 +11,30 @@ const Gallery = () => {
     'gallery-6.jpg',
     'gallery-7.jpg',
     'gallery-8.jpg',
+    'gallery-9.jpg',
+    'gallery-10.jpg',
     // Add more image URLs as needed
   ];
 
   return (
-    <div style={{ margin: '20px' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Gallery</h2>
-      <div style={galleryStyle}>
-        {imageUrls.map((imageUrl, index) => (
-          <div key={index} style={gridItemStyle}>
-            <img src={imageUrl} alt={`Image ${index + 1}`} style={imageStyle} />
-          </div>
-        ))}
+    <>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl">Our Gallery</h1>
+      <p className="px-4 py-2 text-gray-800">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nam ipsa sapiente consequatur dolores deserunt quia! Perspiciatis iure commodi ea incidunt accusamus, voluptates sed similique, consequatur exercitationem amet aperiam non!</p>
+      <div className="mx-5 my-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+          {imageUrls.map((imageUrl, index) => (
+            <div key={index} className="overflow-hidden rounded-lg shadow-md">
+              <img src={imageUrl} alt={`Image ${index + 1}`} className="w-full h-full object-cover rounded-lg" />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-// Styles
+
+
 const galleryStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust the minimum and maximum width of grid items
@@ -47,5 +53,7 @@ const imageStyle = {
   objectFit: 'cover',
   borderRadius: '8px', // Add border radius to images to match grid item
 };
+
+
 
 export default Gallery;

@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import "./login.css";
-import admin from "../(admin)/admin/page";
+import admin from "../../(admin)/admin/page";
 
 const DoctorLogin = () => {
   const [isAdmin, setIsAdmin] = useState(false);

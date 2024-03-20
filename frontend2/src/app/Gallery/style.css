@@ -18,3 +18,10 @@
     object-fit: cover;
   }
   
+  .h1{
+    font-size: 3rem;
+    text-align: center;
+    position: relative;
+  display: inline-block;
+ 
+  }

@@ -1,4 +1,4 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -7,70 +7,99 @@
 
 
 :root {
-  @apply bg-gray-50;
+  background-color: #f9f9f9;
 }
 
 input {
-  @apply px-2;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
   .fc-header-toolbar {
     display: inline-block;
     padding: 4px 4px;
     
-    @apply space-x-8;
+    margin-right: 2rem;
 }
 
 .fc-day {
-  @apply m-8;
-}
+  .m-8 {
+    margin: 2rem;
+  }
 
-.fc-scrollgrid-sync-table {
-  @apply w-full;
-}
+  .w-full {
+    width: 100%;
+  }
 
-.fc-view {
-  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
-}
+  .h-full {
+    height: 100%;
+  }
 
-.fc-h-event {
-  @apply bg-violet-500 border border-violet-600 ;
+  .lg\:h-3\/4 {
+    height: 75%;
+  }
+
+  .xl\:h-2\/3 {
+    height: 66.67%;
+  }
+
+  .bg-white {
+    background-color: #fff;
+  }
+
+  .bg-violet-500 {
+    background-color: #8B5CF6;
+  }
+
+  .border {
+    border: 1px solid #000;
+  }
+
+  .border-violet-600 {
+    border-color: #7C3AED;
+  }
+
+  .bg-violet-100 {
+    background-color: #EDE9FE;
+  }
+
+  .bg-violet-800 {
+    background-color: #5B21B6;
+  }
+
+  .hover\:bg-violet-900:hover {
+    background-color: #4C1D95;
+  }
+
+  .bg-violet-600 {
+    background-color: #9333EA;
+  }
+
+  .fc-v-event {
+    background-color: #8B5CF6;
+    border: 1px solid #7C3AED;
+  }
   
 }
 
-.fc .fc-daygrid-day.fc-day-today {
-  @apply bg-violet-100 ;
-}
 
-.fc .fc-button{
-  @apply bg-violet-800 hover:bg-violet-900  ;
-}
-
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-  @apply bg-violet-600;
-}
-
-.fc .fc-button-primary:disabled {
-  @apply bg-violet-600;
-}
-.fc-v-event {
-  @apply bg-violet-500 border border-violet-600 ;
-  
-}
- */
-
-Nav bar
+ Nav bar 
 .navbar-nav .nav-link {
-  color: black; /* default text color */
+  color: black; 
   text-align: center;
-  transition: color 0.3s, border-bottom-color 0.3s; /* transition effect for color change */
+  transition: color 0.3s, border-bottom-color 0.3s;
   animation: fadeInDown 0.5s ease;
   font-size: 15px;
 }
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
 
 .navbar-nav .nav-link:hover {
-  color: rgb(54, 196, 236); /* text color on hover */
-  border-bottom: 2px solid rgb(54, 224, 243); /* underline on hover */
-  animation: pulse 1s infinite alternate; /* pulse animation on hover */
+  color: rgb(54, 196, 236); 
+  border-bottom: 2px solid rgb(54, 224, 243);
+  animation: pulse 1s infinite alternate; 
 }
 
 @keyframes fadeInDown {
@@ -163,7 +192,7 @@ Nav bar
 
 .homebutton:hover .box:before {
   transform: translateY(0);
-}
+} 
 
 
 
@@ -193,7 +222,10 @@ Nav bar
 
 
 
+@media (max-width: 768px) {
 
+  
+}
 
 
 
