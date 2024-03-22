@@ -1,945 +1,283 @@
-import React from 'react'
+"use client"
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import { Fragment, useEffect, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import { EventSourceInput } from '@fullcalendar/core/index.js'
 
-const AdminCalender = () => {
-  return (
-    <div><>
-      {/* component */}
-      <div className="lg:flex lg:h-full lg:flex-col">
-        <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            <time dateTime="2022-01">January 2022</time>
-          </h1>
-          <div className="flex items-center">
-            <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
-              <button
-                type="button"
-                className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
-              >
-                <span className="sr-only">Previous month</span>
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button
-                type="button"
-                className="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
-              >
-                Today
-              </button>
-              <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
-              <button
-                type="button"
-                className="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
-              >
-                <span className="sr-only">Next month</span>
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="hidden md:ml-4 md:flex md:items-center">
-              <div className="relative">
-                <button
-                  type="button"
-                  className="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  id="menu-button"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                >
-                  Month view
-                  <svg
-                    className="-mr-1 h-5 w-5 text-gray-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-                {/*
-        Dropdown menu, show/hide based on menu state.
-  
-        Entering: "transition ease-out duration-100"
-          From: "transform opacity-0 scale-95"
-          To: "transform opacity-100 scale-100"
-        Leaving: "transition ease-in duration-75"
-          From: "transform opacity-100 scale-100"
-          To: "transform opacity-0 scale-95"
-      */}
-                <div
-                  className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="menu-button"
-                  tabIndex={-1}
-                >
-                  <div className="py-1" role="none">
-                    {/* Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" */}
-                    <a
-                      href="#"
-                      className="text-gray-700 block px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabIndex={-1}
-                      id="menu-item-0"
-                    >
-                      Day view
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-700 block px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabIndex={-1}
-                      id="menu-item-1"
-                    >
-                      Week view
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-700 block px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabIndex={-1}
-                      id="menu-item-2"
-                    >
-                      Month view
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-700 block px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabIndex={-1}
-                      id="menu-item-3"
-                    >
-                      Year view
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="ml-6 h-6 w-px bg-gray-300" />
-              <button
-                type="button"
-                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
-                Add event
-              </button>
-            </div>
-            <div className="relative ml-6 md:hidden">
-              <button
-                type="button"
-                className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500"
-                id="menu-0-button"
-                aria-expanded="false"
-                aria-haspopup="true"
-              >
-                <span className="sr-only">Open menu</span>
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
-                </svg>
-              </button>
-              {/*
-      Dropdown menu, show/hide based on menu state.
-  
-      Entering: "transition ease-out duration-100"
-        From: "transform opacity-0 scale-95"
-        To: "transform opacity-100 scale-100"
-      Leaving: "transition ease-in duration-75"
-        From: "transform opacity-100 scale-100"
-        To: "transform opacity-0 scale-95"
-    */}
-              <div
-                className="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="menu-0-button"
-                tabIndex={-1}
-              >
-                <div className="py-1" role="none">
-                  {/* Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" */}
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-0"
-                  >
-                    Create event
-                  </a>
-                </div>
-                <div className="py-1" role="none">
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-1"
-                  >
-                    Go to today
-                  </a>
-                </div>
-                <div className="py-1" role="none">
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-2"
-                  >
-                    Day view
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-3"
-                  >
-                    Week view
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-4"
-                  >
-                    Month view
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-0-item-5"
-                  >
-                    Year view
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-          <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-            <div className="flex justify-center bg-white py-2">
-              <span>M</span>
-              <span className="sr-only sm:not-sr-only">on</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>T</span>
-              <span className="sr-only sm:not-sr-only">ue</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>W</span>
-              <span className="sr-only sm:not-sr-only">ed</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>T</span>
-              <span className="sr-only sm:not-sr-only">hu</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>F</span>
-              <span className="sr-only sm:not-sr-only">ri</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>S</span>
-              <span className="sr-only sm:not-sr-only">at</span>
-            </div>
-            <div className="flex justify-center bg-white py-2">
-              <span>S</span>
-              <span className="sr-only sm:not-sr-only">un</span>
-            </div>
-          </div>
-          <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-            <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-              {/*
-      Always include: "relative py-2 px-3"
-      Is current month, include: "bg-white"
-      Is not current month, include: "bg-gray-50 text-gray-500"
-    */}
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                {/*
-        Is today, include: "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
-      */}
-                <time dateTime="2021-12-27">27</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2021-12-28">28</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2021-12-29">29</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2021-12-30">30</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2021-12-31">31</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-01">1</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-01">2</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-03">3</time>
-                <ol className="mt-2">
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Design review
-                      </p>
-                      <time
-                        dateTime="2022-01-03T10:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        10AM
-                      </time>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Sales meeting
-                      </p>
-                      <time
-                        dateTime="2022-01-03T14:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        2PM
-                      </time>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-04">4</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-05">5</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-06">6</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-07">7</time>
-                <ol className="mt-2">
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Date night
-                      </p>
-                      <time
-                        dateTime="2022-01-08T18:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        6PM
-                      </time>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-08">8</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-09">9</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-10">10</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-11">11</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time
-                  dateTime="2022-01-12"
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
-                >
-                  12
-                </time>
-                <ol className="mt-2">
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Sam's birthday party
-                      </p>
-                      <time
-                        dateTime="2022-01-25T14:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        2PM
-                      </time>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-13">13</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-14">14</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-15">15</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-16">16</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-17">17</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-18">18</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-19">19</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-20">20</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-21">21</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-22">22</time>
-                <ol className="mt-2">
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Maple syrup museum
-                      </p>
-                      <time
-                        dateTime="2022-01-22T15:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        3PM
-                      </time>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Hockey game
-                      </p>
-                      <time
-                        dateTime="2022-01-22T19:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        7PM
-                      </time>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-23">23</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-24">24</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-25">25</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-26">26</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-27">27</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-28">28</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-29">29</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-30">30</time>
-              </div>
-              <div className="relative bg-white px-3 py-2">
-                <time dateTime="2022-01-31">31</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-01">1</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-02">2</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-03">3</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-04">4</time>
-                <ol className="mt-2">
-                  <li>
-                    <a href="#" className="group flex">
-                      <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                        Cinema with friends
-                      </p>
-                      <time
-                        dateTime="2022-02-04T21:00"
-                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                      >
-                        9PM
-                      </time>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-05">5</time>
-              </div>
-              <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
-                <time dateTime="2022-02-06">6</time>
-              </div>
-            </div>
-            <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
-              {/*
-      Always include: "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10"
-      Is current month, include: "bg-white"
-      Is not current month, include: "bg-gray-50"
-      Is selected or is today, include: "font-semibold"
-      Is selected, include: "text-white"
-      Is not selected and is today, include: "text-indigo-600"
-      Is not selected and is current month, and is not today, include: "text-gray-900"
-      Is not selected, is not current month, and is not today: "text-gray-500"
-    */}
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                {/*
-        Always include: "ml-auto"
-        Is selected, include: "flex h-6 w-6 items-center justify-center rounded-full"
-        Is selected and is today, include: "bg-indigo-600"
-        Is selected and is not today, include: "bg-gray-900"
-      */}
-                <time dateTime="2021-12-27" className="ml-auto">
-                  27
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2021-12-28" className="ml-auto">
-                  28
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2021-12-29" className="ml-auto">
-                  29
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2021-12-30" className="ml-auto">
-                  30
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2021-12-31" className="ml-auto">
-                  31
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-01" className="ml-auto">
-                  1
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-02" className="ml-auto">
-                  2
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-03" className="ml-auto">
-                  3
-                </time>
-                <span className="sr-only">2 events</span>
-                <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                </span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-04" className="ml-auto">
-                  4
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-05" className="ml-auto">
-                  5
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-06" className="ml-auto">
-                  6
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-07" className="ml-auto">
-                  7
-                </time>
-                <span className="sr-only">1 event</span>
-                <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                </span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-08" className="ml-auto">
-                  8
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-09" className="ml-auto">
-                  9
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-10" className="ml-auto">
-                  10
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-11" className="ml-auto">
-                  11
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 font-semibold text-indigo-600 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-12" className="ml-auto">
-                  12
-                </time>
-                <span className="sr-only">1 event</span>
-                <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                </span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-13" className="ml-auto">
-                  13
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-14" className="ml-auto">
-                  14
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-15" className="ml-auto">
-                  15
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-16" className="ml-auto">
-                  16
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-17" className="ml-auto">
-                  17
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-18" className="ml-auto">
-                  18
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-19" className="ml-auto">
-                  19
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-20" className="ml-auto">
-                  20
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-21" className="ml-auto">
-                  21
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 font-semibold text-white hover:bg-gray-100 focus:z-10"
-              >
-                <time
-                  dateTime="2022-01-22"
-                  className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-gray-900"
-                >
-                  22
-                </time>
-                <span className="sr-only">2 events</span>
-                <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                </span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-23" className="ml-auto">
-                  23
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-24" className="ml-auto">
-                  24
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-25" className="ml-auto">
-                  25
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-26" className="ml-auto">
-                  26
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-27" className="ml-auto">
-                  27
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-28" className="ml-auto">
-                  28
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-29" className="ml-auto">
-                  29
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-30" className="ml-auto">
-                  30
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-white px-3 py-2 text-gray-900 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-01-31" className="ml-auto">
-                  31
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-01" className="ml-auto">
-                  1
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-02" className="ml-auto">
-                  2
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-03" className="ml-auto">
-                  3
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-04" className="ml-auto">
-                  4
-                </time>
-                <span className="sr-only">1 event</span>
-                <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                  <span className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                </span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-05" className="ml-auto">
-                  5
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-              <button
-                type="button"
-                className="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
-              >
-                <time dateTime="2022-02-06" className="ml-auto">
-                  6
-                </time>
-                <span className="sr-only">0 events</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-    </div>
-  )
+
+interface Event {
+  title: string;
+  start: Date | string;
+  allDay: boolean;
+  id: number;
 }
 
-export default AdminCalender;
+export default function Home() {
+  const [events, setEvents] = useState([
+    { title: 'event 1', id: '1' },
+    { title: 'event 2', id: '2' },
+    { title: 'event 3', id: '3' },
+    { title: 'event 4', id: '4' },
+    { title: 'event 5', id: '5' },
+  ])
+  const [allEvents, setAllEvents] = useState<Event[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [idToDelete, setIdToDelete] = useState<number | null>(null)
+  const [newEvent, setNewEvent] = useState<Event>({
+    title: '',
+    start: '',
+    allDay: false,
+    id: 0
+  })
+
+  useEffect(() => {
+    let draggableEl = document.getElementById('draggable-el')
+    if (draggableEl) {
+      new Draggable(draggableEl, {
+        itemSelector: ".fc-event",
+        eventData: function (eventEl) {
+          let title = eventEl.getAttribute("title")
+          let id = eventEl.getAttribute("data")
+          let start = eventEl.getAttribute("start")
+          return { title, id, start }
+        }
+      })
+    }
+  }, [])
+
+  function handleDateClick(arg: { date: Date, allDay: boolean }) {
+    setNewEvent({ ...newEvent, start: arg.date, allDay: arg.allDay, id: new Date().getTime() })
+    setShowModal(true)
+  }
+
+  function addEvent(data: DropArg) {
+    const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
+    setAllEvents([...allEvents, event])
+  }
+
+  function handleDeleteModal(data: { event: { id: string } }) {
+    setShowDeleteModal(true)
+    setIdToDelete(Number(data.event.id))
+  }
+
+  function handleDelete() {
+    setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
+    setShowDeleteModal(false)
+    setIdToDelete(null)
+  }
+
+  function handleCloseModal() {
+    setShowModal(false)
+    setNewEvent({
+      title: '',
+      start: '',
+      allDay: false,
+      id: 0
+    })
+    setShowDeleteModal(false)
+    setIdToDelete(null)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setNewEvent({
+      ...newEvent,
+      title: e.target.value
+    })
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setAllEvents([...allEvents, newEvent])
+    setShowModal(false)
+    setNewEvent({
+      title: '',
+      start: '',
+      allDay: false,
+      id: 0
+    })
+  }
+
+  return (
+    <>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="grid grid-cols-10">
+          <div className="col-span-8">
+            <FullCalendar
+              plugins={[
+                dayGridPlugin,
+                interactionPlugin,
+                timeGridPlugin
+              ]}
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'resourceTimelineWook, dayGridMonth,timeGridWeek'
+              }}
+              events={allEvents as EventSourceInput}
+              nowIndicator={true}
+              editable={true}
+              droppable={true}
+              selectable={true}
+              selectMirror={true}
+              dateClick={handleDateClick}
+              drop={(data) => addEvent(data)}
+              eventClick={(data) => handleDeleteModal(data)}
+            />
+          </div>
+          <div id="draggable-el" className="ml-8 w-full border-2 p-2 rounded-md mt-16 lg:h-1/2 bg-violet-50">
+            <h1 className="font-bold text-lg text-center">Drag Event</h1>
+            {events.map(event => (
+              <div
+                className="fc-event border-2 p-1 m-2 w-full rounded-md ml-auto text-center bg-white"
+                title={event.title}
+                key={event.id}
+              >
+                {event.title}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Transition.Root show={showDeleteModal} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={setShowDeleteModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+
+            >
+              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  enterTo="opacity-100 translate-y-0 sm:scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                  leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                >
+                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg
+                   bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+                  >
+                    <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div className="sm:flex sm:items-start">
+                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center 
+                      justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                          <ExclamationTriangleIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
+                        </div>
+                        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                          <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                            Delete Event
+                          </Dialog.Title>
+                          <div className="mt-2">
+                            <p className="text-sm text-gray-500">
+                              Are you sure you want to delete this event?
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                      <button type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm 
+                      font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={handleDelete}>
+                        Delete
+                      </button>
+                      <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
+                      shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                        onClick={handleCloseModal}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+        <Transition.Root show={showModal} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={setShowModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  enterTo="opacity-100 translate-y-0 sm:scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                  leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                >
+                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                    <div>
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                        <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
+                      </div>
+                      <div className="mt-3 text-center sm:mt-5">
+                        <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                          Add Event
+                        </Dialog.Title>
+                        <form action="submit" onSubmit={handleSubmit}>
+                          <div className="mt-2">
+                            <input type="text" name="title" className="block w-full rounded-md border-0 py-1.5 text-gray-900 
+                            shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
+                            focus:ring-2 
+                            focus:ring-inset focus:ring-violet-600 
+                            sm:text-sm sm:leading-6"
+                              value={newEvent.title} onChange={(e) => handleChange(e)} placeholder="Title" />
+                          </div>
+                          <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                            <button
+                              type="submit"
+                              className="inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:col-start-2 disabled:opacity-25"
+                              disabled={newEvent.title === ''}
+                            >
+                              Create
+                            </button>
+                            <button
+                              type="button"
+                              className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                              onClick={handleCloseModal}
+
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+      </main >
+    </>
+  )
+}

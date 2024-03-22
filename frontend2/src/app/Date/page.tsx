@@ -7,6 +7,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
+import Form from '../Components/Form/page'
 
 
 interface Event {
@@ -105,7 +106,7 @@ export default function Home() {
   return (
     <>
       <nav className="flex justify-between mb-12 border-b border-violet-100 p-4">
-        <h1 className="font-bold text-2xl text-gray-700">Calendar</h1>
+     
       </nav>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="grid grid-cols-10">
@@ -281,6 +282,7 @@ export default function Home() {
           </Dialog>
         </Transition.Root>
       </main >
+      <Form/>
     </>
   )
 }

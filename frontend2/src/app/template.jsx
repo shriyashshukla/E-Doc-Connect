@@ -5,6 +5,7 @@ import Navbar from './nav.jsx';
 
 
 
+
 const Template = ({children}) => {
 
     useEffect(()=>{
@@ -18,6 +19,7 @@ const Template = ({children}) => {
                
       <Navbar/>
         {children}
+        
 
         
       

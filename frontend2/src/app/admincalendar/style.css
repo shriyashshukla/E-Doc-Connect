@@ -1,54 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-background-color: #f9f9f9;
-}
-
-input {
-  @apply px-2;
-}
-  .fc-header-toolbar {
-    display: inline-block;
-    padding: 4px 4px;
-    
-    space-x: 8;
-}
-
-.fc-day {
-margin: 8px;
-}
-
-.fc-scrollgrid-sync-table {
-width: 100%;
-}
-
-.fc-view {
-  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
-}
-
-.fc-h-event {
-  @apply bg-violet-500 border border-violet-600 ;
+components/Calendar.module.css
+.calendar {
+    margin: 20px auto;
+    width: 300px;
+  }
   
-}
-
-.fc .fc-daygrid-day.fc-day-today {
-  @apply bg-violet-100 ;
-}
-
-.fc .fc-button{
-  @apply bg-violet-800 hover:bg-violet-900  ;
-}
-
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-  @apply bg-violet-600;
-}
-
-.fc .fc-button-primary:disabled {
-  @apply bg-violet-600;
-}
-.fc-v-event {
-  @apply bg-violet-500 border border-violet-600 ;
+  .calendar h2 {
+    text-align: center;
+  }
   
-}
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .calendarHeader {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+  }
+  
+  .calendarDay {
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  
