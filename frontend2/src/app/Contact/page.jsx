@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css'
 const page = () => {
   return (
-    <div>
+    <div id='Contact'>
       <h1>Constact us</h1>
       <address>ShriRamswroop Collage</address><br />
       < div className='map'>

@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef } from 'react';
 import './globals.css';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 
@@ -11,6 +12,17 @@ const Nav = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
+  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Function to toggle dropdown visibility
+  };
+
+  const handleServiceClick = (e) => {
+    e.preventDefault();
+    toggleDropdown(); // Call toggleDropdown when Services link is clicked
+  };
 
   const logout = () => {
     sessionStorage.removeItem("user");
@@ -63,7 +75,7 @@ const Nav = () => {
                     {loggedin ? (<img
                       src={"http://localhost:5000/" + user.avatar}
                       alt="Avatar"
-                      className="w-[150px] h-[150px] rounded-full border-2 border-gray-400"
+                      className="w-[50px] h-[50px] rounded-full border-2 border-gray-400"
                     />) : (<><img src="https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg" alt="" /></>)}
 
                     <span />
@@ -214,18 +226,27 @@ const Nav = () => {
           </div>
           <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul class="flex flex-col p-2 md:p-0 mt-2 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 font-serif ">
-              
+
+            <li>
+              <Link to="/about" href={'#about'} smooth={true} duration={500} offset={-70} className="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</Link>
+            </li>
               <li>
-                <a href="#about" class="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-              </li>
+            <a href="#" onClick={handleServiceClick} className="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+            <ul className={`absolute ${isDropdownOpen ? '' : 'hidden'} bg-white rounded mt-2 shadow-md`}>
+              <li><a href="/Date" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Home Service</a></li>
+              <li><a href="/Docpage" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Online Doctor</a></li>
+              <li><a href="" className="block px-4 py-2 text-gray-800 hover:bg-gray-200 nav-link disabled"  aria-disabled="true">Online Test</a></li>
+            </ul>
+          </li>
+
               <li>
-                <a href="#Features" class="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                <a href="#features" class="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Features</a>
               </li>
               <li>
                 <a href="#Doctors" class="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Our Doctors</a>
               </li>
-              
-               <li>
+
+              <li>
                 <a href="#Contact" class="block py-1 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact Us</a>
               </li>
             </ul>

@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import './styles.css';
 
-const Page = () => {
+const Features = () => {
   const controls = useAnimation();
   const containerRef = useRef(null);
 
@@ -37,7 +37,7 @@ const Page = () => {
 
   return (
     <>
-      <div>
+      <div id="features" ref={containerRef}>
 
 
         <div className="featureContainer" ref={containerRef} id="card5">
@@ -119,4 +119,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Features;

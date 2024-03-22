@@ -5,6 +5,9 @@ import TestimonialsPage from './Testimonials/page';
 import Contact from './Contact/page';
 import Counter from './Components/counter/Counter';
 import Gallery from './Gallery/page';
+import Features from './Features/page';
+
+import './page.module.css';
 // import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -29,6 +32,7 @@ const Page = () => {
       </div>
       <About />
       <Counter/>
+      <Features/>
       <Doctors/>
      <Gallery/> 
       <TestimonialsPage/>
