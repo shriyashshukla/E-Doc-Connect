@@ -8,14 +8,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 import Form from '../Components/Form/page'
+import { useFormState } from 'react-dom'
 
-
-interface Event {
-  title: string;
-  start: Date | string;
-  allDay: boolean;
-  id: number;
-}
 
 export default function Home() {
   const [events, setEvents] = useState([
@@ -25,11 +19,11 @@ export default function Home() {
     { title: 'event 4', id: '4' },
     { title: 'event 5', id: '5' },
   ])
-  const [allEvents, setAllEvents] = useState<Event[]>([])
+  const [allEvents, setAllEvents] = useFormState([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [idToDelete, setIdToDelete] = useState<number | null>(null)
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [idToDelete, setIdToDelete] = useState(null)
+  const [newEvent, setNewEvent] = useState({
     title: '',
     start: '',
     allDay: false,
@@ -51,17 +45,18 @@ export default function Home() {
     }
   }, [])
 
-  function handleDateClick(arg: { date: Date, allDay: boolean }) {
+  function handleDateClick(arg) {
     setNewEvent({ ...newEvent, start: arg.date, allDay: arg.allDay, id: new Date().getTime() })
     setShowModal(true)
   }
 
-  function addEvent(data: DropArg) {
+  function addEvent(data) {
+    console.log(data);
     const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
     setAllEvents([...allEvents, event])
   }
 
-  function handleDeleteModal(data: { event: { id: string } }) {
+  function handleDeleteModal(data) {
     setShowDeleteModal(true)
     setIdToDelete(Number(data.event.id))
   }
@@ -84,15 +79,17 @@ export default function Home() {
     setIdToDelete(null)
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (e) => {
+
     setNewEvent({
       ...newEvent,
       title: e.target.value
     })
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e) {
     e.preventDefault()
+    
     setAllEvents([...allEvents, newEvent])
     setShowModal(false)
     setNewEvent({
@@ -106,7 +103,7 @@ export default function Home() {
   return (
     <>
       <nav className="flex justify-between mb-12 border-b border-violet-100 p-4">
-     
+
       </nav>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="grid grid-cols-10">
@@ -122,7 +119,7 @@ export default function Home() {
                 center: 'title',
                 right: 'resourceTimelineWook, dayGridMonth,timeGridWeek'
               }}
-              events={allEvents as EventSourceInput}
+              events={allEvents}
               nowIndicator={true}
               editable={true}
               droppable={true}
@@ -282,7 +279,7 @@ export default function Home() {
           </Dialog>
         </Transition.Root>
       </main >
-      <Form/>
+      <Form />
     </>
   )
 }
