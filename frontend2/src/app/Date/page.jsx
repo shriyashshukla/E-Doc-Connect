@@ -13,13 +13,14 @@ import { useFormState } from 'react-dom'
 
 export default function Home() {
   const [events, setEvents] = useState([
-    { title: 'event 1', id: '1' },
-    { title: 'event 2', id: '2' },
-    { title: 'event 3', id: '3' },
+    { title: 'Doctor is Free today ', id: '1' },
+    { title: 'Not Free', id: '2' },
+    { title: 'Only for half time', id: '3' },
     { title: 'event 4', id: '4' },
     { title: 'event 5', id: '5' },
   ])
-  const [allEvents, setAllEvents] = useFormState([])
+  const [allEvents, setAllEvents] = useState([])
+  // console.log(allEvents);
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [idToDelete, setIdToDelete] = useState(null)
@@ -89,7 +90,7 @@ export default function Home() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    
+    console.log(allEvents);
     setAllEvents([...allEvents, newEvent])
     setShowModal(false)
     setNewEvent({

@@ -7,6 +7,7 @@ import Counter from './Components/counter/Counter';
 import Gallery from './Gallery/page';
 import Features from './Features/page';
 import './page.module.css';
+import Footer from './footer/page';
 // import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -40,7 +41,7 @@ const Page = () => {
      <Gallery/> 
       <TestimonialsPage/>
       <Contact/> 
-      
+      <Footer/>
     </div>
   </>
   );
