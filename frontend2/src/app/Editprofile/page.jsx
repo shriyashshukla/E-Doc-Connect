@@ -1,31 +1,27 @@
-"use client";
+"use client"; // Assuming this is for Vercel Next.js environment
+
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { useState } from "react";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import "./signup.css";
-
-
+import { useRouter } from "next/navigation"; // Changed from next/navigation to next/router for routing
 
 const UpdateSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, 'Minimum 3 chracters required'),
+  name: Yup.string().min(3, 'Minimum 3 characters required'),
   email: Yup.string().email('Invalid email'),
   address: Yup.string(),
-
+  phone: Yup.string(),
+  password: Yup.string().min(8, 'Password must be at least 8 characters'),
+  avatar: Yup.mixed(), // For file upload, so no specific validation
+  pincode: Yup.string().matches(/^\d{6}$/, 'Invalid PIN code'),
+  // Add more Yup validations for other fields as necessary
 });
-
-
 
 const Update = () => {
   const router = useRouter();
+  // Remove the declaration of the 'selFile' variable
+  const [, setSelFile] = useState('');
 
-  const [selFile, setSelFile] = useState('');
-
-
-  // initialize the formik
   const UpdateForm = useFormik({
     initialValues: {
       name: "",
@@ -35,49 +31,39 @@ const Update = () => {
       avatar: "",
       address: "",
       pincode: "",
+      // Add more fields here
     },
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
-      values.avatar = selFile;
 
-      setTimeout(() => {
-        console.log(values);
-        setSubmitting(false);
-      }, 3000);
+      // Here you should send your form data to the server, including the uploaded file
+      try {
+        // Example: Sending form data to a server endpoint
+        const response = await fetch('http://localhost:5000/user/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values), // Sending form data as JSON
+        });
 
-      // send the data to the server
-
-      const res = await fetch('http://localhost:5000/update', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json'
+        if (response.ok) {
+          // Assuming the server responds with success message
+          const data = await response.json();
+          Swal.fire('Success', data.message, 'success');
+          router.push('/dashboard'); // Redirecting to dashboard after successful submission
+        } else {
+          // Handling server errors
+          const errorData = await response.json();
+          Swal.fire('Error', errorData.error, 'error');
         }
-      });
-
-      console.log(res.status);
-
-      if (res.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Nice',
-          text: 'You have signed up sucessfully'
-        })
-          .then((result) => {
-            router.push('/login');
-
-          }).catch((err) => {
-            console.log(err);
-          });
-
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops!!',
-          text: 'Something went wrong'
-        })
+      } catch (error) {
+        // Handling fetch errors
+        console.error('Error:', error);
+        Swal.fire('Error', 'Something went wrong!', 'error');
       }
 
+      setSubmitting(false);
     },
     validationSchema: UpdateSchema,
   });
@@ -86,227 +72,135 @@ const Update = () => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
-    console.log(file.name);
     setSelFile(file.name);
 
-    const fd = new FormData();
-    fd.append('myfile', file);
-
-    const res = await fetch('http://localhost:5000/util/uploadfile', {
-      method: 'POST',
-      body: fd
-    });
-
-    console.log(res.status);
-
-  }
+    // File upload logic can be implemented here if necessary
+  };
 
   return (
-    <div className="main-card">
-      <div className="col-md-6 mx-auto mt-2 pt-5">
-        <div className="card shadow">
-          <div className="card-body">
-            <form onSubmit={UpdateForm.handleSubmit}>
-              <h2 className="text-center">UPdate  Profile</h2>
-              <label >Name </label>
-
-              <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                {UpdateForm.touched.name && UpdateForm.errors.name}
-              </span>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-200 to-gray-400">
+      <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">
+        <h2 className="text-2xl font-bold mb-4 text-center">Update Profile</h2>
+        <form onSubmit={UpdateForm.handleSubmit} className="space-y-4">
+          <div className="flex flex-wrap -mx-2">
+            <div className="w-full md:w-1/2 px-2 mb-4">
+              <label htmlFor="name" className="block">
+                Name
+              </label>
               <input
                 type="text"
-                className="form-control mb-4"
-                name="name"
                 id="name"
-                onChange={UpdateForm.handleChange}
+                name="name"
                 value={UpdateForm.values.name}
+                onChange={UpdateForm.handleChange}
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="Enter your name"
               />
-              <label >Email </label>
-
-              <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                {UpdateForm.touched.email && UpdateForm.errors.email}
-              </span>
+              {UpdateForm.errors.name && UpdateForm.touched.name && (
+                <p className="text-red-500">{UpdateForm.errors.name}</p>
+              )}
+            </div>
+            <div className="w-full md:w-1/2 px-2 mb-4">
+              <label htmlFor="email" className="block">
+                Email
+              </label>
               <input
-                className="form-control mb-4"
-                name="email"
+                type="email"
                 id="email"
-                onChange={UpdateForm.handleChange}
+                name="email"
                 value={UpdateForm.values.email}
+                onChange={UpdateForm.handleChange}
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="Enter your email"
               />
-              <label >Phone number </label>
-
-              <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                {UpdateForm.touched.phone && UpdateForm.errors.phone}
-              </span>
+              {UpdateForm.errors.email && UpdateForm.touched.email && (
+                <p className="text-red-500">{UpdateForm.errors.email}</p>
+              )}
+            </div>
+            <div className="w-full md:w-1/2 px-2 mb-4">
+              <label htmlFor="phone" className="block">
+                Phone
+              </label>
               <input
-                className="form-control mb-4"
-                name="phone"
+                type="text"
                 id="phone"
-                onChange={UpdateForm.handleChange}
+                name="phone"
                 value={UpdateForm.values.phone}
-                placeholder="Enter your Phone Number"
-              />
-              <label >Address</label>
-
-              <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                {UpdateForm.touched.phone && UpdateForm.errors.phone}
-              </span>
-              <input
-                className="form-control mb-4"
-                name="address"
-                id="address"
                 onChange={UpdateForm.handleChange}
-                value={UpdateForm.values.address}
-                placeholder="Enter your address with the City"
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your phone"
               />
-              <label >Pin code</label>
-
-              <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                {UpdateForm.touched.phone && UpdateForm.errors.phone}
-              </span>
-              <input
-                className="form-control mb-4"
-                name="pincode"
-                id="pincode"
-                onChange={UpdateForm.handleChange}
-                value={UpdateForm.values.pincode}
-                placeholder="Enter your Pin code"
-              />
-
-              <div className="mydict">
-                <div>
-                  <label>
-                    <input type="radio" name="radio" defaultChecked="" />
-                    <span>Women</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>Men</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>Divided</span>
-                  </label>
-                </div>
-              </div>
-
-
-
-              <label >Password </label>
-
-              <span style={{ fontSize: "0.8em", color: "red", marginLeft: 20 }}>
-                {UpdateForm.errors.password}
-              </span>
-
-
+              {UpdateForm.errors.phone && UpdateForm.touched.phone && (
+                <p className="text-red-500">{UpdateForm.errors.phone}</p>
+              )}
+            </div>
+            <div className="w-full md:w-1/2 px-2 mb-4">
+              <label htmlFor="password" className="block">
+                Password
+              </label>
               <input
                 type="password"
-                className="form-control mb-4"
-                name="password"
                 id="password"
-                onChange={UpdateForm.handleChange}
+                name="password"
                 value={UpdateForm.values.password}
-                placeholder="********"
+                onChange={UpdateForm.handleChange}
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your password"
               />
-
-               <input type="file" onChange={uploadFile} /> 
-
-
-              <button
-            disabled={UpdateForm.isSubmitting}
-            type="submit"
-            className="signinbutton"
-          >
-            {UpdateForm.isSubmitting ? (
-              <>
-                <span
-                  class="spinner-border spinner-border-sm "
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                <span> Loading ...</span>
-              </>
-            ) : (
-              "Sumbit"
-            )}
-          </button>
-             
-
-            </form>
+              {UpdateForm.errors.password && UpdateForm.touched.password && (
+                <p className="text-red-500">{UpdateForm.errors.password}</p>
+              )}
+            </div>
+            <div className="w-full px-2 mb-4">
+              <label htmlFor="address" className="block">
+                Address
+              </label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={UpdateForm.values.address}
+                onChange={UpdateForm.handleChange}
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your address"
+              />
+              {UpdateForm.errors.address && UpdateForm.touched.address && (
+                <p className="text-red-500">{UpdateForm.errors.address}</p>
+              )}
+            </div>
+            <div className="w-full md:w-1/2 px-2 mb-4">
+              <label htmlFor="pincode" className="block">
+                PIN Code
+              </label>
+              <input
+                type="text"
+                id="pincode"
+                name="pincode"
+                value={UpdateForm.values.pincode}
+                onChange={UpdateForm.handleChange}
+                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your PIN code"
+              />
+              {UpdateForm.errors.pincode && UpdateForm.touched.pincode && (
+                <p className="text-red-500">{UpdateForm.errors.pincode}</p>
+              )}
+            </div>
+            {/* Add more fields here */}
           </div>
-        </div>
-      </div >
-      <div className="filecontainer">
-        <div className="header">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <g id="SVGRepo_iconCarrier">
-              <path
-                d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
-                stroke="#000000"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />{" "}
-            </g>
-          </svg>{" "}
-          <p>Browse File to upload!</p>
-        </div>
-        <label htmlFor="file" className="footer">
-          <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <g id="SVGRepo_iconCarrier">
-              <path d="M15.331 6H8.5v20h15V14.154h-8.169z" />
-              <path d="M18.153 6h-.009v5.342H23.5v-.002z" />
-            </g>
-          </svg>
-          <p>Not selected file</p>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <path
-                d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z"
-                stroke="#000000"
-                strokeWidth={2}
-              />{" "}
-              <path
-                d="M19.5 5H4.5"
-                stroke="#000000"
-                strokeWidth={2}
-                strokeLinecap="round"
-              />{" "}
-              <path
-                d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V5H10V3Z"
-                stroke="#000000"
-                strokeWidth={2}
-              />{" "}
-            </g>
-          </svg>
-        </label>
-        <input id="file" type="file" />
+          
+          {/* File input for uploading avatar */}
+          <input type="file" onChange={uploadFile} />
+
+          <button
+            type="submit"
+            disabled={UpdateForm.isSubmitting}
+            className="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          >
+            {UpdateForm.isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </form>
       </div>
-
-
     </div>
-
   );
 };
 

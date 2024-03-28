@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 
 const UserRouter = require("../backend/Router/userRouter");
 const DoctorRouter = require("../backend/Router/doctorRouter");
+const ServiceRouter = require("../backend/Router/serviceRouter");
 const utilRouter = require("../backend/Router/utils");
 const cors = require("cors");
 
@@ -27,6 +28,8 @@ app.use(
 app.use("/user", UserRouter);
 app.use("/util", utilRouter);
 app.use("/doctor", DoctorRouter);
+app.use("/service", ServiceRouter);
+
 
 app.use(express.static("./uploads"));
 
@@ -47,16 +50,18 @@ app.get("/getall", (req, res) => {
   res.send("response from getall");
 });
 
-
-io.on("connection", (socket) => {
-  console.log("a user connected");
-  console.log(socket.id);
-  // socket.emit("hello", "world");
+app.get("/getbyid", (req, res) => {
+  const id = req.query.id;
+  console.log(`Request for user with id ${id}`);
+  if (!isNaN(Number(id))) {
+    res.send(`response from getbyid with id ${id}`);
+  } else {
+    res.send("Invalid id");
+  }
 });
 
-// home
-// add
-// getall
+
+
 
 // starting the server
 httpServer.listen(port, () => {

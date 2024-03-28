@@ -1,7 +1,7 @@
-'use client';
+"use client"
 import React, { useState, useEffect } from 'react';
 import { useRef } from 'react';
-import './style.css';
+import './style.css'; // Import CSS file for animations
 
 const Page = () => {
   const [userData, setUserData] = useState(null);
@@ -31,39 +31,25 @@ const Page = () => {
   }, []);
 
   return (
-    <div>
-      <div className="card procontainer">
-        <div className="card__img">
-          <svg width="100%" xmlns="http://www.w3.org/2000/svg">
-            {/* Your SVG content */}
-          </svg>
-        </div>
-
-        <div className="flex">
-          <div className="profile">
-            <img
-              src={`http://localhost:5000/${user.avatar}`}
-              alt="Avatar"
-              className="w-40 h-40 rounded-full border-2 border-gray-400"
-            />
+    <div className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 h-screen flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
+        <div className="relative flex flex-col items-center">
+          <img
+            src={`http://localhost:5000/${user.avatar}`}
+            alt="Avatar"
+            className="w-40 h-40 rounded-full border-4 border-white -mt-20 mb-4 profile-img"
+          />
+          <div className="text-xl font-semibold">{user.name}</div>
+          <div className="text-gray-500">{user.email}</div>
+          <div className="mt-4">
+            <a href="/Editprofile" className="text-blue-500 hover:text-blue-700 mr-4">
+              <button className="btn">Edit Profile</button>
+            </a>
+            <a href="/appiontment" className="text-blue-500 hover:text-blue-700">
+              <button className="btn">View Appointments</button>
+            </a>
           </div>
         </div>
-
-        <div className="card__title mt-10 font-medium text-lg text-black">{user.name}</div>
-        <div className="card__subtitle font-normal text-base text-gray-500">{user.email}</div>
-      </div>
-      
-      <div className="mt-4">
-        <a href="/Editprofile" className="text-blue-500 hover:text-blue-700 mr-4">
-          <button className="btn">
-            Edit Profile
-          </button>
-        </a>
-        <a href="/appiontment" className="text-blue-500 hover:text-blue-700">
-          <button className="btn">
-            View Appointments
-          </button>
-        </a>
       </div>
     </div>
   );

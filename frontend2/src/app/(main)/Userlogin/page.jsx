@@ -80,16 +80,20 @@ const Login = () => {
   const redirectToAppropriatePage = (email) => {
     if (email === "shriyash@gmail.com") {
       console.log("Redirecting to add doctor page as admin."); // Log for debugging
-      router.push("Userprofile");
+      router.push("/Userprofile");
     } else {
       console.log("Redirecting to option page as normal user."); // Log for debugging
-      router.push("Userprofile");
+      router.push("/Userprofile");
     }
   };
 
   return (
     <>
-      <form className="form" onSubmit={loginForm.handleSubmit}>
+         <div className="background-image">
+      <div className="container">
+        <div className="card">
+          <h1 className="form-heading">Login</h1>
+          <form className="form" onSubmit={loginForm.handleSubmit}>
       
         <div className="flex-column">
           <label>Email </label>
@@ -201,6 +205,9 @@ const Login = () => {
           </div>
         </div>
       </form>
+      </div>
+      </div>
+      </div>
     </>
   );
 };

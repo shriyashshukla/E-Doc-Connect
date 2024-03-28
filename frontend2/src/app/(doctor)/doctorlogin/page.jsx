@@ -77,6 +77,10 @@ const DoctorLogin = () => {
 
   return (
     <>
+    <div className="background-image">
+      <div className="container">
+        <div className="card">
+          <h1 className="form-heading">Doctor Login</h1>
       <form className="form" onSubmit={loginForm.handleSubmit}>
 
         <div className="flex-column">
@@ -189,7 +193,9 @@ const DoctorLogin = () => {
           </div>
         </div>
       </form>
-    </>
+      </div>
+      </div>
+</div>    </>
   );
 };
 

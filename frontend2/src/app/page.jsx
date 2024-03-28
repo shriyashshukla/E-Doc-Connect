@@ -41,7 +41,7 @@ const Page = () => {
      <Gallery/> 
       <TestimonialsPage/>
       <Contact/> 
-      <Footer/>
+      
     </div>
   </>
   );

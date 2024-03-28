@@ -1,23 +1,13 @@
-const { Schema, model } = require('../connection');
+const { model, Schema } = require('../connection');
 
-// Define the schema for the Service model
-const serviceSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  
-  description: {
-    type: String,
-    required: true
-  },
-  image: {
-    type: String, 
-    required: true
-  }
+const mySchema = new Schema({
+    
+    name : String,      
+    price: String,
+    description: String,
+    image: String,
+   
+
 });
 
-// Create the Service model using the schema
-const Service = mongoose.model('Service', serviceSchema);
-
-module.exports = Service;
+module.exports = model( 'service', mySchema );
