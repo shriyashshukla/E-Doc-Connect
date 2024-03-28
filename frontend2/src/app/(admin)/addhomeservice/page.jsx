@@ -7,14 +7,13 @@ import { useRouter } from 'next/navigation';
 
 const ServiceSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  specialty: Yup.string().required('Specialty is required'),
   description: Yup.string().required('Description is required'),
   price: Yup.string().required('Price is required'),
 });
 
 const AddHomeService = () => {
   const router = useRouter();
-  const [servicefile, setServiceFile] = useState(null); // Define selected file state
+  const [selFile, setSelFile] = useState(null); 
 
   const serviceForm = useFormik({
     initialValues: {
@@ -22,16 +21,15 @@ const AddHomeService = () => {
       description: "",
       price: "",
       image: "",
-
     },
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("Submitting form with values:", values); // Check if this log appears
-    
+      console.log("Submitting form with values:", values); 
+
       setSubmitting(true);
-    
+
       try {
         console.log('Sending request to server...');
-    
+        values.image = selFile;
         const res = await fetch('http://localhost:5000/service/add', {
           method: 'POST',
           headers: {
@@ -39,7 +37,9 @@ const AddHomeService = () => {
           },
           body: JSON.stringify(values)
         });
+
         console.log('Response:', res);
+
         if (res.ok) {
           Swal.fire({
             icon: 'success',
@@ -65,21 +65,24 @@ const AddHomeService = () => {
     validationSchema: ServiceSchema,
   });
 
+
   const uploadFile = async (e) => {
     if (!e.target.files) return;
-  
+
     const file = e.target.files[0];
     console.log(file.name);
-    setServiceFile(file); // Corrected to setServiceFile
+    setSelFile(file.name);
+
     const fd = new FormData();
     fd.append('myfile', file);
-  
+
     const res = await fetch('http://localhost:5000/util/uploadfile', {
       method: 'POST',
       body: fd
     });
-  
+
     console.log(res.status);
+
   }
 
   return (
@@ -139,7 +142,7 @@ const AddHomeService = () => {
               <label htmlFor="image" className="sr-only">Image</label>
               <input
                 type="file"
-                id="image"
+                id="file"
                 name="image"
                 onChange={uploadFile}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
