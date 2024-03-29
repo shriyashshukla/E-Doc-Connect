@@ -49,6 +49,12 @@ router.get("/getbyid/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+router.get("/getall", (req, res) => {
+  Service.find()
+    .then(result => res.json(result))
+    .catch(err => res.status(500).json(err));
+});
+
 // Update service
 router.put("/update/:id", (req, res) => {
   Service.findByIdAndUpdate(req.params.id, req.body, { new: true })

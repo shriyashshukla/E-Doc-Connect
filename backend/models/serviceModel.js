@@ -1,13 +1,11 @@
 const { model, Schema } = require('../connection');
 
 const mySchema = new Schema({
-    
-    name : String,      
+    name: String,
     price: String,
     description: String,
     image: String,
-   
-
+    createdAt: Date
 });
 
-module.exports = model( 'service', mySchema );
+module.exports = model('service', mySchema);
