@@ -45,7 +45,7 @@ const Page = () => {
             <a href="/Editprofile" className="text-blue-500 hover:text-blue-700 mr-4">
               <button className="btn">Edit Profile</button>
             </a>
-            <a href="/appiontment" className="text-blue-500 hover:text-blue-700">
+            <a href="/userappiontment" className="text-blue-500 hover:text-blue-700">
               <button className="btn">View Appointments</button>
             </a>
           </div>
