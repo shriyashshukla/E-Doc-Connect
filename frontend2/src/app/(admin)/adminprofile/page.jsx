@@ -41,12 +41,15 @@ const Page = () => {
           />
           <div className="text-xl font-semibold">{user.name}</div>
           <div className="text-gray-500">{user.email}</div>
-          <div className="mt-4">
-            <a href="/Editprofile" className="text-blue-500 hover:text-blue-700 mr-4">
+          <div className="mt-4 flex space-x-4">
+            <a href="/Editprofile" className="text-blue-500 hover:text-blue-700">
               <button className="btn">Edit Profile</button>
             </a>
-            <a href="/userappointment" className="text-blue-500 hover:text-blue-700">
+            <a href="/userappiontment" className="text-blue-500 hover:text-blue-700">
               <button className="btn">View Appointments</button>
+            </a>
+            <a href="/admin" className="text-blue-500 hover:text-blue-700">
+              <button className="btn">Dashboard</button>
             </a>
           </div>
         </div>

@@ -1,19 +1,24 @@
-// pages/index.js
 "use client"
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import Head from 'next/head';
 
 export default function Home() {
-  // Sample data for appointments
-  const [doctorAppointments, setDoctorAppointments] = useState([
-    { id: 1, doctor: "Dr. Smith", date: "March 30, 2024", time: "10:00 AM" },
-    { id: 2, doctor: "Dr. Johnson", date: "April 1, 2024", time: "11:30 AM" },
-  ]);
+  const [doctorAppointments, setDoctorAppointments] = useState([]);
+  const [homeServiceAppointments, setHomeServiceAppointments] = useState([]);
 
-  const [homeServiceAppointments, setHomeServiceAppointments] = useState([
-    { id: 1, day: "Monday", time: "2:00 PM", address: "123 Main St", phone: "555-1234" },
-    { id: 2, day: "Wednesday", time: "10:00 AM", address: "456 Elm St", phone: "555-5678" },
-  ]);
+  useEffect(() => {
+    // Fetch doctor appointments from backend
+    fetch('/api/doctor-appointments')
+      .then(response => response.json())
+      .then(data => setDoctorAppointments(data))
+      .catch(error => console.error('Error fetching doctor appointments:', error));
+
+    // Fetch home service appointments from backend
+    fetch('http://localhost:5000/service/getallby($id)')
+      .then(response => response.json())
+      .then(data => setHomeServiceAppointments(data))
+      .catch(error => console.error('Error fetching home service appointments:', error));
+  }, []); 
 
   // Function to cancel doctor appointment
   const cancelDoctorAppointment = (id) => {
@@ -44,7 +49,7 @@ export default function Home() {
 
       <main>
         <div className="max-w-2xl mx-auto space-y-8">
-          {/* Doctor appointments card */}
+         
           <div className="bg-white shadow-md rounded-md overflow-hidden">
             <div className="bg-blue-500 px-4 py-3">
               <h3 className="font-semibold text-lg text-white text-center">Doctor Appointments</h3>
@@ -95,14 +100,14 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {/* Mapping through home service appointments */}
-                  {homeServiceAppointments.map(appointment => (
-                    <tr key={appointment.id} className="border-b border-gray-200">
-                      <td className="py-3 text-center">{appointment.day}</td>
-                      <td className="py-3 text-center">{appointment.time}</td>
-                      <td className="py-3 text-center">{appointment.address}</td>
-                      <td className="py-3 text-center">{appointment.phone}</td>
+                  {homeServiceAppointments.map(booking => (
+                    <tr key={booking.id} className="border-b border-gray-200">
+                      <td className="py-3 text-center">{booking.day}</td>
+                      <td className="py-3 text-center">{booking.time}</td>
+                      <td className="py-3 text-center">{booking.address}</td>
+                      <td className="py-3 text-center">{booking.phone}</td>
                       <td className="py-3 flex justify-center space-x-2">
-                        <button onClick={() => cancelHomeServiceAppointment(appointment.id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
+                        <button onClick={() => cancelHomeServiceAppointment(booking.id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
                       </td>
                     </tr>
                   ))}

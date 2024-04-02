@@ -1,0 +1,7 @@
+.profile-img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-img:hover {
+  transform: scale(1.1);
+}

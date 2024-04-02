@@ -5,8 +5,7 @@ function MyForm() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    phone:"",
     message: '',
     date: '',
     time: '',
@@ -27,39 +26,26 @@ function MyForm() {
     console.log('Form submitted:', formData);
     // Reset form fields
     setFormData({
-      name: '',
-      email: '',
+      phone:"",
       message: '',
       date: '',
       time: '',
       ampm: 'AM' // Reset AM/PM selection
     });
 
-    // Navigate to the next page
-    router.push('/nextPage'); // Change '/nextPage' to your actual route
+    
+    router.push('/nextPage'); 
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <div className="mb-4">
-        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+        <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
         <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
+          type="phone"
+          id="phone"
+          name="phone"
+          value={formData.phone}
           onChange={handleChange}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           required
