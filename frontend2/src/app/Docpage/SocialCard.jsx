@@ -1,12 +1,19 @@
+'use client';
 import React from 'react';
 import './style.css';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-const handleClick = () => {
-  alert('Doctor has been added to your list');
-};
 
 const SocialCard = ({ userData }) => {
+  
+  const router = useRouter();
+
+  const handleClick = () => {
+    // alert('Doctor has been added to your list');
+    router.push('/DoctorsProfile/'+userData._id);
+  };
+
   return (
     <div className="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-sm m-4">
       <div className="md:flex">

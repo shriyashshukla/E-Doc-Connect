@@ -1,14 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'next/navigation';
 
 const Page = () => {
   const [doctorData, setDoctorData] = useState(null);
+  const {id} = useParams();
 
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/doctor/getbyid/${doctor._id}`);
+        const response = await axios.get(`http://localhost:5000/doctor/getbyid/${id}`);
         if (response.status === 200) {
           setDoctorData(response.data);
         }
@@ -19,8 +21,8 @@ const Page = () => {
     fetchDoctorData();
   }, []);
 
-  const doctorJSON = sessionStorage.doctor ? JSON.parse(sessionStorage.doctor) : null;
-  const doctor = doctorJSON !== null ? doctorJSON : null;
+  // const doctorJSON = sessionStorage.doctor ? JSON.parse(sessionStorage.doctor) : null;
+  // const doctor = doctorJSON !== null ? doctorJSON : null;
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-gray-200 to-gray-300">
