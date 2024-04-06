@@ -1,4 +1,4 @@
-import { Schema, model, Types } from '../connection';
+const { Schema, model, Types } =  require('../connection');
 
 
 const BookingSchema = new Schema({
@@ -7,7 +7,7 @@ const BookingSchema = new Schema({
         type: String,
         required: true
     },
-    
+
     date: { 
         type: Date,
         default: () => new Date().toLocaleDateString()
@@ -30,7 +30,4 @@ const BookingSchema = new Schema({
     }
 });
 
-
-const Booking = model('Booking', BookingSchema);
-
-export default Booking;
+module.exports = model('Booking', BookingSchema);

@@ -15,6 +15,7 @@ const SignupSchema = Yup.object().shape({
     .required('Name is Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   address: Yup.string().required('Required'),
+  phone: Yup.string().required('Required').min(10, 'Invalid Phone Number'),
 
 });
 
@@ -183,10 +184,11 @@ const Signup = () => {
                     value={signupForm.values.phone}
                     placeholder="Enter your Phone Number"
                   />
+                  
                   <label >Address</label>
 
                   <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                    {signupForm.touched.phone && signupForm.errors.phone}
+                    {signupForm.touched.address && signupForm.errors.address}
                   </span>
                   <input
                     className="form-control mb-4"
@@ -198,9 +200,6 @@ const Signup = () => {
                   />
                   <label >Pin code</label>
 
-                  <span style={{ fontSize: "0.7em", color: "red", margineLeft: 20 }}>
-                    {signupForm.touched.phone && signupForm.errors.phone}
-                  </span>
                   <input
                     className="form-control mb-4"
                     name="pincode"

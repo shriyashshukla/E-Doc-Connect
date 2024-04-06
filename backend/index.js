@@ -8,6 +8,8 @@ const UserRouter = require("../backend/Router/userRouter");
 const DoctorRouter = require("../backend/Router/doctorRouter");
 const ServiceRouter = require("../backend/Router/serviceRouter");
 const utilRouter = require("../backend/Router/utils");
+const BookingRouter = require("../backend/Router/bookingRouter");
+const appointmentRouter = require("../backend/Router/appointmentRouter");
 const cors = require("cors");
 
 // initialize express
@@ -27,10 +29,10 @@ app.use(
 app.use("/user", UserRouter);
 app.use("/util", utilRouter);
 app.use("/doctor", DoctorRouter);
+app.use("/booking", BookingRouter)
 app.use("/service", ServiceRouter);
-
-
-app.use(express.static("./uploads"));
+app.use("/appointment" ,appointmentRouter)
+app.use("/uploads", express.static("./uploads"));
 
 // routes
 app.get("/", (req, res) => {

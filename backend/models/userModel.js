@@ -41,6 +41,10 @@ const userSchema = new Schema({
         type: String,
         default: 'default.jpg'
      },
+     address:{
+        type : String,
+        required: [true,"Address is required"]
+     },
 
     forgotPasswordtoken: String,
     forgotPasswordtokenExpiry: Date,

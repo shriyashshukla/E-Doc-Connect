@@ -58,8 +58,12 @@ const fetchServices = () => {
   const handleBuy = (selectedService) => {
     // Here you can implement your buy logic
     alert(`${selectedService.name} has been booked!`);
+
+    
+
     // Navigate to the appointment page
     window.location.href = '/userappointment';
+
   };
  
     return servicesList.map((service) => (

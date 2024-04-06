@@ -1,4 +1,4 @@
-import { Schema, model, Types } from '../connection';
+const { Schema, model, Types }  = require('../connection');
 
 
 const appointmentSchema = new Schema({
@@ -28,6 +28,4 @@ const appointmentSchema = new Schema({
 });
 
 
-const Appointment = model('Appointment', appointmentSchema);
-
-export default Appointment;
+module.exports = model('Appointment', appointmentSchema);
