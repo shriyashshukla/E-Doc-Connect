@@ -32,7 +32,7 @@ app.use("/doctor", DoctorRouter);
 app.use("/booking", BookingRouter)
 app.use("/service", ServiceRouter);
 app.use("/appointment" ,appointmentRouter)
-app.use("/uploads", express.static("./uploads"));
+app.use(express.static("./uploads"));
 
 // routes
 app.get("/", (req, res) => {

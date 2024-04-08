@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import * as Yup from 'yup';
 
 function MyForm() {
   const router = useRouter();
@@ -8,8 +9,18 @@ function MyForm() {
     phone:"",
     message: '',
     date: '',
-    time: '',
-    ampm: 'AM' // Default value is AM
+    hours: '',
+    minutes: '',
+    ampm: 'AM' 
+  });
+
+  const schema = Yup.object().shape({
+    phone: Yup.string().required('Phone number is required'),
+    message: Yup.string().required('Message is required'),
+    date: Yup.date().required('Date is required'),
+    hours: Yup.number().required('Hours are required').min(1, 'Hours must be between 1 and 12').max(12, 'Hours must be between 1 and 12'),
+    minutes: Yup.number().required('Minutes are required').min(0, 'Minutes must be between 0 and 59').max(59, 'Minutes must be between 0 and 59'),
+    ampm: Yup.string().required('AM/PM selection is required')
   });
 
   const handleChange = (e) => {
@@ -20,21 +31,67 @@ function MyForm() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here, you can send the formData to your backend or do any other logic
-    console.log('Form submitted:', formData);
-    // Reset form fields
-    setFormData({
-      phone:"",
-      message: '',
-      date: '',
-      time: '',
-      ampm: 'AM' // Reset AM/PM selection
+  onSubmit: async (values, { setSubmitting }) => {
+    setSubmitting(true);
+    values.avatar = selFile;
+
+    setTimeout(() => {
+      console.log(values);
+      setSubmitting(false);
+    }, 3000);
+
+    // send the data to the server
+
+    const res = await fetch('http://localhost:5000/booking/add', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
-    
-    router.push('/nextPage'); 
+    console.log(res.status);
+
+    if (res.status === 200) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Nice',
+        text: 'You have signed up sucessfully'
+      })
+        .then((result) => {
+          router.push('');
+
+        }).catch((err) => {
+          console.log(err);
+        });
+
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!!',
+        text: 'Something went wrong'
+      })
+    }
+    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      // Handle form submission here, you can send the formData to your backend or do any other logic
+      console.log('Form submitted:', formData);
+      // Reset form fields
+      setFormData({
+        phone:"",
+        message: '',
+        date: '',
+        hours: '',
+        minutes: '',
+        ampm: 'AM' 
+      });
+      // router.push('/homeservice'); 
+    } catch (error) {
+      console.error('Validation Error:', error.errors);
+    }
   };
 
   return (
@@ -108,6 +165,7 @@ function MyForm() {
             value={formData.ampm}
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
           >
             <option value="AM">AM</option>
             <option value="PM">PM</option>

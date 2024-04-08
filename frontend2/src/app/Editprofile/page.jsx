@@ -28,6 +28,7 @@ const Update = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateSubmit = async (values, { setSubmitting }) => {
+    values.avatar = selFile;
     setIsSubmitting(true);
 
     try {
@@ -41,8 +42,10 @@ const Update = () => {
 
       if (response.ok) {
         const data = await response.json();
+        sessionStorage.setItem('user', JSON.stringify(data));
+        setCurrentUser(data);
         Swal.fire('Success', data.message, 'success');
-        router.push('/dashboard');
+        router.push('/Userprofile');
       } else {
         const errorData = await response.json();
         Swal.fire('Error', errorData.error, 'error');
@@ -68,7 +71,7 @@ const Update = () => {
         method: 'POST',
         body: formData
       });
-
+      console.log(uploadResponse.status);
       if (uploadResponse.status === 200) {
         const uploadData = await uploadResponse.json();
         // UpdateForm.setFieldValue('avatar', uploadData.fileName);
