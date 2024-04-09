@@ -10,6 +10,9 @@ const DoctorSchema = Yup.object().shape({
   specialty: Yup.string().required('Specialty is required'),
   address: Yup.string().required('Address is required'),
   phone: Yup.string().required('Phone is required'),
+  hospital: Yup.string().required('Hospital is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required').min(8, 'Must be at least 8 characters')
 });
 
 const DoctorForm = () => {
@@ -18,8 +21,9 @@ const DoctorForm = () => {
     specialty: '',
     address: '',
     phone: '',
-    avatar:"",
+    avatar: '',
   });
+  const [selFile, setSelFile] = useState(""); 
 
   const router = useRouter();
   
@@ -76,7 +80,6 @@ const DoctorForm = () => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
-    console.log(file.name);
     setSelFile(file.name);
 
     const fd = new FormData();
@@ -89,6 +92,7 @@ const DoctorForm = () => {
 
     console.log(res.status);
   }
+
   
 
   return (

@@ -1,31 +1,32 @@
 // pages/index.js
-'use client'
+"use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import './style.css';
+import { useRouter } from 'next/navigation';
 
-const ServiceCard = ({ serviceDetails, onBuy }) => {
+const ServiceCard = ({ serviceDetails }) => {
+  const router = useRouter();
+
   const handleBuyClick = () => {
     const confirmation = window.confirm(`Are you sure you want to book ${serviceDetails.name}?`);
     if (confirmation) {
-      onBuy(serviceDetails);
+      // Navigate to the form page
+      router.push('/Form');
     }
   };
 
   return (
-    <div className="card">
-      <div className="image-container">
-        <img src={serviceDetails.image} alt={serviceDetails.name} className="card-image" />
+    <div className="w-64 h-80 bg-gray-100 p-4 rounded-lg shadow-md m-4 mt-5">
+      <div className="h-32 overflow-hidden">
+        <img src={serviceDetails.image} alt={serviceDetails.name} className="w-full h-full object-cover" />
       </div>
-      <div className="card-info">
-        <p className="text-title">{serviceDetails.name}</p>
-        <p className="text-body">{serviceDetails.description}</p>
+      <div className="mt-4">
+        <p className="text-lg font-semibold">{serviceDetails.name}</p>
+        <p className="text-gray-600">{serviceDetails.description}</p>
       </div>
-      <div className="card-footer">
-        <span className="text-title">${serviceDetails.price}</span>
-        <div className="card-button">
-          <button className="buy-button" onClick={handleBuyClick}>Buy</button>
-        </div>
+      <div className="flex justify-between items-center mt-4">
+        <span className="text-lg font-semibold">${serviceDetails.price}</span>
+        <button onClick={handleBuyClick} className="px-4 py-2 bg-blue-500 text-white rounded-md">Buy</button>
       </div>
     </div>
   );
@@ -34,7 +35,8 @@ const ServiceCard = ({ serviceDetails, onBuy }) => {
 const ListServices = () => {
   const [servicesList, setServicesList] = useState([]);
   const [loading, setLoading] = useState(false);
-const fetchServices = () => {
+
+  const fetchServices = () => {
     setLoading(true);
     fetch(`http://localhost:5000/service/getall`)
       .then((response) => response.json())
@@ -49,33 +51,12 @@ const fetchServices = () => {
     fetchServices();
   }, []);
 
-  const displayServices = () => {
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-
- 
-  const handleBuy = (selectedService) => {
-    // Here you can implement your buy logic
-    alert(`${selectedService.name} has been booked!`);
-
-    
-
-    // Navigate to the appointment page
-    window.location.href = '/userappointment';
-
-  };
- 
-    return servicesList.map((service) => (
-      <ServiceCard key={service.id} serviceDetails={service} onBuy={handleBuy} />
-    ));
-  };
-
   return (
-    <div className="centered-container">
-      <div className="md-width">
-        <div className="grid">{displayServices()}</div>
-      </div>
+    <div className="flex justify-center items-start flex-wrap py-8">
+      {loading && <p>Loading...</p>}
+      {servicesList.map((service) => (
+        <ServiceCard key={service.id} serviceDetails={service} />
+      ))}
     </div>
   );
 };

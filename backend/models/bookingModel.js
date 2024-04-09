@@ -21,8 +21,8 @@ const BookingSchema = new Schema({
         required: true
     },
     
-    userId: { type: Types.ObjectId, ref: 'User', required: true },
-    serviceId: { type: Types.ObjectId, ref: 'Service', required: true },
+    user: { type: Types.ObjectId, ref: 'user', required: true },
+    service: { type: Types.ObjectId, ref: 'service', required: true },
 
     created_at: {
         type: Date,
