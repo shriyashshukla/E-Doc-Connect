@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as Yup from 'yup';
+
+
 function MyForm() {
 
   const [serviceList, setServiceList] = useState([]);
@@ -54,13 +56,13 @@ function MyForm() {
     e.preventDefault();
     try {
       await schema.validate(formData, { abortEarly: false });
-      // Handle form submission here, you can send the formData to your backend or do any other logic
+     
       console.log('Form submitted:', formData);
 
-      // Uncomment the following lines to send data to the server
+    
       const res = await fetch('http://localhost:5000/booking/add', {
         method: 'POST',
-        body: JSON.stringify(formData), // Changed `values` to `formData`
+        body: JSON.stringify(formData), 
         headers: {
           'Content-Type': 'application/json'
         }
@@ -86,8 +88,7 @@ function MyForm() {
           text: 'Something went wrong'
         });
       }
-      
-      // Reset form fields
+    
       setFormData({
         phone:"",
         message: '',

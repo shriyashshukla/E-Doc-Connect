@@ -18,7 +18,11 @@ const ServiceCard = ({ serviceDetails }) => {
   return (
     <div className="w-64 h-80 bg-gray-100 p-4 rounded-lg shadow-md m-4 mt-5">
       <div className="h-32 overflow-hidden">
-        <img src={serviceDetails.image} alt={serviceDetails.name} className="w-full h-full object-cover" />
+        {serviceDetails.image ? (
+          <img src={serviceDetails.image} alt={serviceDetails.name} className="w-full h-full object-cover" />
+        ) : (
+          <p>No image available</p>
+        )}
       </div>
       <div className="mt-4">
         <p className="text-lg font-semibold">{serviceDetails.name}</p>
@@ -35,14 +39,26 @@ const ServiceCard = ({ serviceDetails }) => {
 const ListServices = () => {
   const [servicesList, setServicesList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchServices = () => {
     setLoading(true);
+    setError(null);
     fetch(`http://localhost:5000/service/getall`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch services');
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log(data);
         setServicesList(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching services:', error);
+        setError('Failed to fetch services. Please try again later.');
         setLoading(false);
       });
   };
@@ -54,6 +70,7 @@ const ListServices = () => {
   return (
     <div className="flex justify-center items-start flex-wrap py-8">
       {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {servicesList.map((service) => (
         <ServiceCard key={service.id} serviceDetails={service} />
       ))}

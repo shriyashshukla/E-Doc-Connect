@@ -1,16 +1,15 @@
 const express = require("express");
-const BookingModel = require("../models/bookingModel"); // Assuming BookingModel is the name of your model
+const BookingModel = require("../models/bookingModel"); 
 const multer = require('multer');
-
 const router = express.Router();
 
-// Multer configuration for file storage
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/avatars'); // Directory where files will be stored
+    cb(null, 'uploads/avatars'); 
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // Use original file name for storing
+    cb(null, file.originalname); 
   }
 });
 
