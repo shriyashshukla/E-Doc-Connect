@@ -19,7 +19,7 @@ const ServiceCard = ({ serviceDetails }) => {
     <div className="w-64 h-80 bg-gray-100 p-4 rounded-lg shadow-md m-4 mt-5">
       <div className="h-32 overflow-hidden">
         {serviceDetails.image ? (
-          <img src={serviceDetails.image} alt={serviceDetails.name} className="w-full h-full object-cover" />
+          <img src={`http://localhost:5000/${serviceDetails.image}`} alt={serviceDetails.name} className="w-full h-full object-cover" />
         ) : (
           <p>No image available</p>
         )}

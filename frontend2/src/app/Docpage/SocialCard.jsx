@@ -18,7 +18,7 @@ const SocialCard = ({ userData }) => {
     <div className="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-sm m-4">
       <div className="md:flex">
         <div className="md:flex-shrink-0">
-          <img className="w-32 h-32 object-cover md:w-48 md:h-48" src={userData.avatar} alt="User" />
+          <img className="w-32 h-32 object-cover md:w-48 md:h-48" src={`http://localhost:5000/${userData.avatar}`} alt="User" />
         </div>
         <div className="p-4 md:p-6">
           <div className="uppercase tracking-wide text-xs text-indigo-500 font-semibold">{userData.name}</div>

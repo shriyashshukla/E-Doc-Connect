@@ -14,7 +14,7 @@ const ServiceSchema = Yup.object().shape({
 
 const AddHomeService = () => {
   const router = useRouter();
-  const [selFile, setSelFile] = useState(null); 
+  const [selFile, setSelFile] = useState(null);
 
   const serviceForm = useFormik({
     initialValues: {
@@ -24,28 +24,22 @@ const AddHomeService = () => {
       image: "",
     },
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("Submitting form with values:", values); 
-
       setSubmitting(true);
-
       try {
-        console.log('Sending request to server...');
-        values.image = selFile;
+        // If the backend expects the file data instead of just the name
+        values.image = selFile; 
         const res = await fetch('http://localhost:5000/service/add', {
           method: 'POST',
+          body: JSON.stringify(values),
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(values)
         });
-
-        console.log('Response:', res);
-
         if (res.ok) {
           Swal.fire({
             icon: 'success',
             title: 'Nice',
-            text: 'service added successfully'
+            text: 'service added successfully',
           }).then(() => {
             router.push('/admin');
           });
@@ -57,7 +51,7 @@ const AddHomeService = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops!!',
-          text: 'Something went wrong'
+          text: 'Something went wrong',
         });
       } finally {
         setSubmitting(false);
@@ -66,25 +60,31 @@ const AddHomeService = () => {
     validationSchema: ServiceSchema,
   });
 
-
   const uploadFile = async (e) => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
     console.log(file.name);
-    setSelFile(file.name);
-
+    // If the backend expects the file data instead of just the name
+     setSelFile(file); 
     const fd = new FormData();
     fd.append('myfile', file);
 
-    const res = await fetch('http://localhost:5000/util/uploadfile', {
-      method: 'POST',
-      body: fd
-    });
-
-    console.log(res.status);
-
-  }
+    try {
+      const res = await fetch('http://localhost:5000/util/uploadfile', {
+        method: 'POST',
+        body: fd,
+      });
+      if (!res.ok) {
+        throw new Error('Upload failed');
+      }
+      // If the backend expects the file data instead of just the name
+       setSelFile(file); 
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      // Handle error (e.g., display a message to the user)
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -139,7 +139,7 @@ const AddHomeService = () => {
               />
               {serviceForm.errors.description && <p className="mt-2 text-sm text-red-600" id="description-error">{serviceForm.errors.description}</p>}
             </div>
-            <div>
+           <div>
               <label htmlFor="image" className="sr-only">Image</label>
               <input
                 type="file"

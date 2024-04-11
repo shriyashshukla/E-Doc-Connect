@@ -43,6 +43,7 @@ function MyForm() {
     minutes: Yup.number().required('Minutes are required').min(0, 'Minutes must be between 0 and 59').max(59, 'Minutes must be between 0 and 59'),
     ampm: Yup.string().required('AM/PM selection is required')
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,6 +109,9 @@ function MyForm() {
         <h2 className="text-2xl font-bold mb-4">Book Your Appointment</h2>
         <div className="mb-4">
           <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+          <span style={{ fontSize: "0.8em", color: "red", marginLeft: 20 }}>
+          
+          </span>
           <input
             type="phone"
             id="phone"
@@ -117,6 +121,7 @@ function MyForm() {
             className="appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
+         
         </div>
         <div className="mb-4">
           <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Select Service</label>

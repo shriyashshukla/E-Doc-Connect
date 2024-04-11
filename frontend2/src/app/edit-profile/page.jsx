@@ -22,16 +22,17 @@ const Update = () => {
   const [currentUser, setCurrentUser] = useState(JSON.parse(
     sessionStorage.getItem('doctor')
   ));
-
+  const [selFile, setSelFile] = useState('');
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateSubmit = async (values, { setSubmitting }) => {
+    values.avatar = selFile;
     setIsSubmitting(true);
 
     try {
       const response = await fetch('http://localhost:5000/doctor/update/' + currentUser._id, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -40,6 +41,8 @@ const Update = () => {
 
       if (response.ok) {
         const data = await response.json();
+        sessionStorage.setItem('user', JSON.stringify(data));
+        setCurrentUser(data);
         Swal.fire('Success', data.message, 'success');
         router.push('/dashboard');
       } else {
@@ -54,21 +57,26 @@ const Update = () => {
     setIsSubmitting(false);
   }
 
-  const uploadFile = async (e, UpdateForm) => {
+  
+  const uploadFile = async (e) => {
     const file = e.target.files[0];
+    console.log(file);
 
     const formData = new FormData();
     formData.append("myfile", file);
+    // setSelFile(file.name);
 
     try {
       const uploadResponse = await fetch('http://localhost:5000/util/uploadfile', {
         method: 'POST',
         body: formData
       });
-
-      if (uploadResponse.ok) {
+      console.log(uploadResponse.status);
+      if (uploadResponse.status === 200) {
         const uploadData = await uploadResponse.json();
-        UpdateForm.setFieldValue('avatar', uploadData.fileName);
+        // UpdateForm.setFieldValue('avatar', uploadData.fileName);
+        Swal.fire('Success', 'File uploaded successfuly', 'success');
+        setSelFile(file.name);
       } else {
         Swal.fire('Error', 'Failed to upload file', 'error');
       }
