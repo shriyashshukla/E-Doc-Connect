@@ -1,5 +1,5 @@
 const express = require("express");
-const BookingModel = require("../models/bookingModel"); 
+const slotModel = require("../models/slotModel"); 
 const multer = require('multer');
 const router = express.Router();
 
@@ -32,10 +32,10 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
   });
 });
 
-// Add new Booking route
+// Add new slot route
 router.post("/add", (req, res) => {
-  const newBooking = new BookingModel(req.body);
-  newBooking.save()
+  const newslot = new slotModel(req.body);
+  newslot.save()
     .then((result) => {
       res.json(result);
     })
@@ -45,20 +45,9 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.get("/getbyuser/:id", (req, res) => {
-  BookingModel.find({user : req.params.id})
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-// Get all Bookings route
+// Get all slots route
 router.get("/getall", (req, res) => {
-  BookingModel.find({})
+  slotModel.find({})
     .then((result) => {
       res.json(result);
     })
@@ -68,9 +57,9 @@ router.get("/getall", (req, res) => {
     });
 });
 
-// Get Booking by email route
+// Get slot by email route
 router.get("/getbyemail/:email", (req, res) => {
-  BookingModel.findOne({ email: req.params.email })
+  slotModel.findOne({ email: req.params.email })
     .then((result) => {
       res.json(result);
     })
@@ -80,9 +69,9 @@ router.get("/getbyemail/:email", (req, res) => {
     });
 });
 
-// Get Booking by ID route
+// Get slot by ID route
 router.get("/getbyid/:id", (req, res) => {
-  BookingModel.findById(req.params.id)
+  slotModel.findById(req.params.id)
     .then((result) => {
       res.json(result);
     })
@@ -92,9 +81,9 @@ router.get("/getbyid/:id", (req, res) => {
     });
 });
 
-// Update Booking route
+// Update slot route
 router.put("/update/:id", (req, res) => {
-  BookingModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  slotModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((result) => {
       res.json(result);
     })
@@ -104,9 +93,9 @@ router.put("/update/:id", (req, res) => {
     });
 });
 
-// Delete Booking route
+// Delete slot route
 router.delete('/delete/:id', (req, res) => {
-  BookingModel.findByIdAndDelete(req.params.id)
+  slotModel.findByIdAndDelete(req.params.id)
     .then((result) => {
       res.json(result);
     })
@@ -116,9 +105,9 @@ router.delete('/delete/:id', (req, res) => {
     });
 });
 
-// Authenticate Booking route
+// Authenticate slot route
 router.post('/authenticate', (req, res) => {
-  BookingModel.findOne(req.body)
+  slotModel.findOne(req.body)
     .then((result) => {
       if (result !== null) res.json(result);
       else res.status(401).json({ message: 'Login failed' });

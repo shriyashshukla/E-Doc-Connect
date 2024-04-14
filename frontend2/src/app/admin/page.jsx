@@ -25,7 +25,7 @@ const Admin = () => {
         
     </div>
     </a>
-    <a href="/admincalendar" className='nounderline'>
+    <a href="/adminDocDATE" className='nounderline'>
     <div class="card yellow">
         <p class="tip">Add Date for Appointment Booking</p>
        

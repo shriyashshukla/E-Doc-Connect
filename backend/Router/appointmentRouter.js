@@ -82,6 +82,17 @@ router.get("/getbyid/:id", (req, res) => {
     });
 });
 
+router.get("/getbyuser/:id", (req, res) => {
+  DoctorModel.find({user : req.params.id})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 // Update doctor route
 router.put("/update/:id", (req, res) => {
   DoctorModel.findByIdAndUpdate(req.params.id, req.body, { new: true })

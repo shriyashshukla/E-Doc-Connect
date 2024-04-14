@@ -44,7 +44,7 @@ const Update = () => {
         sessionStorage.setItem('user', JSON.stringify(data));
         setCurrentUser(data);
         Swal.fire('Success', data.message, 'success');
-        router.push('/dashboard');
+        router.push('/DoctorProfile');
       } else {
         const errorData = await response.json();
         Swal.fire('Error', errorData.error, 'error');
@@ -64,7 +64,7 @@ const Update = () => {
 
     const formData = new FormData();
     formData.append("myfile", file);
-    // setSelFile(file.name);
+     setSelFile(file.name);
 
     try {
       const uploadResponse = await fetch('http://localhost:5000/util/uploadfile', {
@@ -74,7 +74,7 @@ const Update = () => {
       console.log(uploadResponse.status);
       if (uploadResponse.status === 200) {
         const uploadData = await uploadResponse.json();
-        // UpdateForm.setFieldValue('avatar', uploadData.fileName);
+        UpdateForm.setFieldValue('avatar', uploadData.fileName);
         Swal.fire('Success', 'File uploaded successfuly', 'success');
         setSelFile(file.name);
       } else {

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as Yup from 'yup';
-
+import Swal from 'sweetalert2';
 
 function MyForm() {
 
@@ -76,9 +76,10 @@ function MyForm() {
           icon: 'success',
           title: 'Nice',
           text: 'You have signed up successfully'
+          
         })
           .then((result) => {
-            router.push('');
+            router.push('/userappointment');
           }).catch((err) => {
             console.log(err);
           });
