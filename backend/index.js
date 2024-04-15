@@ -10,6 +10,7 @@ const ServiceRouter = require("../backend/Router/serviceRouter");
 const utilRouter = require("../backend/Router/utils");
 const BookingRouter = require("../backend/Router/bookingRouter");
 const appointmentRouter = require("../backend/Router/appointmentRouter");
+const slotRouter = require("../backend/Router/slotRouter");
 const cors = require("cors");
 
 // initialize express
@@ -32,6 +33,7 @@ app.use("/doctor", DoctorRouter);
 app.use("/booking", BookingRouter)
 app.use("/service", ServiceRouter);
 app.use("/appointment" ,appointmentRouter)
+app.use("/slot",slotRouter)
 app.use(express.static("./uploads"));
 
 // routes

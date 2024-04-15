@@ -32,7 +32,9 @@ function MyForm() {
     date: '',
     hours: '',
     minutes: '',
-    ampm: 'AM' 
+    ampm: 'AM',
+    user: JSON.parse(sessionStorage.getItem('user'))._id,
+    service: ''
   });
 
   const schema = Yup.object().shape({
@@ -60,7 +62,7 @@ function MyForm() {
      
       console.log('Form submitted:', formData);
 
-    
+      
       const res = await fetch('http://localhost:5000/booking/add', {
         method: 'POST',
         body: JSON.stringify(formData), 
@@ -133,6 +135,7 @@ function MyForm() {
             className=" border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
             required
           >
+            <option value="" className="text-gray-700">Select Service</option>
             {
               serviceList.map((service, index) => (
                 <option key={index} value={service._id} className="text-gray-700">{service.name}</option>

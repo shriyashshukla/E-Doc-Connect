@@ -1,60 +1,116 @@
 "use client"
+
 import { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
 
-function DoctorAvailability() {
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [selectedDate, setSelectedDate] = useState('');
+const validationSchema = Yup.object({
+  date: Yup.date().required('Date is required'),
+  time: Yup.string().required('Time is required'),
+  duration: Yup.number()
+    .required('Duration is required')
+    .min(1, 'Duration should be at least 1 hour')
+    .max(24, 'Duration should not exceed 24 hours'),
+});
 
-    // Function to check doctor availability
-    const handleAvailabilityCheck = () => {
-        // Simulating doctor availability check, for now always assuming available
-        const isAvailable = true;
-        if (isAvailable) {
-            setShowAddForm(true);
-        } else {
-            alert("Sorry, the doctor is not available at the selected date and time.");
-        }
-    };
+export default function DoctorAvailabilityForm() {
+  const [formError, setFormError] = useState('');
 
-    // Function to handle form submission
-    const handleAddAppointment = (event) => {
-        event.preventDefault();
-        // Here you can handle adding the appointment to the database or perform other actions
-        alert("Appointment added successfully!");
-        // Reset the form
-        event.target.reset();
-        setShowAddForm(false);
-    };
+  const handleSubmit = async (values, actions) => {
+    console.log('Submitting form with values:', values); 
+    try {
+      const response = await axios.post('http:/localhost:5000/slots/add', values);
+      console.log('Response:', response.data); 
+      if (response.data.message) {
+        setFormError(response.data.message);
+        actions.resetForm();
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error); 
+      if (error.response && error.response.data && error.response.data.message) {
+        setFormError(error.response.data.message);
+      } else {
+        setFormError('An error occurred while submitting the form.');
+      }
+    }
+  };
 
-    return (
-        <div className="flex justify-center items-center h-full">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-4">
-                    <h2 className="text-2xl font-bold mb-4">Check Doctor Availability</h2>
-                    <form className="mb-8">
-                        <div className="mb-4">
-                            <label htmlFor="appointmentDate" className="block mb-2">Appointment Date:</label>
-                            <input type="date" id="appointmentDate" name="appointmentDate" className="border border-gray-300 rounded-md p-2" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
-                        </div>
-                        <button type="button" onClick={handleAvailabilityCheck} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Check Availability</button>
-                    </form>
-
-                    {showAddForm && (
-                        <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-50">
-                            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                                <div className="p-4">
-                                    <h2 className="text-2xl font-bold mb-4">Add Appointment</h2>
-                                    <form onSubmit={handleAddAppointment}>
-                                        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Add Appointment</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+  return (
+    <Formik
+      initialValues={{ date: '', time: '', duration: '' }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form className="bg-white p-8 rounded shadow-md w-full max-w-md">
+          <h1 className="text-2xl mb-4">Doctor Availability Input</h1>
+          
+          {formError && (
+            <div className="mb-4 text-red-500 text-sm">
+              {formError}
             </div>
-        </div>
-    );
-}
+          )}
 
-export default DoctorAvailability;
+          <div className="mb-4">
+            <label htmlFor="date" className="block text-gray-700 text-sm font-bold mb-2">
+              Date
+            </label>
+            <Field
+              type="date"
+              id="date"
+              name="date"
+              className="border p-2 w-full rounded"
+            />
+            <ErrorMessage name="date" component="div" className="text-red-500 text-sm" />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="time" className="block text-gray-700 text-sm font-bold mb-2">
+              Time
+            </label>
+            <Field
+              type="time"
+              id="time"
+              name="time"
+              className="border p-2 w-full rounded"
+            />
+            <ErrorMessage name="time" component="div" className="text-red-500 text-sm" />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="duration" className="block text-gray-700 text-sm font-bold mb-2">
+              Duration (hours)
+            </label>
+            <Field
+              type="number"
+              id="duration"
+              name="duration"
+              min="1"
+              max="24"
+              className="border p-2 w-full rounded"
+            />
+            <ErrorMessage name="duration" component="div" className="text-red-500 text-sm" />
+          </div>
+
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+            <button
+              type="reset"
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mr-2"
+              disabled={isSubmitting}
+            >
+              Reset
+            </button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+}

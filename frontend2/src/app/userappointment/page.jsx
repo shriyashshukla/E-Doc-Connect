@@ -6,17 +6,17 @@ export default function Home() {
   const [doctorAppointments, setDoctorAppointments] = useState([]);
   const [homeServiceAppointments, setHomeServiceAppointments] = useState([]);
   const [currentuser, setCurrentUser] = useState(
-    { name: "", email: "" ,id:""},
-  ); 
+    JSON.parse(sessionStorage.getItem('user'))
+  );
 
 
   useEffect(() => {
-    fetch('http://localhost:5000/appointment/getall') 
+    fetch('http://localhost:5000/appointment/getall')
       .then(response => response.json())
       .then(data => setDoctorAppointments(data))
       .catch(error => console.error('Error fetching doctor appointments:', error));
 
-    fetch('http://localhost:5000/booking/getbyuser/'+currentuser._id )
+    fetch('http://localhost:5000/booking/getbyuser/' + currentuser._id)
       .then(response => response.json())
       .then(data => setHomeServiceAppointments(data))
       .catch(error => console.error('Error fetching home service appointments:', error));
@@ -96,7 +96,7 @@ export default function Home() {
                 <tbody>
                   {homeServiceAppointments.map(appointment => (
                     <tr key={appointment.id} className="border-b border-gray-200">
-                     
+
                       <td className="py-3 text-center">{new Date(appointment.created_at).toLocaleDateString()} {new Date(appointment.created_at).toLocaleTimeString()}</td>
                       <td className="py-3 text-center">{appointment.message}</td>
                       <td className="py-3 text-center">{appointment.phone}</td>

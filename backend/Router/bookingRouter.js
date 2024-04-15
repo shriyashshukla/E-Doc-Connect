@@ -34,6 +34,7 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
 
 // Add new Booking route
 router.post("/add", (req, res) => {
+  console.log(req.body);
   const newBooking = new BookingModel(req.body);
   newBooking.save()
     .then((result) => {

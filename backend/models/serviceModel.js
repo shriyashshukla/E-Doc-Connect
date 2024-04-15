@@ -1,10 +1,11 @@
 const { model, Schema } = require('../connection');
 
 const mySchema = new Schema({
-    name: String,
+   
     price: String,
-    description: String,
-    image: String,
+    time: String,
+    date: String,
+    duration : String,
     createdAt: Date
 });
 
