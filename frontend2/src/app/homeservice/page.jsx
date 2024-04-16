@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Card, Typography, Button, Spin, Row, Col } from 'antd';
+
+const { Meta } = Card;
 
 const ListServices = () => {
   const [servicesList, setServicesList] = useState([]);
@@ -20,7 +23,6 @@ const ListServices = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setServicesList(data);
         setLoading(false);
       })
@@ -36,12 +38,19 @@ const ListServices = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-start flex-wrap py-8">
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {servicesList.map((service) => (
-        <ServiceCard key={service.id} serviceDetails={service} />
-      ))}
+    <div className="container mx-auto p-8">
+      <Typography.Title level={2} className="text-center mb-4">
+        Our Services
+      </Typography.Title>
+      <Row gutter={[16, 16]}>
+        {loading && <Spin />}
+        {error && <Typography.Text type="danger">{error}</Typography.Text>}
+        {servicesList.map((service) => (
+          <Col key={service.id} xs={24} sm={12} md={8}>
+            <ServiceCard serviceDetails={service} />
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };
@@ -52,32 +61,31 @@ const ServiceCard = ({ serviceDetails }) => {
   const handleBuyClick = () => {
     const confirmation = window.confirm(`Are you sure you want to book ${serviceDetails.name}?`);
     if (confirmation) {
-      // Navigate to the form page
       router.push('/Form');
     }
   };
 
   return (
-    <div className="w-64 h-80 bg-gray-100 p-4 rounded-lg shadow-md m-4 mt-5">
-      <div className="h-32 overflow-hidden">
-        {serviceDetails.image ? (
-          <img src={`http://localhost:5000/${serviceDetails.image}`} alt={serviceDetails.name} className="w-full h-full object-cover" />
-        ) : (
-          <p>No image available</p>
-        )}
-      </div>
-      <div className="mt-4">
-        <p className="text-lg font-semibold">{serviceDetails.name}</p>
-        <p className="text-gray-600">{serviceDetails.description}</p>
-      </div>
-      <div className="flex justify-between items-center mt-4">
-        <span className="text-lg font-semibold">${serviceDetails.price}</span>
-        <button onClick={handleBuyClick} className="px-4 py-2 bg-blue-500 text-white rounded-md">Buy</button>
-      </div>
-    </div>
+    <Card
+      hoverable
+      cover={<img alt={serviceDetails.name} src={`http://localhost:5000/${serviceDetails.image}`} />}
+      actions={[
+        <Button 
+          type="primary" 
+          onClick={handleBuyClick} 
+          className="bg-blue-500 hover:bg-blue-700 text-white"
+        >
+          Buy
+        </Button>,
+      ]}
+      className="shadow-md rounded-lg p-4 border border-gray-200"
+    >
+      <Meta title={serviceDetails.name} description={serviceDetails.description} />
+      <Typography.Title level={4} className="text-center mt-4">
+        ${serviceDetails.price}
+      </Typography.Title>
+    </Card>
   );
 };
-
-
 
 export default ListServices;
