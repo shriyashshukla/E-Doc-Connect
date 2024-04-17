@@ -82,7 +82,7 @@ const ServiceCard = ({ serviceDetails }) => {
     >
       <Meta title={serviceDetails.name} description={serviceDetails.description} />
       <Typography.Title level={4} className="text-center mt-4">
-        ${serviceDetails.price}
+        Rs{serviceDetails.price}
       </Typography.Title>
     </Card>
   );

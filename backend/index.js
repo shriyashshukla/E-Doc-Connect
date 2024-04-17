@@ -41,18 +41,6 @@ app.get("/", (req, res) => {
   res.send("response from index");
 });
 
-app.get("/home", (req, res) => {
-  res.send("response from home");
-});
-
-app.get("/add", (req, res) => {
-  res.send("response from add");
-});
-
-app.get("/getall", (req, res) => {
-  res.send("response from getall");
-});
-
 app.get("/getbyid", (req, res) => {
   const id = req.query.id;
   console.log(`Request for user with id ${id}`);

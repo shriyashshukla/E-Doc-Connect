@@ -15,8 +15,8 @@ const BookingSchema = new Schema({
         required: true
     },
     
-    //  user: { type: String , required: true },
-    // service: { type: String , required: true },
+    user: { type: String , required: true },
+    service: { type: String , required: true },
 
     created_at: {
         type: Date,

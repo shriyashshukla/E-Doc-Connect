@@ -4,10 +4,12 @@ import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
+import useAuth from '../AppContext';
 
 function MyForm() {
   const [serviceList, setServiceList] = useState([]);
   const router = useRouter();
+  const { currentUser } = useAuth();
 
   const fetchServices = async () => {
     try {
@@ -30,7 +32,7 @@ function MyForm() {
     hours: '',
     minutes: '',
     ampm: 'AM',
-    user: JSON.parse(sessionStorage.getItem('user'))?.user?._id || '',
+    user: currentUser._id,
     service: ''
   };
 
@@ -39,7 +41,7 @@ function MyForm() {
     message: Yup.string().required('Message is required'),
     date: Yup.date().required('Date is required'),
     hours: Yup.number().required('Hours are required').min(1, 'Hours must be between 1 and 12').max(12, 'Hours must be between 1 and 12'),
-    minutes: Yup.number().required('Minutes are required').min(0, 'Minutes must be between 0 and 59').max(59, 'Minutes must be between 0 and 59'),
+    // minutes: Yup.number().required('Minutes are required').min(0, 'Minutes must be between 0 and 59').max(59, 'Minutes must be between 0 and 59'),
     ampm: Yup.string().required('AM/PM selection is required')
   });
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -72,9 +74,9 @@ function MyForm() {
           title: 'Oops!!',
           text: 'Something went wrong'
         });
+        resetForm();
       }
   
-      resetForm();
     } catch (error) {
       console.error('Form Submission Error:', error);
     } finally {

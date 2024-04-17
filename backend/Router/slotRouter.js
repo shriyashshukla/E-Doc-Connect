@@ -69,6 +69,17 @@ router.get("/getbyemail/:email", (req, res) => {
     });
 });
 
+router.get("/getbydoctor/:id", (req, res) => {
+  slotModel.find({ doctor: req.params.id })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 // Get slot by ID route
 router.get("/getbyid/:id", (req, res) => {
   slotModel.findById(req.params.id)

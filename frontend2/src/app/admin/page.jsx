@@ -19,9 +19,9 @@ const Admin = () => {
     </div>
     </a>
 
-    <a href="/Editdoctor" className='nounderline'>
+    <a href="/Bookingdetails" className='nounderline'>
     <div class="card green">
-        <p class="tip">Edit or Remove Doctors</p>
+        <p class="tip">Check All the Home Service Booked</p>
         
     </div>
     </a>

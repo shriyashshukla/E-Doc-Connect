@@ -10,6 +10,11 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem('user')) || null
+  );
+
+  const [loggedIn, setLoggedIn] = useState(currentUser!==null);
 
   const login = (userData) => {
     setUser(userData);
@@ -23,10 +28,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, currentUser, setCurrentUser, loggedIn, setLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
+export default useAuth;

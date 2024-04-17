@@ -7,11 +7,11 @@ const slotSchema = new Schema({
         ref: 'Doctor',
         required: true
     },
-    slotDate: {
+    date: {
         type: Date,
         required: true
     },
-    slotTime: {
+    time: {
         type: String,
         required: true
     },
@@ -20,6 +20,16 @@ const slotSchema = new Schema({
         enum: ['available', 'booked'],
         default: 'available'
     },
+    booked: {
+        type: Boolean,
+        default: false
+    },
+
+    duration:{
+        type: Number,
+        required: true
+    },
+    
     created_at: {
         type: Date,
         default: Date.now
