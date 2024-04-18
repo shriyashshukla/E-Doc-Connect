@@ -54,21 +54,21 @@ const Docpage = () => {
 
   return (
     <>
-      <div className="search">
-        <input
-          placeholder="Search..."
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <button type="submit" name="go">Go</button>
-      </div>
+    <div className="search">
+      <input
+        placeholder="Search..."
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
+      <button type="submit" name="go">Go</button>
+    </div>
 
-      <div>
-        {displayDoctorData()}
-      </div>
-    </>
-  );
+    <div className="mt-6 justify-center flex flex-wrap gap-4">
+      {displayDoctorData()}
+    </div>
+  </>
+);
 };
 
 export default Docpage;

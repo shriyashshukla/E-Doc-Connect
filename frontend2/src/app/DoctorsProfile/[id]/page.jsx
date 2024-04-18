@@ -8,9 +8,11 @@ const Page = () => {
   const [doctorData, setDoctorData] = useState(null);
   const [showAvailability, setShowAvailability] = useState(false);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+  const [selectedSlotId, setSelectedSlotId] = useState(null);
   const [slotData, setSlotData] = useState([]);
   const router = useRouter();
-  const { id } = useParams();
+  const { id } = router.query;
 
   useEffect(() => {
     const fetchDoctorData = async () => {
@@ -37,32 +39,31 @@ const Page = () => {
 
     fetchDoctorData();
     fetchDoctorSlot();
-  }, []);
+  }, [id]);
 
   const handleShowAvailability = () => {
     setShowAvailability(true);
   };
 
-  const handleDateTimeSelection = (dateTime) => {
-    setSelectedDateTime(dateTime);
-
-    
-
+  const handleDateTimeSelection = (slotId) => {
+    setSelectedSlotId(slotId);
+    setSelectedDoctorId(id);
+    const selectedSlot = slotData.find(slot => slot._id === slotId);
+    setSelectedDateTime(new Date(selectedSlot.date));
   };
 
   const handleBooking = async () => {
-    if (!selectedDateTime) {
+    if (!selectedDateTime || !selectedDoctorId || !selectedSlotId) {
       alert('Please select a date and time first.');
       return;
     }
- 
+
     try {
       const bookingData = {
-        doctorId: id,
+        doctorId: selectedDoctorId,
+        slotId: selectedSlotId,
         dateTime: selectedDateTime.toISOString(),
       };
-
-      
 
       const response = await axios.post('http://localhost:5000/appointment/add', bookingData);
 

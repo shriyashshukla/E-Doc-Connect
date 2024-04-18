@@ -1,5 +1,4 @@
 "use client"
-import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
@@ -14,28 +13,29 @@ const ServiceSchema = Yup.object().shape({
 
 const AddHomeService = () => {
   const router = useRouter();
-  const [selFile, setSelFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const serviceForm = useFormik({
+  
+  const formik = useFormik({
     initialValues: {
       name: '',
       description: '',
       price: '',
-      image: '',
+      image: "",
     },
+    validationSchema: ServiceSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      setIsLoading(true);
       console.log('Submitting form with values:', values);
       try {
-        values.image = selFile;
+        const formData = new FormData();
+        formData.append('name', values.name);
+        formData.append('description', values.description);
+        formData.append('price', values.price);
+        formData.append('image', values.image);
+
         const res = await fetch('http://localhost:5000/service/add', {
           method: 'POST',
-          body: JSON.stringify(values),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          body: formData,
         });
+
         if (res.ok) {
           Swal.fire({
             icon: 'success',
@@ -56,48 +56,9 @@ const AddHomeService = () => {
         });
       } finally {
         setSubmitting(false);
-        setIsLoading(false);
       }
     },
-    validationSchema: ServiceSchema,
   });
-
-  const uploadFile = async (e) => {
-    if (!e.target.files) return;
-
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (file.size > 5000000) { // 5MB
-      Swal.fire({
-        icon: 'error',
-        title: 'File size exceeds limit',
-        text: 'Please upload a file smaller than 5MB',
-      });
-      return;
-    }
-
-    setSelFile(file);
-    const fd = new FormData();
-    fd.append('myfile', file);
-
-    try {
-      const res = await fetch('http://localhost:5000/util/uploadfile', {
-        method: 'POST',
-        body: fd,
-      });
-      if (!res.ok) {
-        throw new Error('Upload failed');
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Upload Failed',
-        text: 'Failed to upload the file',
-      });
-    }
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -105,7 +66,7 @@ const AddHomeService = () => {
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Add Service Details</h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={serviceForm.handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="name" className="sr-only">Name</label>
@@ -115,12 +76,12 @@ const AddHomeService = () => {
                 name="name"
                 autoComplete="name"
                 required
+                onChange={formik.handleChange}
+                value={formik.values.name}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Name"
-                onChange={serviceForm.handleChange}
-                value={serviceForm.values.name}
               />
-              {serviceForm.errors.name && <p className="mt-2 text-sm text-red-600" id="name-error">{serviceForm.errors.name}</p>}
+              {formik.errors.name && <p className="mt-2 text-sm text-red-600">{formik.errors.name}</p>}
             </div>
             <div>
               <label htmlFor="price" className="sr-only">Price</label>
@@ -130,12 +91,12 @@ const AddHomeService = () => {
                 name="price"
                 autoComplete="price"
                 required
+                onChange={formik.handleChange}
+                value={formik.values.price}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="price"
-                onChange={serviceForm.handleChange}
-                value={serviceForm.values.price}
+                placeholder="Price"
               />
-              {serviceForm.errors.price && <p className="mt-2 text-sm text-red-600" id="price-error">{serviceForm.errors.price}</p>}
+              {formik.errors.price && <p className="mt-2 text-sm text-red-600">{formik.errors.price}</p>}
             </div>
             <div>
               <label htmlFor="description" className="sr-only">Description</label>
@@ -145,12 +106,12 @@ const AddHomeService = () => {
                 name="description"
                 autoComplete="description"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                onChange={formik.handleChange}
+                value={formik.values.description}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Description"
-                onChange={serviceForm.handleChange}
-                value={serviceForm.values.description}
               />
-              {serviceForm.errors.description && <p className="mt-2 text-sm text-red-600" id="description-error">{serviceForm.errors.description}</p>}
+              {formik.errors.description && <p className="mt-2 text-sm text-red-600">{formik.errors.description}</p>}
             </div>
             <div>
               <label htmlFor="image" className="sr-only">Image</label>
@@ -158,21 +119,21 @@ const AddHomeService = () => {
                 type="file"
                 id="image"
                 name="image"
-                onChange={uploadFile}
+                onChange={(event) => {
+                  formik.setFieldValue('image', event.currentTarget.files[0]);
+                }}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               />
-              {serviceForm.errors.image && <p className="mt-2 text-sm text-red-600" id="image-error">{serviceForm.errors.image}</p>}
+              {formik.errors.image && <p className="mt-2 text-sm text-red-600">{formik.errors.image}</p>}
             </div>
           </div>
           <div>
-            <button type="submit" disabled={isLoading} className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
-              {isLoading && <span className="mr-2">Submitting...</span>}
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fillRule="evenodd" d="M13.293 6.293a1 1 0 011.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              Submit
+            <button
+              type="submit"
+              disabled={formik.isSubmitting}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${formik.isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {formik.isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>
@@ -181,4 +142,4 @@ const AddHomeService = () => {
   );
 };
 
-export default AddHomeService;            
+export default AddHomeService;

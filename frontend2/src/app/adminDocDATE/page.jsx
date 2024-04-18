@@ -63,7 +63,7 @@ const AddDate = () => {
         <button type="submit" name="go">Go</button>
       </div>
 
-      <div>
+      <div className='mt-6 justify-center flex flex-wrap gap-4'>
         {displayDoctorData()}
       </div>
     </>
