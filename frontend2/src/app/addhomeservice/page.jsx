@@ -9,25 +9,26 @@ const ServiceSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   description: Yup.string().required('Description is required'),
   price: Yup.string().required('Price is required'),
-  image: Yup.string().required('Image is required'),
+  image: Yup.mixed().required('Image is required'),
 });
 
 const AddHomeService = () => {
   const router = useRouter();
   const [selFile, setSelFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const serviceForm = useFormik({
     initialValues: {
-      name: "",
-      description: "",
-      price: "",
-      image: "",
+      name: '',
+      description: '',
+      price: '',
+      image: '',
     },
     onSubmit: async (values, { setSubmitting }) => {
-      setSubmitting(true);
+      setIsLoading(true);
+      console.log('Submitting form with values:', values);
       try {
-        // If the backend expects the file data instead of just the name
-        values.image = selFile; 
+        values.image = selFile;
         const res = await fetch('http://localhost:5000/service/add', {
           method: 'POST',
           body: JSON.stringify(values),
@@ -39,7 +40,7 @@ const AddHomeService = () => {
           Swal.fire({
             icon: 'success',
             title: 'Nice',
-            text: 'service added successfully',
+            text: 'Service added successfully',
           }).then(() => {
             router.push('/admin');
           });
@@ -47,14 +48,15 @@ const AddHomeService = () => {
           throw new Error('Server error');
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error.message);
         Swal.fire({
           icon: 'error',
           title: 'Oops!!',
-          text: 'Something went wrong',
+          text: error.message || 'Something went wrong',
         });
       } finally {
         setSubmitting(false);
+        setIsLoading(false);
       }
     },
     validationSchema: ServiceSchema,
@@ -64,9 +66,18 @@ const AddHomeService = () => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
-    console.log(file.name);
-    // If the backend expects the file data instead of just the name
-     setSelFile(file); 
+    if (!file) return;
+
+    if (file.size > 5000000) { // 5MB
+      Swal.fire({
+        icon: 'error',
+        title: 'File size exceeds limit',
+        text: 'Please upload a file smaller than 5MB',
+      });
+      return;
+    }
+
+    setSelFile(file);
     const fd = new FormData();
     fd.append('myfile', file);
 
@@ -78,11 +89,13 @@ const AddHomeService = () => {
       if (!res.ok) {
         throw new Error('Upload failed');
       }
-      // If the backend expects the file data instead of just the name
-       setSelFile(file); 
     } catch (error) {
       console.error('Error uploading file:', error);
-      // Handle error (e.g., display a message to the user)
+      Swal.fire({
+        icon: 'error',
+        title: 'Upload Failed',
+        text: 'Failed to upload the file',
+      });
     }
   };
 
@@ -139,19 +152,21 @@ const AddHomeService = () => {
               />
               {serviceForm.errors.description && <p className="mt-2 text-sm text-red-600" id="description-error">{serviceForm.errors.description}</p>}
             </div>
-           <div>
+            <div>
               <label htmlFor="image" className="sr-only">Image</label>
               <input
                 type="file"
-                id="file"
+                id="image"
                 name="image"
                 onChange={uploadFile}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               />
+              {serviceForm.errors.image && <p className="mt-2 text-sm text-red-600" id="image-error">{serviceForm.errors.image}</p>}
             </div>
           </div>
           <div>
-            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="submit" disabled={isLoading} className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              {isLoading && <span className="mr-2">Submitting...</span>}
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M13.293 6.293a1 1 0 011.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -166,4 +181,4 @@ const AddHomeService = () => {
   );
 };
 
-export default AddHomeService;
+export default AddHomeService;            

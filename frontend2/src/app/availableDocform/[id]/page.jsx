@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 
 const validationSchema = Yup.object({
@@ -17,6 +18,7 @@ const validationSchema = Yup.object({
 export default function DoctorAvailabilityForm() {
   const [formError, setFormError] = useState('');
   const { id } = useParams();
+  const router = useRouter();
 
   const handleSubmit = async (values, actions) => {
     console.log('Submitting form with values:', values); 
@@ -27,6 +29,12 @@ export default function DoctorAvailabilityForm() {
         setFormError(response.data.message);
         actions.resetForm();
       }
+      
+      // Show alert when the data is submitted successfully
+      const confirmed = window.confirm('Data submitted successfully!');
+      if (confirmed) {
+        router.push('/admin'); // Replace '/new-route' with the route you want to navigate to
+      }
     } catch (error) {
       console.error('Error submitting form:', error); 
       if (error.response && error.response.data && error.response.data.message) {
@@ -36,7 +44,6 @@ export default function DoctorAvailabilityForm() {
       }
     }
   };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <Formik

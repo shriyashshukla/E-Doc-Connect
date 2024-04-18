@@ -17,10 +17,6 @@ const appointmentSchema = new Schema({
         ref: 'Slot',
         required: true
     },
-    appointmentDate: {
-        type: Date,
-        required: true
-    },
     status: {
         type: String,
         enum: ['pending', 'confirmed', 'cancelled'],

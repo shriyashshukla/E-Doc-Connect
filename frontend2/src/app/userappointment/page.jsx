@@ -99,6 +99,7 @@ export default function Home() {
 
                       <td className="py-3 text-center">{new Date(appointment.created_at).toLocaleDateString()} {new Date(appointment.created_at).toLocaleTimeString()}</td>
                       <td className="py-3 text-center">{appointment.message}</td>
+                      <td className="py-3 text-center">{new Date(appointment.date).toLocaleDateString()} {new Date(appointment.date).toLocaleTimeString()}</td>
                       <td className="py-3 text-center">{appointment.phone}</td>
                       <td className="py-3 flex justify-center space-x-2">
                         <button onClick={() => cancelHomeServiceAppointment(appointment._id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>

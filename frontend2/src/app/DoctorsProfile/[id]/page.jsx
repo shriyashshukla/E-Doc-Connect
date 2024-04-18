@@ -23,6 +23,7 @@ const Page = () => {
         console.error('Error fetching doctor data:', error);
       }
     };
+
     const fetchDoctorSlot = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/slot/getbydoctor/${id}`);
@@ -30,16 +31,13 @@ const Page = () => {
           setSlotData(response.data);
         }
       } catch (error) {
-        console.error('Error fetching doctor data:', error);
+        console.error('Error fetching slot data:', error);
       }
     };
+
     fetchDoctorData();
     fetchDoctorSlot();
   }, []);
-
-  
-  
-
 
   const handleShowAvailability = () => {
     setShowAvailability(true);
@@ -47,13 +45,37 @@ const Page = () => {
 
   const handleDateTimeSelection = (dateTime) => {
     setSelectedDateTime(dateTime);
+
+    
+
   };
 
-  const handleBooking = () => {
-    // Add your booking logic here
-    alert(`Booking doctor for ${selectedDateTime}`);
-    // Redirect to user profile page
-    router.push('/userappointment');
+  const handleBooking = async () => {
+    if (!selectedDateTime) {
+      alert('Please select a date and time first.');
+      return;
+    }
+ 
+    try {
+      const bookingData = {
+        doctorId: id,
+        dateTime: selectedDateTime.toISOString(),
+      };
+
+      
+
+      const response = await axios.post('http://localhost:5000/appointment/add', bookingData);
+
+      if (response.status === 201) {
+        alert('Booking successful!');
+        router.push('/userappointment');
+      } else {
+        alert('Booking failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+      alert('An error occurred while booking the appointment. Please try again.');
+    }
   };
 
   return (
@@ -80,18 +102,15 @@ const Page = () => {
         <div className="max-w-md bg-white p-8 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold mb-4">Select Date and Time for Booking</h3>
 
-        
           {slotData.map(slot => (
             <div key={slot._id} className="flex justify-between items-center border-b border-gray-200 py-2">
               <p>{new Date(slot.date).toLocaleDateString()} {new Date(slot.date).toLocaleTimeString()}</p>
-              <p>{slot.duration} </p>
-              <button onClick={() => handleDateTimeSelection(new Date(slot.date))} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+              <p>{slot.duration}</p>
+              <button onClick={() => handleDateTimeSelection(slot._id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
                 Select
               </button>
             </div>
           ))}
-
-          
 
           {selectedDateTime && (
             <button onClick={handleBooking} className="block mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
@@ -103,8 +122,7 @@ const Page = () => {
 
       {selectedDateTime && (
         <div className="mt-4">
-          <p>Selected Date and Time: {selectedDateTime}</p>
-          {/* Additional booking form or functionality can be added here */}
+          <p>Selected Date and Time: {selectedDateTime.toLocaleString()}</p>
         </div>
       )}
     </div>
