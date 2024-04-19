@@ -83,7 +83,18 @@ router.get("/getbyid/:id", (req, res) => {
 });
 
 router.get("/getbyuser/:id", (req, res) => {
-  DoctorModel.find({user : req.params.id})
+  DoctorModel.find({user : req.params.id}).populate('doctor').populate('slot')
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.get("/getbydoctor/:id", (req, res) => {
+  DoctorModel.find({doctor : req.params.id}).populate('user').populate('slot')
     .then((result) => {
       res.json(result);
     })

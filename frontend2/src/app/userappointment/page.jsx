@@ -9,11 +9,17 @@ export default function Home() {
     JSON.parse(sessionStorage.getItem('user'))
   );
 
-
   useEffect(() => {
-    fetch('http://localhost:5000/appointment/getall')
+    fetch('http://localhost:5000/appointment/getbyuser/'+currentuser._id)
       .then(response => response.json())
-      .then(data => setDoctorAppointments(data))
+      .then(data => {
+        // Assuming your backend returns a list of appointments with a meetUrl property
+        const appointmentsWithMeetUrl = data.map(appointment => ({
+          ...appointment,
+          meetUrl: `https://meet.google.com/itb-foou-kdq?authuser=0${appointment.meetCode}`
+        }));
+        setDoctorAppointments(appointmentsWithMeetUrl);
+      })
       .catch(error => console.error('Error fetching doctor appointments:', error));
 
     fetch('http://localhost:5000/booking/getbyuser/' + currentuser._id)
@@ -23,16 +29,22 @@ export default function Home() {
   }, []);
 
   const cancelDoctorAppointment = (id) => {
-    setDoctorAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== id));
+    const updatedAppointments = doctorAppointments.filter(appointment => appointment.id !== id);
+    setDoctorAppointments(updatedAppointments);
   };
 
   const joinDoctorAppointment = (id) => {
-    alert(`Joining appointment with ID ${id}`);
+    const appointment = doctorAppointments.find(appointment => appointment.id === id);
+    if (appointment && appointment.meetUrl) {
+      window.open(appointment.meetUrl, '_blank');
+    } else {
+      alert('No meeting URL found for this appointment.');
+    }
   };
 
   const cancelHomeServiceAppointment = (id) => {
-    fetch(`http://localhost:5000/booking/delete/${id}`, { method: 'DELETE' })
-    // setHomeServiceAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== id));
+    const updatedAppointments = homeServiceAppointments.filter(appointment => appointment._id !== id);
+    setHomeServiceAppointments(updatedAppointments);
   };
 
   const scheduleHomeServiceAppointment = () => {
@@ -46,29 +58,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <div className="max-w-2xl mx-auto space-y-8">
+      <main className="w-full max-w-7xl p-4">
+        <div className="grid grid-cols-2 gap-4">
           <div className="bg-white shadow-md rounded-md overflow-hidden">
             <div className="bg-blue-500 px-4 py-3">
               <h3 className="font-semibold text-lg text-white text-center">Doctor Appointments</h3>
             </div>
             <div className="px-4 py-2">
-              <table className="w-full">
+              <table className="w-full border-collapse">
                 <thead>
-                  <tr>
-                    <th className="py-2">Doctor</th>
-                    <th className="py-2">Date</th>
-                    <th className="py-2">Time</th>
-                    <th className="py-2">Actions</th>
+                  <tr className="bg-blue-100">
+                    <th className="py-2 px-4 border">Doctor</th>
+                    <th className="py-2 px-4 border">Date</th>
+                    <th className="py-2 px-4 border">Time</th>
+                    <th className="py-2 px-4 border">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {doctorAppointments.map(appointment => (
-                    <tr key={appointment.id} className="border-b border-gray-200">
-                      <td className="py-3 text-center">{appointment.doctor}</td>
-                      <td className="py-3 text-center">{appointment.date}</td>
-                      <td className="py-3 text-center">{appointment.time}</td>
-                      <td className="py-3 flex justify-center space-x-2">
+                    <tr key={appointment.id} className="border-b">
+                      <td className="py-3 px-4">{appointment.doctor.name}</td>
+                      <td className="py-3 px-4">{new Date(appointment.slot.date).toLocaleDateString()}</td>
+                      <td className="py-3 px-4">{appointment.slot.time}</td>
+                      <td className="py-3 px-4 flex justify-center space-x-2">
                         <button onClick={() => cancelDoctorAppointment(appointment.id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
                         <button onClick={() => joinDoctorAppointment(appointment.id)} className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Join</button>
                       </td>
@@ -84,24 +96,22 @@ export default function Home() {
               <h3 className="font-semibold text-lg text-white text-center">Home Service Appointments</h3>
             </div>
             <div className="px-4 py-2">
-              <table className="w-full">
+              <table className="w-full border-collapse">
                 <thead>
-                  <tr>
-                    <th className="py-2">Date/Time</th>
-                    <th className="py-2">Message</th>
-                    <th className="py-2">Phone</th>
-                    <th className="py-2">Actions</th>
+                  <tr className="bg-green-100">
+                    <th className="py-2 px-4 border">Date/Time</th>
+                    <th className="py-2 px-4 border">Message</th>
+                    <th className="py-2 px-4 border">Phone</th>
+                    <th className="py-2 px-4 border">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {homeServiceAppointments.map(appointment => (
-                    <tr key={appointment.id} className="border-b border-gray-200">
-
-                      <td className="py-3 text-center">{new Date(appointment.created_at).toLocaleDateString()} {new Date(appointment.created_at).toLocaleTimeString()}</td>
-                      <td className="py-3 text-center">{appointment.message}</td>
-                      <td className="py-3 text-center">{new Date(appointment.date).toLocaleDateString()} {new Date(appointment.date).toLocaleTimeString()}</td>
-                      <td className="py-3 text-center">{appointment.phone}</td>
-                      <td className="py-3 flex justify-center space-x-2">
+                    <tr key={appointment._id} className="border-b">
+                      <td className="py-3 px-4">{new Date(appointment.created_at).toLocaleString()}</td>
+                      <td className="py-3 px-4">{appointment.message}</td>
+                      <td className="py-3 px-4">{appointment.phone}</td>
+                      <td className="py-3 px-4 flex justify-center space-x-2">
                         <button onClick={() => cancelHomeServiceAppointment(appointment._id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
                       </td>
                     </tr>

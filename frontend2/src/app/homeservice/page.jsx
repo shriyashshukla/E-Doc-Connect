@@ -23,6 +23,7 @@ const ListServices = () => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         setServicesList(data);
         setLoading(false);
       })

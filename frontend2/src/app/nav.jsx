@@ -12,6 +12,8 @@ const Nav = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
+
+
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
 
@@ -44,6 +46,18 @@ const Nav = () => {
   const userJSON = sessionStorage.user ? JSON.parse(sessionStorage.user) : null;
   const user = userJSON !== null ? userJSON : null;
 
+  const showAvatar = () => {
+    if(currentUser !==null){
+      return <>
+
+      </>
+    }else if(currentDoctor !==null){
+      return <></>
+    }else{
+      return <>
+      </>
+    }
+  }
 
   return (
     <div>

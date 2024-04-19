@@ -6,7 +6,7 @@ const Page = () => {
     return (
         <div className="container">
             <div className="card">
-                <Link href="/Date">
+                <Link href="/homeservice">
                     <img src="service.jpg" alt="Service" />
                     <div className="card-content">
                         <h1>Service Title</h1>

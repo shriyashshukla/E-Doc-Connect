@@ -29,6 +29,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 
 // Add a new service
 router.post("/add", (req, res) => {
+  console.log(req.body)
   new Service(req.body)
     .save()
     .then(result => res.json(result))

@@ -33,7 +33,8 @@ const AddHomeService = () => {
 
         const res = await fetch('http://localhost:5000/service/add', {
           method: 'POST',
-          body: formData,
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(formData),
         });
 
         if (res.ok) {

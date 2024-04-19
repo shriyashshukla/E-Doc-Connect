@@ -1,10 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 
-const AppointmentCard = ({ doctorName, appointmentTime, slot, status }) => {
-  // Define a status color based on the appointment status
+const AppointmentCard = ({ user, slot, onDelete, onReschedule }) => {
   let statusColor = '';
-  switch (status) {
+  switch (slot.status) {
     case 'pending':
       statusColor = 'text-yellow-600';
       break;
@@ -18,34 +17,44 @@ const AppointmentCard = ({ doctorName, appointmentTime, slot, status }) => {
       statusColor = 'text-gray-600';
   }
 
-  // Get current time and appointment time
   const currentTime = new Date();
-  const appointmentDateTime = new Date(appointmentTime);
-
-  // Determine if the appointment time has passed
+  const appointmentDateTime = new Date(slot.appointmentTime);
   const isPastAppointment = currentTime > appointmentDateTime;
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleReschedule = () => {
-    console.log('Reschedule button clicked');
-    // Add logic to handle rescheduling
+    setShowModal(true);
   };
 
-  const handleCancel = () => {
-    console.log('Cancel button clicked');
-    // Add logic to handle cancellation
+  const handleCancel = async () => {
+    const confirmCancel = window.confirm('Are you sure you want to cancel this appointment?');
+    if (confirmCancel) {
+      try {
+        const response = await fetch(`http://localhost:5000/appointment/${slot._id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          onDelete(slot._id);
+        } else {
+          console.error('Failed to cancel appointment');
+        }
+      } catch (error) {
+        console.error('Error cancelling appointment:', error);
+      }
+    }
   };
 
   const handleJoin = () => {
-    console.log('Join button clicked');
-    // Add logic to handle joining appointment
+    window.location.href = 'https://meet.google.com/itb-foou-kdq?authuser=0';
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <h2 className="text-xl font-semibold mb-2">{doctorName}</h2>
-      <p className={`text-gray-600 mb-2 ${statusColor}`}>Appointment Time: {appointmentTime}</p>
-      <p className={`text-gray-600 mb-2 ${statusColor}`}>Slot: {slot}</p>
-      {status === 'confirmed' && !isPastAppointment && (
+      <h2 className="text-xl font-semibold mb-2">{user.name}</h2>
+      <p className={`text-gray-600 mb-2 ${statusColor}`}>Appointment Time: {slot.appointmentTime}</p>
+      {!isPastAppointment && (
         <>
           <button onClick={handleReschedule} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
             Reschedule
@@ -55,61 +64,111 @@ const AppointmentCard = ({ doctorName, appointmentTime, slot, status }) => {
           </button>
         </>
       )}
-      {status === 'confirmed' && (
-        <button onClick={handleJoin} disabled={isPastAppointment} className={`bg-green-500 text-white px-4 py-2 rounded ${isPastAppointment ? 'opacity-50 cursor-not-allowed' : ''}`}>
-          {isPastAppointment ? 'Join (Available at Appointment Time)' : 'Join'}
+      {!isPastAppointment && (
+        <button onClick={handleJoin} className="bg-green-500 text-white px-4 py-2 rounded">
+          Join
         </button>
+      )}
+
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6">
+            <h2 className="text-xl font-semibold mb-4">Reschedule Appointment</h2>
+            
+            <button onClick={() => setShowModal(false)} className="bg-blue-500 text-white px-4 py-2 rounded">
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
 };
 
-const DateCard = ({ date, appointments }) => {
+const DateCard = ({ appointment, onDelete, onReschedule }) => {
+  const { user, slot } = appointment;
+
   return (
     <div className="bg-gray-100 rounded-lg p-4 mb-8">
-      <h2 className="text-lg font-semibold mb-2">{date}</h2>
+      <h2 className="text-lg font-semibold mb-2">{new Date(slot.date).toLocaleDateString()}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {appointments.map((appointment, index) => (
-          <AppointmentCard
-            key={index}
-            doctorName={appointment.doctorName}
-            appointmentTime={appointment.appointmentTime}
-            slot={appointment.slot}
-            status={appointment.status}
-          />
-        ))}
+        <AppointmentCard
+          user={user}
+          slot={slot}
+          onDelete={onDelete}
+          onReschedule={onReschedule}
+        />
       </div>
     </div>
   );
 };
 
 const AppointmentsPage = () => {
-  // Dummy data for demonstration
-  const appointmentsByDate = [
-    {
-      date: '2024-04-01',
-      appointments: [
-        { doctorName: 'Dr. Smith', appointmentTime: '2024-04-01T10:00:00', slot: 'Morning', status: 'confirmed' },
-        { doctorName: 'Dr. Johnson', appointmentTime: '2024-04-01T14:00:00', slot: 'Afternoon', status: 'confirmed' },
-      ],
-    },
-    {
-      date: '2024-04-02',
-      appointments: [
-        { doctorName: 'Dr. Patel', appointmentTime: '2024-04-02T16:00:00', slot: 'Evening', status: 'confirmed' },
-      ],
-    },
-  ];
+  const [appointmentList, setAppointmentList] = useState([]);
+  const [currentDoctor, setCurrentDoctor] = useState(JSON.parse(sessionStorage.getItem('doctor')));
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
+
+  const fetchAppointment = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/appointment/getbydoctor/${currentDoctor._id}`);
+      const data = await response.json();
+      setAppointmentList(data);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppointment();
+  }, []);
+
+  const onDelete = (deletedId) => {
+    setAppointmentList(prevAppointments => prevAppointments.filter(appointment => appointment.slot._id !== deletedId));
+  };
+
+  const onReschedule = (rescheduledSlot) => {
+    // Implement rescheduling logic here, e.g., showing a date picker modal
+    console.log('Rescheduling slot:', rescheduledSlot);
+  };
+
+  const onViewAppointments = (date) => {
+    setSelectedDate(date);
+    const filtered = appointmentList.filter(
+      (appointment) => new Date(appointment.slot.date).toLocaleDateString() === new Date(date).toLocaleDateString()
+    );
+    setFilteredAppointments(filtered);
+  };
 
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-semibold mb-4 text-center">Doctor Appointments</h1>
-      {appointmentsByDate.map((dateData, index) => (
-        <div key={index} className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">{dateData.date}</h2>
-          <DateCard date={dateData.date} appointments={dateData.appointments} />
+      {selectedDate ? (
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">{new Date(selectedDate).toLocaleDateString()}</h2>
+          {filteredAppointments.map((appointment, index) => (
+            <div key={appointment._id} className="mb-4">
+              <AppointmentCard
+                user={appointment.user}
+                slot={appointment.slot}
+                onDelete={onDelete}
+                onReschedule={onReschedule}
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        appointmentList.map((appointment, index) => (
+          <div key={appointment._id} className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">{new Date(appointment.slot.date).toLocaleDateString()}</h2>
+            <DateCard
+              appointment={appointment}
+              onDelete={onDelete}
+              onReschedule={onReschedule}
+            />
+          </div>
+        ))
+      )}
     </div>
   );
 };

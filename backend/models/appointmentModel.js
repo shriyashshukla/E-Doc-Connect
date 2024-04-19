@@ -4,7 +4,7 @@ const { Schema, model, Types }  = require('../connection');
 const appointmentSchema = new Schema({
     user: {
         type: Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     doctor: {
