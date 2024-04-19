@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Corrected import
 import { Card, Typography, Button, Spin, Row, Col } from 'antd';
 
 const { Meta } = Card;
@@ -60,9 +60,17 @@ const ServiceCard = ({ serviceDetails }) => {
   const router = useRouter();
 
   const handleBuyClick = () => {
+    const isAuthenticated = sessionStorage.getItem('user') !== null;
+
     const confirmation = window.confirm(`Are you sure you want to book ${serviceDetails.name}?`);
+    
     if (confirmation) {
-      router.push('/Form');
+      if (isAuthenticated) {
+        router.push('/Form');
+      } else {
+        router.push('/Userlogin');
+        alert('Please log in to book a consultation.');
+      }
     }
   };
 

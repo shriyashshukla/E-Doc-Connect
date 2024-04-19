@@ -10,8 +10,15 @@ const SocialCard = ({ userData }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    // alert('Doctor has been added to your list');
-    router.push('/DoctorsProfile/'+userData._id);
+    const isAuthenticated = sessionStorage.getItem('user') !== null;
+
+    if (isAuthenticated) {
+      router.push('/DoctorsProfile/' + userData._id);
+    } else {
+      router.push('/Userlogin');
+      alert('Please log in to book a consultation.');
+      // You can also redirect the user to the login page here if you have one.
+    }
   };
 
   return (

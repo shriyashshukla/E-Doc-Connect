@@ -6,7 +6,7 @@ export default function Home() {
   const [homeServiceAppointments, setHomeServiceAppointments] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/booking/getall/')
+    fetch('http://localhost:5000/appointment/getall/')
       .then(response => response.json())
       .then(data => setHomeServiceAppointments(data))
       .catch(error => console.error('Error fetching home service appointments:', error));
@@ -61,7 +61,7 @@ export default function Home() {
   const BookingDetails = () => {
     return (
       <div className="bg-white shadow-md rounded-md overflow-hidden">
-        <div className="bg-green-500 px-4 py-3 mt-14">
+        <div className="bg-blue-500 px-4 py-3 mt-14">
           <h3 className="font-semibold text-lg text-white text-center">Home Service Appointments</h3>
         </div>
         <div className="px-4 py-2">

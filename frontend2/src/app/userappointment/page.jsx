@@ -13,7 +13,6 @@ export default function Home() {
     fetch('http://localhost:5000/appointment/getbyuser/'+currentuser._id)
       .then(response => response.json())
       .then(data => {
-        // Assuming your backend returns a list of appointments with a meetUrl property
         const appointmentsWithMeetUrl = data.map(appointment => ({
           ...appointment,
           meetUrl: `https://meet.google.com/itb-foou-kdq?authuser=0${appointment.meetCode}`
@@ -28,11 +27,6 @@ export default function Home() {
       .catch(error => console.error('Error fetching home service appointments:', error));
   }, []);
 
-  const cancelDoctorAppointment = (id) => {
-    const updatedAppointments = doctorAppointments.filter(appointment => appointment.id !== id);
-    setDoctorAppointments(updatedAppointments);
-  };
-
   const joinDoctorAppointment = (id) => {
     const appointment = doctorAppointments.find(appointment => appointment.id === id);
     if (appointment && appointment.meetUrl) {
@@ -43,8 +37,21 @@ export default function Home() {
   };
 
   const cancelHomeServiceAppointment = (id) => {
-    const updatedAppointments = homeServiceAppointments.filter(appointment => appointment._id !== id);
-    setHomeServiceAppointments(updatedAppointments);
+    const isConfirmed = window.confirm('Are you sure you want to cancel this home service appointment?');
+    
+    if (isConfirmed) {
+      const updatedAppointments = homeServiceAppointments.filter(appointment => appointment._id !== id);
+      setHomeServiceAppointments(updatedAppointments);
+    }
+  };
+
+  const cancelDoctorAppointment = (id) => {
+    const isConfirmed = window.confirm('Are you sure you want to cancel this appointment?');
+    
+    if (isConfirmed) {
+      const updatedAppointments = doctorAppointments.filter(appointment => appointment._id !== id);
+      setDoctorAppointments(updatedAppointments);
+    }
   };
 
   const scheduleHomeServiceAppointment = () => {
@@ -76,13 +83,13 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {doctorAppointments.map(appointment => (
-                    <tr key={appointment.id} className="border-b">
+                    <tr key={appointment._id} className="border-b">
                       <td className="py-3 px-4">{appointment.doctor.name}</td>
                       <td className="py-3 px-4">{new Date(appointment.slot.date).toLocaleDateString()}</td>
                       <td className="py-3 px-4">{appointment.slot.time}</td>
                       <td className="py-3 px-4 flex justify-center space-x-2">
-                        <button onClick={() => cancelDoctorAppointment(appointment.id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
-                        <button onClick={() => joinDoctorAppointment(appointment.id)} className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Join</button>
+                        <button onClick={() => cancelDoctorAppointment(appointment._id)} className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Cancel</button>
+                        <button onClick={() => joinDoctorAppointment(appointment._id)} className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Join</button>
                       </td>
                     </tr>
                   ))}
