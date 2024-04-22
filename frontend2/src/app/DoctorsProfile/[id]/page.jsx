@@ -100,6 +100,7 @@ const Page = () => {
     </div>
 
     {showAvailability && (
+      <>
       <div className="flex justify-start w-full">
        
 
@@ -146,13 +147,16 @@ const Page = () => {
             </tbody>
           </table>
 
-          {selSlot !== null && (
-            <button onClick={handleBooking} className="block mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
-              Book Appointment
-            </button>
-          )}
+         
+         
         </div>
+        {selSlot !== null && (
+        <button onClick={handleBooking} className="block mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+          Book Appointment
+        </button>
+      )}
       
+          </>
     )}
 
       {selectedDateTime && (

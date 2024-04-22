@@ -47,7 +47,7 @@ const AppointmentCard = ({ user, slot, onDelete, onReschedule }) => {
   };
 
   const handleJoin = () => {
-    window.location.href = 'https://meet.google.com/itb-foou-kdq?authuser=0';
+    window.location.href = 'https://meet.google.com/qye-tyws-zic';
   };
 
   return (

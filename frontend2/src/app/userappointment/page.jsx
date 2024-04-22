@@ -15,7 +15,7 @@ export default function Home() {
       .then(data => {
         const appointmentsWithMeetUrl = data.map(appointment => ({
           ...appointment,
-          meetUrl: `https://meet.google.com/itb-foou-kdq?authuser=0${appointment.meetCode}`
+          meetUrl: `https://meet.google.com/qye-tyws-zic${appointment.meetCode}`
         }));
         setDoctorAppointments(appointmentsWithMeetUrl);
       })
