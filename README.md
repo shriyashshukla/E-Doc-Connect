@@ -27,7 +27,7 @@ E-Doctor Connect aims to bridge the gap between patients and doctors by providin
 - **Real-time Notifications:** Receive updates and reminders for appointments.
 - **Search Functionality:** Find doctors based on specialization and location.
 
-## Some Inages
+## Some Images
 
 ### Home Page
 ![1](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20231921.png)
