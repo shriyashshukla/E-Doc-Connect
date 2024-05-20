@@ -27,19 +27,19 @@ E-Doctor Connect aims to bridge the gap between patients and doctors by providin
 - **Real-time Notifications:** Receive updates and reminders for appointments.
 - **Search Functionality:** Find doctors based on specialization and location.
 
-##Some Inages
+## Some Inages
 
-###Home Page
+### Home Page
 ![1](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20231921.png)
-###Doctor's page
+### Doctor's page
 ![2](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232027.png)
-###Service's page
+### Service's page
 ![3](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232012.png)
-###Available Date
+### Available Date
 ![4](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232127.png)
-###User Profile
+### User Profile
 ![5](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232142.png)
-###User's Appointment
+### User's Appointment
 ![6](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232157.png)
 
   
