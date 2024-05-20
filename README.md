@@ -28,11 +28,18 @@ E-Doctor Connect aims to bridge the gap between patients and doctors by providin
 - **Search Functionality:** Find doctors based on specialization and location.
 
   ##Some Inages
+
+  ###Home Page
   ![1](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20231921.png)
+  ###Doctor's page
 ![2](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232027.png)
+###Service's page
 ![3](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232012.png)
+###Available Date
 ![4](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232127.png)
+###User Profile
 ![5](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232142.png)
+###User's Appointment
 ![6](https://github.com/shriyashshukla/E-Doc-Connect/blob/master/SS/Screenshot%202024-05-20%20232157.png)
 
   
@@ -47,14 +54,3 @@ E-Doctor Connect aims to bridge the gap between patients and doctors by providin
 - **Tailwind CSS:** Utility-first CSS framework for styling.
 - **JWT:** JSON Web Tokens for secure authentication.
 
-## Getting Started
-
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-Make sure you have the following installed on your machine:
-
-- Node.js
-- npm (Node Package Manager)
-- MongoDB
